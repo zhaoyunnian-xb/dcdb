@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bm.index.dao.source1.DcdbMbSpDao">
+    <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbBmmbnr" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="NDID" property="ndid" jdbcType="VARCHAR" />
+        <result column="YDNRID" property="ydnrid" jdbcType="VARCHAR" />
+        <result column="ZYRWID" property="zyrwid" jdbcType="VARCHAR" />
+        <result column="SSBM" property="ssbm" jdbcType="VARCHAR" />
+        <result column="BMLX" property="bmlx" jdbcType="VARCHAR" />
+        <result column="CBRID" property="cbrid" jdbcType="VARCHAR" />
+        <result column="YJDPG" property="yjdpg" jdbcType="VARCHAR" />
+        <result column="BNPG" property="bnpg" jdbcType="VARCHAR" />
+        <result column="SJDPG" property="sjdpg" jdbcType="VARCHAR" />
+        <result column="QNPG" property="qnpg" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="YJDMB" property="yjdmb" jdbcType="CLOB" />
+        <result column="BNMB" property="bnmb" jdbcType="CLOB" />
+        <result column="SJDMB" property="sjdmb" jdbcType="CLOB" />
+        <result column="QNMB" property="qnmb" jdbcType="CLOB" />
+        <result column="YJDWCQK" property="yjdwcqk" jdbcType="CLOB" />
+        <result column="BNWCQK" property="bnwcqk" jdbcType="CLOB" />
+        <result column="SJDWCQK" property="sjdwcqk" jdbcType="CLOB" />
+        <result column="QNWCQK" property="qnwcqk" jdbcType="CLOB" />
+        <result column="YDNRMC" property="ydnrmc" jdbcType="VARCHAR" />
+        <result column="ZYRWMC" property="zyrwmc" jdbcType="VARCHAR" />
+        <result column="ZRLD" property="zrld" jdbcType="VARCHAR" />
+        <result column="USERID" property="userid" jdbcType="VARCHAR" />
+        <result column="PHBM" property="phbm" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap2" type="com.bm.index.model.DcdbKHPZ" >
+        <id column="YJID" property="yjid" jdbcType="VARCHAR" />
+        <result column="BMFZRYJ" property="bmfzryj" jdbcType="CLOB" />
+        <result column="BGSYJ" property="bgsyj" jdbcType="CLOB" />
+        <result column="BGSFZRYJ" property="bgsfzryj" jdbcType="CLOB" />
+        <result column="BMMBFZRYJ" property="bmmbfzryj" jdbcType="CLOB" />
+        <result column="BGSMBYJ" property="bgsmbyj" jdbcType="CLOB" />
+        <result column="BGSLDMBYJ" property="bgsldmbyj" jdbcType="CLOB" />
+        <result column="CURRENTUSERID" property="currentuserid" jdbcType="VARCHAR" />
+        <result column="PREUSERID" property="preuserid" jdbcType="VARCHAR" />
+        <result column="NEXTUSERID" property="nextuserid" jdbcType="VARCHAR" />
+        <result column="ZT" property="zt" jdbcType="VARCHAR" />
+        <result column="BMFZRQM" property="bmfzrqm" jdbcType="VARCHAR" />
+        <result column="BMFZRRQ" property="bmfzrrq" jdbcType="VARCHAR" />
+        <result column="BGSQM" property="bgsqm" jdbcType="VARCHAR" />
+        <result column="BGSRQ" property="bgsrq" jdbcType="VARCHAR" />
+        <result column="BGSFZRQM" property="bgsfzrqm" jdbcType="VARCHAR" />
+        <result column="BGSFZRRQ" property="bgsfzrrq" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getRwTable" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            id,
+            nd,
+            ndrwmc,
+            czr,
+            czsj,
+            czzt
+            FROM
+            (
+            select ROWNUM rn,a.* from (
+                 Select * from DCDB_NDRW t
+                        <where>
+                          <if test="data != null and data !=''">
+                               t.nd = #{data}
+                          </if>
+                          <if test="czr != null and czr !=''">
+                              t.czr = #{czr}
+                          </if>
+                          <if test="wjmc != null and wjmc !=''">
+                              t.ndrwmc = #{wjmc}
+                          </if>
+                      </where>
+                      ) a
+                        WHERE
+                            ROWNUM &lt;= #{ endCount }
+                ) b
+                WHERE
+                    b.rn &gt;#{ startCount }
+    </select>
+
+    <select id="getRwCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+
+                        Select count(*) from DCDB_NDRW t
+                        <where>
+                            <if test="data != null and data !=''">
+                                t.nd = #{data}
+                            </if>
+                            <if test="czr != null and czr !=''">
+                                t.czr = #{czr}
+                            </if>
+                            <if test="wjmc != null and wjmc !=''">
+                                t.ndrwmc = #{wjmc}
+                            </if>
+                        </where>
+    </select>
+
+
+    <select id="getZYRwTable" parameterType="java.util.Map" resultMap="BaseResultMap">
+                select y.* from
+                (select  ROWNUM rn,x.* from (select
+                     b.ydnrmc,
+                     c.zrld,
+                     c.zyrwmc,
+                     c.phbm,
+                     a.* from
+                    (select
+                       t.* from DCDB_BMMBNR t
+                       where t.Ndid = #{ndrwId}
+                             and  t.USERID = #{userId}
+                        <if test="cbbmid != null and cbbmid !='' and cbbmid !='undefined'">
+                            and t.CBBMID = #{cbbmid}
+                        </if>
+                                             ) a
+                             left join DCDB_NDRW_YDNR b on a.YDNRID = b.ID
+                             left join DCDB_NDRW_ZYRW c on a.ZYRWID = c.id order by c.cjsj,b.czsj) x where  ROWNUM &lt;= #{ endCount }
+                          )y WHERE
+                              y.rn &gt;#{ startCount }
+
+    </select>
+
+    <select id="getZYRWCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+               select count(*) from (select
+                     b.ydnrmc,
+                     c.zyrwmc,
+                     a.* from
+                    (select
+                       t.* from DCDB_BMMBNR t
+                       where t.Ndid = #{ndrwId} and
+                              t.USERID = #{userId} and
+                              t.CBBMID = #{cbbmid}) a
+                             left join DCDB_NDRW_YDNR b on a.YDNRID = b.ID
+                             left join DCDB_NDRW_ZYRW c on a.ZYRWID = c.id)
+    </select>
+    <!--<select id = "getSpByNdId" parameterType="java.lang.String." resultType="java.util.Map">
+           SELECT * FROM DCDB_KHPZ WHERE ID = #{ndrwId}
+    </select>-->
+    <select id = "deatil" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * from  DCDB_BMMBNR where id = #{id}
+    </select>
+    <update id="updateZyrw" parameterType="java.util.Map">
+        update  DCDB_BMMBNR
+        <set>
+            <if test="yjdmb != null and yjdmb !=''">
+                yjdmb = #{yjdmb},
+            </if>
+            <if test="bnmb != null and bnmb != ''">
+                bnmb = #{bnmb},
+            </if>
+            <if test="sjdmb != null and sjdmb != ''">
+                sjdmb = #{sjdmb},
+            </if>
+            <if test="qnmb != null and qnmb != ''">
+                qnmb = #{qnmb},
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <insert id="saveSpyj" parameterType="com.bm.index.model.DcdbKHPZ" >
+        insert into DCDB_KHPZ
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="yjid != null" >
+                YJID,
+            </if>
+            <if test="bmmbfzryj != null" >
+                BMMBFZRYJ,
+            </if>
+            <if test="bmfzrqm != null" >
+                BMFZRQM,
+            </if>
+            <if test="bmfzrrq != null" >
+                BMFZRRQ,
+            </if>
+            <if test="bgsmbyj != null" >
+                BGSMBYJ,
+            </if>
+            <if test="bgsqm != null" >
+                BGSQM,
+            </if>
+            <if test="bgsrq != null" >
+                BGSRQ,
+            </if>
+            <if test="bgsldmbyj != null" >
+                BGSLDMBYJ,
+            </if>
+            <if test="bgsfzrqm != null" >
+                BGSFZRQM,
+            </if>
+            <if test="bgsfzrrq != null" >
+                BGSFZRRQ,
+            </if>
+            <if test="currentuserid != null" >
+                CURRENTUSERID,
+            </if>
+            <if test="nextuserid != null" >
+                NEXTUSERID,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="yjid != null" >
+                #{yjid,jdbcType=VARCHAR},
+            </if>
+            <if test="bmmbfzryj != null" >
+                #{bmmbfzryj,jdbcType=CLOB},
+            </if>
+            <if test="bmfzrqm != null" >
+                #{bmfzrqm,jdbcType=VARCHAR},
+            </if>
+            <if test="bmfzrrq != null" >
+                #{bmfzrrq,jdbcType=VARCHAR},
+            </if>
+            <if test="bgsmbyj != null" >
+                #{bgsmbyj,jdbcType=CLOB},
+            </if>
+            <if test="bgsqm != null" >
+                #{bgsqm,jdbcType=VARCHAR},
+            </if>
+            <if test="bgsrq != null" >
+                #{bgsrq,jdbcType=VARCHAR},
+            </if>
+            <if test="bgsldmbyj != null" >
+                #{bgsldmbyj,jdbcType=CLOB},
+            </if>
+            <if test="bgsfzrqm != null" >
+                #{bgsfzrqm,jdbcType=VARCHAR},
+            </if>
+            <if test="bgsfzrrq != null" >
+                #{bgsfzrrq,jdbcType=VARCHAR},
+            </if>
+            <if test="currentuserid != null" >
+                #{currentuserid,jdbcType=VARCHAR},
+            </if>
+            <if test="nextuserid != null" >
+                #{nextuserid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectSpyj" parameterType="java.lang.String" resultMap="BaseResultMap2">
+        select * from DCDB_KHPZ WHERE  YJID = #{spId}
+    </select>
+
+    <update id="updateSpyj" parameterType="com.bm.index.model.DcdbKHPZ" >
+        update DCDB_KHPZ
+        <set>
+        <if test="bmmbfzryj != null and bmmbfzryj !=''" >
+            BMMBFZRYJ = #{bmmbfzryj,jdbcType=CLOB},
+        </if>
+        <if test="bmfzrqm != null and bmfzrqm !=''" >
+            BMFZRQM = #{bmfzrqm,jdbcType=VARCHAR},
+        </if>
+        <if test="bmfzrrq != null and bmfzrrq !=''" >
+            BMFZRRQ = #{bmfzrrq,jdbcType=VARCHAR},
+        </if>
+        <if test="bgsmbyj != null and bgsmbyj !=''" >
+            BGSMBYJ = #{bgsmbyj,jdbcType=CLOB},
+        </if>
+        <if test="bgsqm != null and bgsqm !=''" >
+            BGSQM = #{bgsqm,jdbcType=VARCHAR},
+        </if>
+        <if test="bgsrq != null and bgsrq !=''" >
+            BGSRQ = #{bgsrq,jdbcType=VARCHAR},
+        </if>
+        <if test="bgsldmbyj != null and bgsldmbyj !=''" >
+            BGSLDMBYJ = #{bgsldmbyj,jdbcType=CLOB},
+        </if>
+        <if test="bgsfzrqm != null and bgsfzrqm !=''" >
+            BGSFZRQM = #{bgsfzrqm,jdbcType=VARCHAR},
+        </if>
+        <if test="bgsfzrrq != null and bgsfzrrq !=''" >
+            BGSFZRRQ = #{bgsfzrrq,jdbcType=VARCHAR},
+        </if>
+        <if test="nextuserid != null and nextuserid != ''" >
+            NEXTUSERID = #{nextuserid,jdbcType=VARCHAR},
+        </if>
+        <if test="preuserid != null and preuserid != ''" >
+            PREUSERID = #{preuserid,jdbcType=VARCHAR},
+        </if>
+        <if test="currentuserid != null and currentuserid !=''" >
+            CURRENTUSERID = #{currentuserid,jdbcType=VARCHAR}
+        </if>
+        </set>
+        <where>
+            yjid = #{yjid}
+        </where>
+    </update>
+    <update id = "updateBmMbRwList" parameterType="java.util.Map">
+        update DCDB_BMMBNR
+        <set>
+            <if test="userId != null and userId != ''">
+                USERID = #{userId},
+            </if>
+            <if test="status != null and status != ''">
+                STATUS = #{status}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <select id = "queryPhbmList" parameterType="java.lang.String" resultType="java.lang.String">
+        select wm_concat(ssbm)  from DCDB_BMMBNR where zyrwid = #{rwId} and  bmlx = 'ph'
+    </select>
+    <select id = "selectZtbm" parameterType="java.util.Map" resultType="java.lang.String">
+        select distinct(t.STATUS) from  DCDB_BMMBNR t
+                       where t.Ndid = #{ndId}
+                             and  t.USERID = #{userId}
+                             and t.CBBMID = #{cbbmId}
+    </select>
+
+    <select id = "selectDcdbBmmbnrList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+                   t.* from DCDB_BMMBNR t
+                   <where>
+                       <if test="ndrwId != null and ndrwId !=''">
+                           t.Ndid = #{ndrwId} and
+                       </if>
+                       <if test="currentuserId != null and currentuserId !=''">
+                           t.USERID = #{currentuserId} and
+                       </if>
+                       <if test="cbbmid != null and cbbmid !=''">
+                           t.CBBMID = #{cbbmid}
+                       </if>
+                   </where>
+    </select>
+    <select id = "selectAllZyrw" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        t.* from DCDB_BMMBNR t
+        <where>
+
+            <if test="ndrwId != null and ndrwId !=''">
+                t.Ndid = #{ndrwId}
+            </if>
+            <if test="zyrwId != null and zyrwId !=''">
+                and t.zyrwId = #{zyrwId}
+            </if>
+            <if test="bmlx != null and bmlx !=''">
+                and t.bmlx in ('ph',#{bmlx})
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbAkxDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbAkx" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="HYMC" property="hymc" jdbcType="VARCHAR" />
+    <result column="HYSJ" property="hysj" jdbcType="VARCHAR" />
+    <result column="YJYT" property="yjyt" jdbcType="VARCHAR" />
+    <result column="HYJDSX" property="hyjdsx" jdbcType="VARCHAR" />
+    <result column="DBSX" property="dbsx" jdbcType="VARCHAR" />
+    <result column="RWYQ" property="rwyq" jdbcType="VARCHAR" />
+    <result column="BLQX" property="blqx" jdbcType="VARCHAR" />
+    <result column="BLBM" property="blbm" jdbcType="VARCHAR" />
+    <result column="DJR" property="djr" jdbcType="VARCHAR" />
+    <result column="BH" property="bh" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, HYMC, HYSJ, YJYT, HYJDSX, DBSX, RWYQ, BLQX, BLBM, DJR, BH
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbAkx" >
+    select
+    <include refid="Base_Column_List" />
+    from DCDB_AKX
+   <where>
+     <if test="id != null">
+       and id= #{id}
+     </if>
+     <if test="bh != null">
+       and bh= #{bh}
+     </if>
+   </where>
+  </select>
+
+  <insert id="insertSelective" parameterType="com.bm.index.model.DcdbAkx" >
+    insert into DCDB_AKX
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="hymc != null" >
+        HYMC,
+      </if>
+      <if test="hysj != null" >
+        HYSJ,
+      </if>
+      <if test="yjyt != null" >
+        YJYT,
+      </if>
+      <if test="hyjdsx != null" >
+        HYJDSX,
+      </if>
+      <if test="dbsx != null" >
+        DBSX,
+      </if>
+      <if test="rwyq != null" >
+        RWYQ,
+      </if>
+      <if test="blqx != null" >
+        BLQX,
+      </if>
+      <if test="blbm != null" >
+        BLBM,
+      </if>
+      <if test="djr != null" >
+        DJR,
+      </if>
+      <if test="bh != null" >
+        BH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="hymc != null" >
+        #{hymc,jdbcType=VARCHAR},
+      </if>
+      <if test="hysj != null" >
+        #{hysj,jdbcType=VARCHAR},
+      </if>
+      <if test="yjyt != null" >
+        #{yjyt,jdbcType=VARCHAR},
+      </if>
+      <if test="hyjdsx != null" >
+        #{hyjdsx,jdbcType=VARCHAR},
+      </if>
+      <if test="dbsx != null" >
+        #{dbsx,jdbcType=VARCHAR},
+      </if>
+      <if test="rwyq != null" >
+        #{rwyq,jdbcType=VARCHAR},
+      </if>
+      <if test="blqx != null" >
+        #{blqx,jdbcType=VARCHAR},
+      </if>
+      <if test="blbm != null" >
+        #{blbm,jdbcType=VARCHAR},
+      </if>
+      <if test="djr != null" >
+        #{djr,jdbcType=VARCHAR},
+      </if>
+      <if test="bh != null" >
+        #{bh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective" parameterType="com.bm.index.model.DcdbAkx" >
+    update DCDB_AKX
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hymc != null" >
+        HYMC = #{record.hymc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hysj != null" >
+        HYSJ = #{record.hysj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yjyt != null" >
+        YJYT = #{record.yjyt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hyjdsx != null" >
+        HYJDSX = #{record.hyjdsx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbsx != null" >
+        DBSX = #{record.dbsx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rwyq != null" >
+        RWYQ = #{record.rwyq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blqx != null" >
+        BLQX = #{record.blqx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blbm != null" >
+        BLBM = #{record.blbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.djr != null" >
+        DJR = #{record.djr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bh != null" >
+        BH = #{record.bh,jdbcType=VARCHAR},
+      </if>
+    </set>
+   WHERE ID = #{record.id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="testTree" parameterType="java.util.Map" resultType="com.bm.index.model.Menu">
+    SELECT T.ID ID,T.NAME LABEL,T.PARENTID PID FROM(
+    SELECT * FROM (
+    SELECT A.ID, A.NAME, A.PARENTID
+    FROM UNIT_NEW A ORDER BY A.ORDERBY )
+    <if test="isQryAll == 1">
+      UNION ALL
+      SELECT *
+      from
+      (
+      SELECT A.USERID ID, B.FULLNAME NAME, A.UNITID PARENTID
+      FROM USERUNIT_NEW A
+      LEFT JOIN USERS_NEW B
+      ON A.USERID = B.ID ORDER BY B.orderby
+      )
+    </if>
+        )T
+      <where>
+        <if test="isRemove == 1 and removeIds != null and removeIds != ''">
+          AND T.PARENTID NOT IN (${removeIds}) AND T.ID NOT IN (${removeIds})
+        </if>
+        <if test="ids != null and ids != ''">
+          AND T.ID IN (${ids})
+        </if>
+        <if test="id != null and id != ''">
+          AND T.ID = #{id}
+        </if>
+      </where>
+  </select>
+</mapper>

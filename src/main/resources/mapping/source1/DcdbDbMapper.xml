@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbDbDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbDb" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="BH" property="bh" jdbcType="VARCHAR" />
+    <result column="JDJMC" property="jdjmc" jdbcType="VARCHAR" />
+    <result column="AJZT" property="ajzt" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="SPSJ" property="spsj" jdbcType="VARCHAR" />
+    <result column="NODEID" property="nodeid" jdbcType="VARCHAR" />
+    <result column="NODENAME" property="nodename" jdbcType="VARCHAR" />
+    <result column="ISREBACK" property="isReback" jdbcType="VARCHAR" />
+    <result column="AJZTNAME" property="ajztname" jdbcType="VARCHAR" />
+    <result column="GDDATE" property="gddate" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, BH, JDJMC, AJZT, USERNAME, USERID, SPSJ,NODEID,NODENAME,ISREBACK,GDDATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbDb" >
+    select
+    ID, BH, JDJMC, AJZT, USERNAME, USERID, SPSJ,NODEID,NODENAME,ISREBACK,GDDATE,
+    (case AJZT when '1' then '待办' when '2' then '在办' when '3' then '已办' else '办结' end) AJZTNAME
+    from DCDB_DB
+   WHERE AJZT= #{ajzt,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.bm.index.model.DcdbDb" >
+    insert into DCDB_DB
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="bh != null" >
+        BH,
+      </if>
+      <if test="jdjmc != null" >
+        JDJMC,
+      </if>
+      <if test="ajzt != null" >
+        AJZT,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="spsj != null" >
+        SPSJ,
+      </if>
+      <if test="nodeid != null" >
+        NODEID,
+      </if>
+      <if test="nodename != null" >
+        NODENAME,
+      </if>
+      <if test="isReback != null" >
+        ISREBACK,
+      </if>
+      <if test="gddate != null" >
+        GDDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bh != null" >
+        #{bh,jdbcType=VARCHAR},
+      </if>
+      <if test="jdjmc != null" >
+        #{jdjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ajzt != null" >
+        #{ajzt,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="spsj != null" >
+        #{spsj,jdbcType=DATE},
+      </if>
+      <if test="nodeid != null" >
+        #{nodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="nodename != null" >
+        #{nodename,jdbcType=VARCHAR},
+      </if>
+      <if test="isReback != null" >
+        #{isReback,jdbcType=VARCHAR},
+      </if>
+      <if test="gddate != null" >
+        #{gddate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective" parameterType="com.bm.index.model.DcdbDb" >
+    update DCDB_DB
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bh != null" >
+        BH = #{record.bh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdjmc != null" >
+        JDJMC = #{record.jdjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ajzt != null" >
+        AJZT = #{record.ajzt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spsj != null" >
+        SPSJ = #{record.spsj,jdbcType=DATE},
+      </if>
+      <if test="record.nodeid != null" >
+        NODEID = #{record.nodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodename != null" >
+        NODENAME = #{record.nodename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isReback != null" >
+        ISREBACK = #{record.isReback,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gddate != null" >
+        GDDATE = #{record.gddate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE   ID = #{record.id,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteSelective" parameterType="com.bm.index.model.DcdbDb">
+    DELETE FROM DCDB_DB
+    <where>
+      <if test="id != null">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="bh != null">
+        and bh=#{bh,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </delete>
+
+</mapper>

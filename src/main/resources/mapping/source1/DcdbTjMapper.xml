@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbTjDao">
+
+  <resultMap id="resultMap1" type="com.bm.index.model.DcdbCounTj">
+    <result column="CBBMID" property="cbbmid" jdbcType="VARCHAR"></result>
+    <result column="COUNTM" property="countM" jdbcType="VARCHAR"></result>
+    <result column="CBBMMC" property="cbbmmc" jdbcType="VARCHAR"></result>
+    <result column="M1" property="m1" jdbcType="VARCHAR"></result>
+    <result column="M2" property="m2" jdbcType="VARCHAR"></result>
+    <result column="M3" property="m3" jdbcType="VARCHAR"></result>
+    <result column="M4" property="m4" jdbcType="VARCHAR"></result>
+    <result column="M5" property="m5" jdbcType="VARCHAR"></result>
+    <result column="M6" property="m6" jdbcType="VARCHAR"></result>
+    <result column="M7" property="m7" jdbcType="VARCHAR"></result>
+    <result column="M8" property="m8" jdbcType="VARCHAR"></result>
+    <result column="M9" property="m9" jdbcType="VARCHAR"></result>
+    <result column="M10" property="m10" jdbcType="VARCHAR"></result>
+    <result column="M11" property="m11" jdbcType="VARCHAR"></result>
+    <result column="M12" property="m12" jdbcType="VARCHAR"></result>
+  </resultMap>
+
+  <resultMap id="resultMap2" type="com.bm.index.model.DcdbCounTj">
+    <result column="BLLX" property="bllx" jdbcType="VARCHAR"></result>
+    <result column="M1" property="m1" jdbcType="VARCHAR"></result>
+    <result column="M2" property="m2" jdbcType="VARCHAR"></result>
+    <result column="M3" property="m3" jdbcType="VARCHAR"></result>
+    <result column="M4" property="m4" jdbcType="VARCHAR"></result>
+    <result column="M5" property="m5" jdbcType="VARCHAR"></result>
+    <result column="M6" property="m6" jdbcType="VARCHAR"></result>
+    <result column="M7" property="m7" jdbcType="VARCHAR"></result>
+    <result column="M8" property="m8" jdbcType="VARCHAR"></result>
+    <result column="M9" property="m9" jdbcType="VARCHAR"></result>
+    <result column="M10" property="m10" jdbcType="VARCHAR"></result>
+    <result column="M11" property="m11" jdbcType="VARCHAR"></result>
+    <result column="M12" property="m12" jdbcType="VARCHAR"></result>
+  </resultMap>
+
+  <resultMap id="resultMap3" type="com.bm.index.model.DcdbCounTj">
+    <result column="TF" property="tf" jdbcType="VARCHAR"></result>
+    <result column="M1" property="m1" jdbcType="VARCHAR"></result>
+    <result column="M2" property="m2" jdbcType="VARCHAR"></result>
+    <result column="M3" property="m3" jdbcType="VARCHAR"></result>
+    <result column="M4" property="m4" jdbcType="VARCHAR"></result>
+    <result column="M5" property="m5" jdbcType="VARCHAR"></result>
+    <result column="M6" property="m6" jdbcType="VARCHAR"></result>
+    <result column="M7" property="m7" jdbcType="VARCHAR"></result>
+    <result column="M8" property="m8" jdbcType="VARCHAR"></result>
+    <result column="M9" property="m9" jdbcType="VARCHAR"></result>
+    <result column="M10" property="m10" jdbcType="VARCHAR"></result>
+    <result column="M11" property="m11" jdbcType="VARCHAR"></result>
+    <result column="M12" property="m12" jdbcType="VARCHAR"></result>
+  </resultMap>
+
+  <resultMap id="resultMap4" type="com.bm.index.model.SjjcsxRt">
+    <result column="DCSXMC" property="dcsxmc" jdbcType="VARCHAR"></result>
+    <result column="ID" property="id" jdbcType="VARCHAR"></result>
+    <result column="DCZQTYPE" property="dczq" jdbcType="VARCHAR"></result>
+    <result column="QTBMID" property="qtbmid" jdbcType="VARCHAR"></result>
+    <result column="ZZBMID" property="zzbmid" jdbcType="VARCHAR"></result>
+    <result column="CBBMID" property="cbbmid" jdbcType="VARCHAR"></result>
+    <result column="CBBMMC" property="cbbmmc" jdbcType="VARCHAR"></result>
+    <result column="CBMS" property="cbms" jdbcType="VARCHAR"></result>
+    <result column="CBRQ" property="cbrq" jdbcType="VARCHAR"></result>
+  </resultMap>
+
+    <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbJbxx" >
+        <result column="WH" property="wh" jdbcType="VARCHAR" />
+        <result column="CBQX" property="cbqx" jdbcType="VARCHAR" />
+        <result column="PSJMC" property="psjmc" jdbcType="VARCHAR" />
+        <result column="PSRQ" property="psrq" jdbcType="VARCHAR" />
+        <result column="SWRQ" property="swrq" jdbcType="VARCHAR" />
+        <result column="PSNR" property="psnr" jdbcType="CLOB" />
+        <result column="NBYJ" property="nbyj" jdbcType="CLOB" />
+        <result column="PSLX" property="pslx" jdbcType="VARCHAR" />
+        <result column="BLLX" property="bllx" jdbcType="VARCHAR" />
+        <result column="ZXDBH" property="zxdbh" jdbcType="VARCHAR" />
+        <result column="CBBM" property="cbbm" jdbcType="VARCHAR" />
+        <result column="CBBMMC" property="cbbmmc" jdbcType="VARCHAR" />
+        <result column="FKDH" property="fkdh" jdbcType="VARCHAR" />
+        <result column="BLQK" property="blqk" jdbcType="CLOB" />
+        <result column="LXR" property="lxr" jdbcType="VARCHAR" />
+        <result column="LXDH" property="lxdh" jdbcType="VARCHAR" />
+        <result column="SPR" property="spr" jdbcType="VARCHAR" />
+        <result column="SPRQ" property="sprq" jdbcType="VARCHAR" />
+        <result column="SPYJ" property="spyj" jdbcType="VARCHAR" />
+        <result column="SPBZ" property="spbz" jdbcType="CLOB" />
+        <result column="LCLX" property="lclx" jdbcType="VARCHAR" />
+        <result column="ISSJLDPSJ" property="issjldpsj" jdbcType="VARCHAR" />
+        <result column="SYSJLDPSNR" property="sysjldpsnr" jdbcType="CLOB" />
+        <result column="SJYSLDXX" property="sjysldxx" jdbcType="VARCHAR" />
+    </resultMap>
+  <select id="selectTj" resultType="com.bm.index.model.DcdbTj" parameterType="java.lang.String">
+    select
+    a.ydnrid,c.ydnrmc,a.zyrwid,d.zyrwmc,a.ssbm,a.bmlx,d.zrld,d.phbm,
+    <if test="jdlx==1">
+      a.yjdmb, a.yjdwcqk,
+      case
+      when a.yjdpg='1' then '已完成'
+      when a.yjdpg='2' then '达到序时进度'
+      when a.yjdpg='3' then '未达到序时进度'
+      when a.yjdpg='4' then '尚未启动'
+      when a.yjdpg=null then '-'end yjdpg
+    </if>
+    <if test="jdlx==2">
+      a.bnmb, a.bnwcqk,
+      case
+      when a.bnpg='1' then '已完成'
+      when a.bnpg='2' then '达到序时进度'
+      when a.bnpg='3' then '未达到序时进度'
+      when a.bnpg='4' then '尚未启动' end bnpg
+    </if>
+    <if test="jdlx==3">
+      a.sjdmb, a.sjdwcqk,
+      case
+      when a.sjdpg='1' then '已完成'
+      when a.sjdpg='2' then '达到序时进度'
+      when a.sjdpg='3' then '未达到序时进度'
+      when a.sjdpg='4' then '尚未启动' end sjdpg
+    </if>
+    <if test="jdlx==4">
+      a.qnmb, a.qnwcqk,
+      case
+      when a.qnpg='1' then '已完成'
+      when a.qnpg='2' then '达到序时进度'
+      when a.qnpg='3' then '未达到序时进度'
+      when a.qnpg='4' then '尚未启动' end qnpg
+
+    </if>
+    <if test="jdlx==null or  ''.equals(jdlx)">
+      a.yjdmb, a.yjdwcqk,a.bnmb, a.bnwcqk, a.sjdmb, a.sjdwcqk, a.qnmb, a.qnwcqk,
+      case
+      when a.qnpg='1' then '已完成'
+      when a.qnpg='2' then '达到序时进度'
+      when a.qnpg='3' then '未达到序时进度'
+      when a.qnpg='4' then '尚未启动' end qnpg,
+      case
+      when a.sjdpg='1' then '已完成'
+      when a.sjdpg='2' then '达到序时进度'
+      when a.sjdpg='3' then '未达到序时进度'
+      when a.sjdpg='4' then '尚未启动' end sjdpg,
+      case
+      when a.bnpg='1' then '已完成'
+      when a.bnpg='2' then '达到序时进度'
+      when a.bnpg='3' then '未达到序时进度'
+      when a.bnpg='4' then '尚未启动' end bnpg,
+      case
+      when a.yjdpg='1' then '已完成'
+      when a.yjdpg='2' then '达到序时进度'
+      when a.yjdpg='3' then '未达到序时进度'
+      when a.yjdpg='4' then '尚未启动' end yjdpg
+    </if>
+    from DCDB_BMMBNR a
+    left join DCDB_NDRW b on a.ndid=b.id
+    left join DCDB_NDRW_YDNR c on a.ydnrid=c.id
+    left join DCDB_NDRW_ZYRW d on a.zyrwid=d.id
+    where a.ndid=#{ndid}
+    <if test="cbbmid!=null and !''.equals(cbbmid)">
+      and a.cbbmid=#{cbbmid}
+    </if>
+    ORDER BY c.czsj,d.cjsj
+  </select>
+  <select id="selectTjQnmb" resultType="com.bm.index.model.DcdbTj" parameterType="java.lang.String">
+    select
+    a.ydnrid,c.ydnrmc,a.zyrwid,d.zyrwmc,a.ssbm,a.bmlx,d.zrld,d.phbm,
+      a.yjdmb,a.bnmb, a.sjdmb, a.qnmb
+    from DCDB_BMMBNR a
+    left join DCDB_NDRW b on a.ndid=b.id
+    left join DCDB_NDRW_YDNR c on a.ydnrid=c.id
+    left join DCDB_NDRW_ZYRW d on a.zyrwid=d.id
+    where a.ndid=#{ndid}
+    ORDER BY c.czsj,d.cjsj
+  </select>
+
+  <select id="selectRw" parameterType="java.lang.String" resultType="java.util.Map">
+    select distinct a.nd,a.id,a.ndrwmc,tjzt from DCDB_NDRW a
+    inner join
+    DCDB_BMMBNR b on a.id=b.ndid
+    <if test="tjzt==0">
+      where 1=1
+    </if>
+    <if test="tjzt==1">
+      where tjzt is not null
+    </if>
+    <if test="cbbmid!=null and !''.equals(cbbmid)">
+      and b.cbbmid=#{cbbmid}
+    </if>
+    order by a.nd desc
+  </select>
+  <select id="selectNdrw" parameterType="java.lang.String" resultType="java.util.Map">
+    select a.nd,a.ndrwmc from DCDB_NDRW a group by a.nd,a.ndrwmc order by a.nd desc
+  </select>
+  <update id="updateTjzt" parameterType="java.lang.String">
+        update DCDB_NDRW  set TJZT=#{tjzt} where id=#{id}
+    </update>
+  <!--<select id="getBmtj" parameterType="java.lang.String" resultMap="resultMap1">
+        select z.cbbmid,z.cbbmmc,count(*) countM,
+        (select count(*) from dcdb_djlb_db a where a.cbbmid=z.cbbmid and subStr(a.cjrq,6,2)='01'and zt='${zt}' and lclx='${lclx}')m1,
+        (select count(*) from dcdb_djlb_db b where b.cbbmid=z.cbbmid and subStr(b.cjrq,6,2)='02'and zt='${zt}' and lclx='${lclx}')m2,
+        (select count(*) from dcdb_djlb_db c where c.cbbmid=z.cbbmid and subStr(c.cjrq,6,2)='03'and zt='${zt}' and lclx='${lclx}')m3,
+        (select count(*) from dcdb_djlb_db d where d.cbbmid=z.cbbmid and subStr(d.cjrq,6,2)='04'and zt='${zt}' and lclx='${lclx}')m4,
+        (select count(*) from dcdb_djlb_db e where e.cbbmid=z.cbbmid and subStr(e.cjrq,6,2)='05'and zt='${zt}' and lclx='${lclx}')m5,
+        (select count(*) from dcdb_djlb_db f where f.cbbmid=z.cbbmid and subStr(f.cjrq,6,2)='06'and zt='${zt}' and lclx='${lclx}')m6,
+        (select count(*) from dcdb_djlb_db g where g.cbbmid=z.cbbmid and subStr(g.cjrq,6,2)='07'and zt='${zt}' and lclx='${lclx}')m7,
+        (select count(*) from dcdb_djlb_db h where h.cbbmid=z.cbbmid and subStr(h.cjrq,6,2)='08'and zt='${zt}' and lclx='${lclx}')m8,
+        (select count(*) from dcdb_djlb_db i where i.cbbmid=z.cbbmid and subStr(i.cjrq,6,2)='09'and zt='${zt}' and lclx='${lclx}')m9,
+        (select count(*) from dcdb_djlb_db j where j.cbbmid=z.cbbmid and subStr(j.cjrq,6,2)='10'and zt='${zt}' and lclx='${lclx}')m10,
+        (select count(*) from dcdb_djlb_db k where k.cbbmid=z.cbbmid and subStr(k.cjrq,6,2)='11'and zt='${zt}' and lclx='${lclx}')m11,
+        (select count(*) from dcdb_djlb_db l where l.cbbmid=z.cbbmid and subStr(l.cjrq,6,2)='12'and zt='${zt}' and lclx='${lclx}')m12
+         from dcdb_djlb_db z  where z.lclx='${lclx}' and zt='${zt}' group by z.cbbmmc,z.cbbmid
+    </select>-->
+  <select id="getBmtj" parameterType="java.lang.String" resultMap="resultMap1">
+  <![CDATA[
+    select aa.* from (select case when cbbmmc is null then '合计' else cbbmmc end cbbmmc,
+               cbbmid,
+               count(*) COUNTM
+          from (with t as (select wm_concat(cbbmmc) cbbmmc,wm_concat(cbbmid) cbbmid
+                                     from dcdb_djlb_db a
+                                    where a.lclx =#{lclx}
+                                      and zt in (${zt})
+                                      and cbbmmc is not null
+                                  and to_date(a.cjrq, 'yyyy"年"mm"月"dd"日"') >=
+                                       to_date(#{startTime}, 'yyyy"年"mm"月"dd"日"')
+                                   and to_date(a.cjrq, 'yyyy"年"mm"月"dd"日"') <=
+                                       to_date(#{endTime}, 'yyyy"年"mm"月"dd"日"')
+                                    group by a.cjrq
+                                    )
+                 select
+                        substr(a.cbbmmc,
+                               instr(a.cbbmmc, ',', 1, levels.lvl) + 1,
+                               instr(a.cbbmmc, ',', 1, levels.lvl + 1) -
+                               (instr(a.cbbmmc, ',', 1, levels.lvl) + 1)) as cbbmmc,
+                        substr(a.cbbmid,
+                               instr(a.cbbmid, ',', 1, levels.lvl) + 1,
+                               instr(a.cbbmid, ',', 1, levels.lvl + 1) -
+                               (instr(a.cbbmid, ',', 1, levels.lvl) + 1)) as cbbmid
+                   from (select
+                                ',' || cbbmmc || ',' as cbbmmc,
+                                ',' || cbbmid || ',' as cbbmid,
+                                length(cbbmmc) -
+                                nvl(length(replace(cbbmmc, ',')), 0) + 1 as cnt
+                           from t) a,
+                        (select rownum as lvl
+                           from (select max(length(cbbmmc || ',') -
+                                            nvl(length(replace(cbbmmc, ',')), 0)) max_len
+                                   from t)
+                         connect by level <= max_len) levels
+                  where levels.lvl <= a.cnt
+                   )
+                  group by rollup((cbbmmc, cbbmid)) ) aa
+                    left join unit_new bb on aa.cbbmid=bb.id order by bb.orderby
+
+
+     ]]>
+    </select>
+
+  <select id="getLxtj" parameterType="java.lang.String" resultMap="resultMap2">
+   select z.bllx,
+        (select count(*) from dcdb_djlb_db a where a.bllx=z.bllx and subStr(a.cjrq,6,2)='01'and substr(a.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m1,
+        (select count(*) from dcdb_djlb_db b where b.bllx=z.bllx and subStr(b.cjrq,6,2)='02'and substr(b.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m2,
+        (select count(*) from dcdb_djlb_db c where c.bllx=z.bllx and subStr(c.cjrq,6,2)='03'and substr(c.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m3,
+        (select count(*) from dcdb_djlb_db d where d.bllx=z.bllx and subStr(d.cjrq,6,2)='04'and substr(d.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m4,
+        (select count(*) from dcdb_djlb_db e where e.bllx=z.bllx and subStr(e.cjrq,6,2)='05'and substr(e.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m5,
+        (select count(*) from dcdb_djlb_db f where f.bllx=z.bllx and subStr(f.cjrq,6,2)='06'and substr(f.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m6,
+        (select count(*) from dcdb_djlb_db g where g.bllx=z.bllx and subStr(g.cjrq,6,2)='07'and substr(g.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m7,
+        (select count(*) from dcdb_djlb_db h where h.bllx=z.bllx and subStr(h.cjrq,6,2)='08'and substr(h.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m8,
+        (select count(*) from dcdb_djlb_db i where i.bllx=z.bllx and subStr(i.cjrq,6,2)='09'and substr(i.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m9,
+        (select count(*) from dcdb_djlb_db j where j.bllx=z.bllx and subStr(j.cjrq,6,2)='10'and substr(j.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m10,
+        (select count(*) from dcdb_djlb_db k where k.bllx=z.bllx and subStr(k.cjrq,6,2)='11'and substr(k.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m11,
+        (select count(*) from dcdb_djlb_db l where l.bllx=z.bllx and subStr(l.cjrq,6,2)='12'and substr(l.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m12
+     from dcdb_djlb_db z  where z.lclx='${lclx}' and zt='${zt}'and z.bllx is not null  group by z.BLLX
+     union all
+     select '合计' bllx,sum(m1)m1,sum(m2)m2,sum(m3)m3,sum(m4)m4,sum(m5)m5,sum(m6)m6,sum(m7)m7,sum(m8)m8,sum(m9)m9,sum(m10)m10,sum(m11)m11,sum(m12)m12 from (
+   select z.bllx,
+        (select count(*) from dcdb_djlb_db a where a.bllx=z.bllx and subStr(a.cjrq,6,2)='01'and substr(a.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m1,
+        (select count(*) from dcdb_djlb_db b where b.bllx=z.bllx and subStr(b.cjrq,6,2)='02'and substr(b.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m2,
+        (select count(*) from dcdb_djlb_db c where c.bllx=z.bllx and subStr(c.cjrq,6,2)='03'and substr(c.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m3,
+        (select count(*) from dcdb_djlb_db d where d.bllx=z.bllx and subStr(d.cjrq,6,2)='04'and substr(d.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m4,
+        (select count(*) from dcdb_djlb_db e where e.bllx=z.bllx and subStr(e.cjrq,6,2)='05'and substr(e.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m5,
+        (select count(*) from dcdb_djlb_db f where f.bllx=z.bllx and subStr(f.cjrq,6,2)='06'and substr(f.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m6,
+        (select count(*) from dcdb_djlb_db g where g.bllx=z.bllx and subStr(g.cjrq,6,2)='07'and substr(g.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m7,
+        (select count(*) from dcdb_djlb_db h where h.bllx=z.bllx and subStr(h.cjrq,6,2)='08'and substr(h.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m8,
+        (select count(*) from dcdb_djlb_db i where i.bllx=z.bllx and subStr(i.cjrq,6,2)='09'and substr(i.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m9,
+        (select count(*) from dcdb_djlb_db j where j.bllx=z.bllx and subStr(j.cjrq,6,2)='10'and substr(j.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m10,
+        (select count(*) from dcdb_djlb_db k where k.bllx=z.bllx and subStr(k.cjrq,6,2)='11'and substr(k.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m11,
+        (select count(*) from dcdb_djlb_db l where l.bllx=z.bllx and subStr(l.cjrq,6,2)='12'and substr(l.cjrq, 0, 4)  ='${nf}'and zt='${zt}' and lclx='${lclx}')m12
+     from dcdb_djlb_db z  where z.lclx='${lclx}' and zt='${zt}' and z.bllx is not null  group by z.BLLX )
+    </select>
+
+    <select id="newqueryLxtj" parameterType="java.util.Map" resultType="java.util.Map">
+        select
+        <if test="checkedtype == 'bllx'">
+            z.bllx as lxtypename,
+        </if>
+        <if test="checkedtype == 'pslx'">
+            z.pslx as lxtypename,
+        </if>
+        <if test="checkedtype == 'issjysj'">
+            (case
+            when z.issjldpsj ='yes' then '是'
+            when z.issjldpsj ='no' then '否' end
+            ) lxtypename,
+        </if>
+        (select count(distinct a.wh) from dcdb_djlb_db a
+        where
+        <if test="checkedtype == 'bllx'">
+            a.bllx=z.bllx
+        </if>
+        <if test="checkedtype == 'pslx'">
+            a.pslx=z.pslx
+        </if>
+        <if test="checkedtype == 'issjysj'">
+            a.issjldpsj=z.issjldpsj
+        </if>
+        and  a.zt in (${zt})
+        and a.lclx='${lclx}'
+        <if test="startDate != null and startDate !=''">
+            and to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')  &gt;= to_date(#{startDate},'yyyy"年"mm"月"dd"日"')
+        </if>
+        <if test="endDate != null and endDate !=''">
+            and to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')  &lt;= to_date(#{endDate},'yyyy"年"mm"月"dd"日"')
+        </if>
+        )lxtj
+        from dcdb_djlb_db z
+        where
+        z.lclx='${lclx}'
+        and z.zt in (${zt})
+        <if test="checkedtype == 'bllx'">
+            and z.bllx is not null
+            group by z.BLLX
+        </if>
+        <if test="checkedtype == 'pslx'">
+            and z.pslx is not null
+            group by z.PSLX
+        </if>
+        <if test="checkedtype == 'issjysj'">
+            and z.issjldpsj is not null
+            group by z.issjldpsj
+        </if>
+        union all
+        select
+        '合计' as lxtypename,
+        nvl(sum(lxtj),0) as  lxtj
+        from
+        (
+        select
+        <if test="checkedtype == 'bllx'">
+            z.bllx as lxtypename,
+        </if>
+        <if test="checkedtype == 'pslx'">
+            z.pslx as lxtypename,
+        </if>
+        <if test="checkedtype == 'issjysj'">
+            (case
+            when z.issjldpsj ='yes' then '是'
+            when z.issjldpsj ='no' then '否' end
+            ) lxtypename,
+        </if>
+        (select count(distinct a.wh) from dcdb_djlb_db a
+        where
+        <if test="checkedtype == 'bllx'">
+            a.bllx=z.bllx
+        </if>
+        <if test="checkedtype == 'pslx'">
+            a.pslx=z.pslx
+        </if>
+        <if test="checkedtype == 'issjysj'">
+            a.issjldpsj=z.issjldpsj
+        </if>
+        and  a.zt in (${zt})
+        and a.lclx='${lclx}'
+        <if test="startDate != null and startDate !=''">
+            and to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')  &gt;= to_date(#{startDate},'yyyy"年"mm"月"dd"日"')
+        </if>
+        <if test="endDate != null and endDate !=''">
+            and to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')  &lt;= to_date(#{endDate},'yyyy"年"mm"月"dd"日"')
+        </if>
+        )lxtj
+        from dcdb_djlb_db z
+        where
+        z.lclx='${lclx}'
+        and z.zt in (${zt})
+        <if test="checkedtype == 'bllx'">
+            and z.bllx is not null
+            group by z.BLLX
+        </if>
+        <if test="checkedtype == 'pslx'">
+            and z.pslx is not null
+            group by z.PSLX
+        </if>
+        <if test="checkedtype == 'issjysj'">
+            and z.issjldpsj is not null
+            group by z.issjldpsj
+        </if>
+        )
+    </select>
+
+
+    <select id="queryDetaillx" parameterType="java.util.Map" resultType="com.bm.index.model.DcdbDjlbDbParam">
+        select a.id,
+        a.lclx,
+        a.bllx,
+        b.WH,
+        b.PSRQ,
+        a.cbbmmc,
+        decode(b.issjldpsj,
+        'yes',
+        b.PSJMC || '(' || b.sysjldpsnr || ')',
+        'no',
+        b.PSJMC) PSJMC,
+        b.swrq,
+        b.zxdbh,
+        b.PSNR
+        from (select wh,wm_concat(id) id,wm_concat(cbbmmc) cbbmmc,lclx,bllx,cjrq from dcdb_djlb_db where 1=1
+        and  zt in (${zt})
+        <if test="checkedtype == 'bllx'">
+            <if test="lxtypename != null and lxtypename !=''">
+                and bllx = #{lxtypename}
+            </if>
+        </if>
+        <if test="checkedtype == 'pslx'">
+            <if test="lxtypename != null and lxtypename !=''">
+                and  pslx= #{lxtypename}
+            </if>
+        </if>
+        <if test="checkedtype == 'issjysj'">
+            <if test="lxtypename != null and lxtypename !=''">
+                and  issjldpsj= #{lxtypename}
+            </if>
+        </if>
+        and lclx = '${lclx}' group by wh,lclx,bllx,cjrq) a
+        right join (select distinct wh,t.swrq,
+        t.zxdbh, t.psrq,t.issjldpsj,t.psjmc,t.psnr,t.sysjldpsnr from dcdb_jbxx t) b
+        on  a.wh = b.wh
+        where 1=1
+        <if test="startDate != null and startDate !=''">
+            and to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')  &gt;= to_date(#{startDate},'yyyy"年"mm"月"dd"日"')
+        </if>
+        <if test="endDate != null and endDate !=''">
+            and to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')  &lt;= to_date(#{endDate},'yyyy"年"mm"月"dd"日"')
+        </if>
+        order by a.wh
+    </select>
+
+
+  <select id="getZttj" parameterType="java.lang.String" resultMap="resultMap3">
+      select '1' px,'未办结' tf,count(distinct db.wh) M1, zt M2 from dcdb_djlb_db db  where db.zt='1' and db.lclx='${lclx}'   <if test="startTime != '' and startTime !=null"> and  to_date(db.cjrq,'yyyy"年"mm"月"dd"日"')  &gt;= to_date('${startTime}','yyyy"年"mm"月"dd"日"')</if> <if test="endTime != '' and endTime !=null"> and  to_date(db.cjrq,'yyyy"年"mm"月"dd"日"')   &lt;= to_date( '${endTime}','yyyy"年"mm"月"dd"日"')</if> group by db.zt
+      union
+      select '2' px, '已办结' tf,count(distinct db.wh) M1,zt M2 from dcdb_djlb_db db  where db.zt='3' and db.lclx='${lclx}'  <if test="startTime != '' and startTime !=null"> and  to_date(db.cjrq,'yyyy"年"mm"月"dd"日"')  &gt;= to_date('${startTime}','yyyy"年"mm"月"dd"日"')</if> <if test="endTime != '' and endTime !=null"> and  to_date(db.cjrq,'yyyy"年"mm"月"dd"日"')   &lt;= to_date( '${endTime}','yyyy"年"mm"月"dd"日"')</if> group by db.zt
+      union
+      select '3' px, '合计' tf,nvl(count(distinct db.wh),0) M1 ,'00' M2 from dcdb_djlb_db db  where (db.zt='1' or db.zt='3') and db.lclx='${lclx}'   <if test="startTime != '' and startTime !=null"> and  to_date(db.cjrq,'yyyy"年"mm"月"dd"日"')  &gt;= to_date('${startTime}','yyyy"年"mm"月"dd"日"')</if> <if test="endTime != '' and endTime !=null"> and  to_date(db.cjrq,'yyyy"年"mm"月"dd"日"')   &lt;= to_date( '${endTime}','yyyy"年"mm"月"dd"日"')</if>
+      order by px
+
+    </select>
+
+    <select id="queryDetailzt" parameterType="java.lang.String" resultType="com.bm.index.model.DcdbDjlbDbParam">
+        select a.id,
+        a.lclx,
+        a.bllx,
+        b.WH,
+        b.PSRQ,
+        a.cbbmmc,
+        decode(b.issjldpsj,
+        'yes',
+        b.PSJMC || '(' || b.sysjldpsnr || ')',
+        'no',
+        b.PSJMC) PSJMC,
+        b.swrq,
+        b.zxdbh,
+        b.PSNR
+        from (select wh,wm_concat(id) id,wm_concat(cbbmmc) cbbmmc,lclx,bllx,cjrq from dcdb_djlb_db where 1=1
+        <if test="zt != null and zt != ''">
+            <if test="zt == '00'">
+                and  (zt='1' or zt='3')
+            </if>
+            <if test="zt != '00'">
+                and  zt='${zt}'
+            </if>
+        </if>
+        and lclx = '${lclx}' group by wh,lclx,bllx,cjrq) a
+        right join (select distinct wh,t.swrq,
+        t.zxdbh, t.psrq,t.issjldpsj,t.psjmc,t.psnr,t.sysjldpsnr from dcdb_jbxx t) b
+        on  a.wh = b.wh
+        where 1=1
+        <if test="startTime != '' and startTime !=null">
+            and  to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')  &gt;= to_date('${startTime}','yyyy"年"mm"月"dd"日"')
+        </if>
+        <if test="endTime != '' and endTime !=null">
+            and  to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')   &lt;= to_date( '${endTime}','yyyy"年"mm"月"dd"日"')
+        </if>
+        order by a.wh
+    </select>
+
+    <select id="queryDetailbm" parameterType="java.lang.String" resultType="com.bm.index.model.DcdbDjlbDbParam">
+        select aa.*,bb.psrq,bb.bllx,
+        decode(bb.issjldpsj,
+        'yes',
+        bb.psjmc || '(' || bb.sysjldpsnr || ')',
+        'no',
+        bb.psjmc) PSJMC,
+        bb.swrq,
+        bb.zxdbh,
+        bb.psnr,(select spbz from dcdb_spyj where id=aa.id and splx='blqk' and rownum =1) blqk    from (select case when cbbmmc is null then '合计' else cbbmmc end cbbmmc,
+        cbbmid,wh,id,lclx
+        from (with t as (select
+        wm_concat(cbbmmc) cbbmmc,
+        wm_concat(cbbmid) cbbmid,
+        wh,id,lclx
+        from dcdb_djlb_db a
+        where a.lclx = #{lclx}
+        and zt in (${zt})
+        and cbbmmc is not null
+        <if test="startTime != '' and startTime !=null">
+            and  to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')  &gt;= to_date('${startTime}','yyyy"年"mm"月"dd"日"')
+        </if>
+        <if test="endTime != '' and endTime !=null">
+            and  to_date(a.cjrq,'yyyy"年"mm"月"dd"日"')   &lt;= to_date( '${endTime}','yyyy"年"mm"月"dd"日"')
+        </if>
+        group by a.cjrq,a.wh,a.id,a.lclx
+        )
+        select
+        substr(a.cbbmmc,
+        instr(a.cbbmmc, ',', 1, levels.lvl) + 1,
+        instr(a.cbbmmc, ',', 1, levels.lvl + 1) -
+        (instr(a.cbbmmc, ',', 1, levels.lvl) + 1)) as cbbmmc,
+        substr(a.cbbmid,
+        instr(a.cbbmid, ',', 1, levels.lvl) + 1,
+        instr(a.cbbmid, ',', 1, levels.lvl + 1) -
+        (instr(a.cbbmid, ',', 1, levels.lvl) + 1)) as cbbmid,a.wh,a.id,a.lclx
+        from (select
+        ',' || cbbmmc || ',' as cbbmmc,
+        ',' || cbbmid || ',' as cbbmid,
+        length(cbbmmc) -
+        nvl(length(replace(cbbmmc, ',')), 0) + 1 as cnt , wh,id,lclx
+
+        from t) a,
+        (select rownum as lvl
+
+        from (select max(length(cbbmmc || ',') -
+        nvl(length(replace(cbbmmc, ',')), 0)) max_len
+        from t)
+        connect by level &lt;= max_len) levels
+        where levels.lvl &lt;= a.cnt
+
+        )
+
+        ) aa
+        left join dcdb_jbxx bb on aa.wh=bb.wh
+        where    1=1
+        <if test="cbbmid != '' and cbbmid !=null">
+            and  aa.cbbmid like '%${cbbmid}%'
+        </if>
+        order by bb.wh
+    </select>
+
+  <select id="sjjcsxRt" resultMap="resultMap4" parameterType="java.lang.String">
+     select t1.*,t2.cbms,t2.cbrq from
+       (select distinct a.dcsxmc,
+        b.id,
+        a.dczqtype,
+        a.qtbmid,
+        a.zzbmid,
+        b.cbbmid,
+        b.cbbmmc,
+        a.djid
+        from DCDB_SJJCSX_DCSX a
+        left join DCDB_SJJCSX_DCSXNQ b on a.id=b.dcsxid
+        ) t1 left join DCDB_SJJCSX_SPYJ t2 on t1.id=t2.id
+         where 1=1
+      <if test="djid != null">
+        and   t1.djid=#{djid}
+      </if>
+         order by t1.dcsxmc
+    </select>
+
+  <select id="sjjcsxDj" resultType="map">
+          select lxmc,id as djid from Dcdb_Sjjcsx_Dj
+    </select>
+<!--  select  distinct b.lxmc,a.djid  from DCDB_SJJCSX_DCSXNQ a,Dcdb_Sjjcsx_Dj b where a.djid=b.id-->
+
+  <select id="queryTzgsList" resultType="com.bm.index.model.DcdbNdrwTzgs" parameterType="com.bm.index.model.DcdbNdrwTzgs" >
+          select  *  from DCDB_NDRW_TZGS
+        <where>
+          1=1
+          <if test="ndid != null">
+            and   ndid=  #{ndid,jdbcType=VARCHAR}
+          </if>
+        </where>
+          order by jd
+    </select>
+  <select id="queryTzgsNdrwList" resultType="com.bm.index.model.DcdbNdrwTzgs" parameterType="com.bm.index.model.DcdbNdrwTzgs" >
+       select distinct t1.ndid,t2.ndrwmc,t2.nd from DCDB_NDRW_TZGS t1 left join DCDB_NDRW t2  on t1.ndid=t2.id order by t2.nd desc
+    </select>
+
+  <insert id="insertTzgs" parameterType="com.bm.index.model.DcdbNdrwTzgs">
+    insert into DCDB_NDRW_TZGS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ndid != null">
+        NDID,
+      </if>
+      <if test="ndrwmc != null">
+        NDRWMC,
+      </if>
+      <if test="jd != null">
+       JD,
+      </if>
+      <if test="jdmc != null">
+        JDMC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ndid != null">
+        #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="ndrwmc != null">
+        #{ndrwmc,jdbcType=VARCHAR},
+      </if>
+      <if test="jd != null">
+        #{jd,jdbcType=VARCHAR},
+      </if>
+      <if test="jdmc != null">
+        #{jdmc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteTzgs" parameterType="com.bm.index.model.DcdbNdrwTzgs">
+    delete  from DCDB_NDRW_TZGS
+    <where>
+      1=1
+      <if test="ndid != null">
+       and   ndid=  #{ndid,jdbcType=VARCHAR}
+      </if>
+      <if test="jd != null">
+      and   jd=  #{jd,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </delete>
+</mapper>

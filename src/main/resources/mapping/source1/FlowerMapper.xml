@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.FlowerDao" >
+
+    <resultMap id="BaseResultMaps" type="com.bm.index.model.Flow" >
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+        <result column="NODE_ID1" property="nodeId1" jdbcType="VARCHAR" />
+        <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+        <result column="CJRQ" property="approveTime" jdbcType="VARCHAR" />
+        <result column="USERNAME" property="userName" jdbcType="VARCHAR" />
+        <result column="USERID" property="userId" jdbcType="VARCHAR" />
+        <result column="ISTF" property="istf" jdbcType="VARCHAR" />
+        <result column="WH" property="wh" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectFlower" resultMap="BaseResultMaps" parameterType="java.lang.String">
+select f.*,
+       case
+         when f.id is null then
+          '0'
+         else
+          id
+       end istf
+  from (select b.id, b.node_id node_id, b.userid, b.username, b.cjrq,b.node_name,b.wh
+          from (select row_number() over(PARTITION by node_id order by cjrq desc) rn,
+                        id,
+                       node_id,
+                         USERID,
+                       USERNAME,
+                        cjrq,
+                       node_name,
+                       wh
+                  from dcdb_djlb_yb
+                 where id = '${id}'
+                    or id =
+                       (select preid
+                          from dcdb_djlb_db
+                         where id =  '${id}')) b where b.rn =1
+        union all (select c.id,
+                         c.node_id,
+                         c.userid,
+                           c.username,
+                        (case c.zt when '3' then cjrq else '' end) cjrq,
+                          c.node_name,
+                          c.wh
+                    from dcdb_djlb_db c
+                   where c.wh = '${id}' and c.zt = '1' )) f
+ order by f.cjrq, f.node_id
+
+  </select>
+    <select id="selectIdByWh" parameterType="string" resultType="string">
+        select id from (select distinct t.id,u.name cbbmmc,cbbmid,u.orderby from DCDB_DJLB_YB t left join UNIT_NEW u on t.cbbmid=u.id  where t.wh = #{wh} and t.node_id &gt;'01021' order by u.orderby) y
+        union
+        select id from (select distinct t.id,u.name cbbmmc,cbbmid,u.orderby from DCDB_DJLB_DB t left join UNIT_NEW u on t.cbbmid=u.id  where t.wh = #{wh} and t.zt='1' and t.node_id &gt;'01021' order by u.orderby) y        
+    </select>
+    <select id="selectById" parameterType="string" resultType="com.bm.index.model.DcdbDjlbYbParam">
+        select * from (select    id,
+                       node_id,
+                         USERID,
+                       USERNAME,
+                        cjrq,
+                       node_name,
+                       cbbmmc,
+                       wh from dcdb_djlb_yb t where t.id = #{id}
+                       union all select c.id,
+                         c.node_id,
+                         c.userid,
+                           c.username,
+                         (case c.zt when '3' then cjrq else '' end) cjrq,
+                          c.node_name,
+                          c.cbbmmc,
+                          c.wh from dcdb_djlb_db c where c.id =  #{id}) t order by t.cjrq
+
+    </select>
+</mapper>

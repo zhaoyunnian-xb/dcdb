@@ -1,0 +1,11 @@
+.seluserul{}
+.seluserul td{float:left;}
+.xl{list-style-type: none;}
+.xt{list-style-type: none;width: 85px;background: url(/common/images/top/bstx01.png) no-repeat center top;}
+.xt a{color: #f1f1f1;font-size:12px;}
+.xt:hover{list-style-type: none;width: 85px;background: url(/common/images/top/bstx02.png) no-repeat center top;}
+.xt:hover a{color: #ffffff;font-size:12px;}
+.xtl{list-style-type: none;width: 85px;background: url(/common/images/top/xxfb01.png) no-repeat center top;}
+.xtl a{color: #f1f1f1;font-size:12px;}
+.xtl:hover{list-style-type: none;width: 85px;background: url(/common/images/top/xxfb02.png) no-repeat center top;}
+.xtl:hover a{color: #ffffff;font-size:12px;}

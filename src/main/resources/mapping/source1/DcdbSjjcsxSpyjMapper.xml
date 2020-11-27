@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbSjjcsxSpyjDao" >
+
+    <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbSjjcsxSpyj" >
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="DJID" property="djid" jdbcType="VARCHAR" />
+        <result column="DCSXID" property="dcsxid" jdbcType="VARCHAR" />
+        <result column="CBRQ" property="cbrq" jdbcType="VARCHAR" />
+        <result column="CBMS" property="cbms" jdbcType="CLOB" />
+        <result column="BMFZRMC" property="bmfzrmc" jdbcType="VARCHAR" />
+        <result column="BMFZRSPRQ" property="bmfzrsprq" jdbcType="VARCHAR" />
+        <result column="BMFZRSPYJ" property="bmfzrspyj" jdbcType="VARCHAR" />
+        <result column="BMFZRSPBZ" property="bmfzrspbz" jdbcType="CLOB" />
+        <result column="TBCX" property="tbcx" jdbcType="VARCHAR" />
+
+        <result column="dcsxmc" property="dcsxmc" jdbcType="VARCHAR" />
+        <result column="qtbmid" property="qtbmid" jdbcType="VARCHAR" />
+        <result column="zzbmid" property="zzbmid" jdbcType="VARCHAR" />
+        <result column="dczqtype" property="dczqtype" jdbcType="VARCHAR" />
+        <result column="zzbmid" property="zzbmid" jdbcType="VARCHAR" />
+        <result column="cbbmmc" property="cbbmmc" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        ID, DJID, DCSXID, CBRQ, CBMS, BMFZRMC, BMFZRSPRQ, BMFZRSPYJ, BMFZRSPBZ, TBCX
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbSjjcsxSpyj" >
+        select
+        <include refid="Base_Column_List" />
+        from DCDB_SJJCSX_SPYJ
+        <where>
+            <if test="id != null and id!=''" >
+                and  ID= #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="dcsxid != null and dcsxid!=''" >
+                and  DCSXID= #{dcsxid,jdbcType=VARCHAR}
+            </if>
+        </where>
+            order by CBRQ ${px}
+    </select>
+
+    <select id="selectWqck" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbSjjcsxSpyj" >
+        <!--select c.dcsxmc, c.qtbmid, c.zzbmid, c.dczqtype,a.cbrq, a.cbms,a.bmfzrspyj
+        from DCDB_SJJCSX_SPYJ a
+        left join DCDB_SJJCSX_DCSXNQ b
+        on a.id = b.id
+        left join DCDB_SJJCSX_DCSX c
+        on b.dcsxid=c.id
+        <where>
+            <if test="id != null and id!=''" >
+                and  a.ID= #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="dcsxid != null and dcsxid!=''" >
+                and  a.DCSXID= #{dcsxid,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by a.CBRQ ${px}-->
+        select t1.*,t2.cbms,t2.bmfzrspyj from (select distinct a.id,c.dcsxmc, c.qtbmid, c.zzbmid, c.dczqtype,a.cbrq,b.cbbmmc
+        from DCDB_SJJCSX_SPYJ a
+        left join DCDB_SJJCSX_DCSXNQ b
+        on a.id = b.id
+        left join DCDB_SJJCSX_DCSX c
+        on b.dcsxid=c.id
+        <where>
+            <if test="id != null and id!=''" >
+                and  a.ID= #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="dcsxid != null and dcsxid!=''" >
+                and  a.DCSXID= #{dcsxid,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by cbrq  ${px} ) t1,DCDB_SJJCSX_SPYJ t2 where t1.id=t2.id
+    </select>
+
+    <delete id="deleteByExample" parameterType="com.bm.index.model.DcdbSjjcsxSpyj" >
+        delete from DCDB_SJJCSX_SPYJ
+        <where>
+            and  ID= #{id,jdbcType=VARCHAR}
+            and  cbrq=#{cbrq,jdbcType=VARCHAR}
+        </where>
+    </delete>
+
+    <insert id="insert" parameterType="com.bm.index.model.DcdbSjjcsxSpyj" >
+        insert into DCDB_SJJCSX_SPYJ (ID, DJID, DCSXID, 
+            CBRQ, CBMS, BMFZRMC, 
+            BMFZRSPRQ, BMFZRSPYJ, BMFZRSPBZ, 
+            TBCX)
+        values (#{id,jdbcType=VARCHAR}, #{djid,jdbcType=VARCHAR}, #{dcsxid,jdbcType=VARCHAR}, 
+            #{cbrq,jdbcType=VARCHAR}, #{cbms,jdbcType=CLOB}, #{bmfzrmc,jdbcType=VARCHAR}, 
+            #{bmfzrsprq,jdbcType=VARCHAR}, #{bmfzrspyj,jdbcType=VARCHAR}, #{bmfzrspbz,jdbcType=CLOB}, 
+            #{tbcx,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.bm.index.model.DcdbSjjcsxSpyj" >
+        insert into DCDB_SJJCSX_SPYJ
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="djid != null" >
+                DJID,
+            </if>
+            <if test="dcsxid != null" >
+                DCSXID,
+            </if>
+            <if test="cbrq != null" >
+                CBRQ,
+            </if>
+            <if test="cbms != null" >
+                CBMS,
+            </if>
+            <if test="bmfzrmc != null" >
+                BMFZRMC,
+            </if>
+            <if test="bmfzrsprq != null" >
+                BMFZRSPRQ,
+            </if>
+            <if test="bmfzrspyj != null" >
+                BMFZRSPYJ,
+            </if>
+            <if test="bmfzrspbz != null" >
+                BMFZRSPBZ,
+            </if>
+            <if test="tbcx != null" >
+                TBCX,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="djid != null" >
+                #{djid,jdbcType=VARCHAR},
+            </if>
+            <if test="dcsxid != null" >
+                #{dcsxid,jdbcType=VARCHAR},
+            </if>
+            <if test="cbrq != null" >
+                #{cbrq,jdbcType=VARCHAR},
+            </if>
+            <if test="cbms != null" >
+                #{cbms,jdbcType=CLOB},
+            </if>
+            <if test="bmfzrmc != null" >
+                #{bmfzrmc,jdbcType=VARCHAR},
+            </if>
+            <if test="bmfzrsprq != null" >
+                #{bmfzrsprq,jdbcType=VARCHAR},
+            </if>
+            <if test="bmfzrspyj != null" >
+                #{bmfzrspyj,jdbcType=VARCHAR},
+            </if>
+            <if test="bmfzrspbz != null" >
+                #{bmfzrspbz,jdbcType=CLOB},
+            </if>
+            <if test="tbcx != null" >
+                #{tbcx,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.bm.index.model.DcdbSjjcsxSpyj" resultType="java.lang.Integer" >
+        select count(*) from DCDB_SJJCSX_SPYJ
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="com.bm.index.model.DcdbSjjcsxSpyj" >
+        update DCDB_SJJCSX_SPYJ
+        <set >
+            <if test="record.id != null" >
+                ID = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.djid != null" >
+                DJID = #{record.djid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dcsxid != null" >
+                DCSXID = #{record.dcsxid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cbrq != null" >
+                CBRQ = #{record.cbrq,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cbms != null" >
+                CBMS = #{record.cbms,jdbcType=CLOB},
+            </if>
+            <if test="record.bmfzrmc != null" >
+                BMFZRMC = #{record.bmfzrmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bmfzrsprq != null" >
+                BMFZRSPRQ = #{record.bmfzrsprq,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bmfzrspyj != null" >
+                BMFZRSPYJ = #{record.bmfzrspyj,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bmfzrspbz != null" >
+                BMFZRSPBZ = #{record.bmfzrspbz,jdbcType=CLOB},
+            </if>
+            <if test="record.tbcx != null" >
+                TBCX = #{record.tbcx,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+</mapper>

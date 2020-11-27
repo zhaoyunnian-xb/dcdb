@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbBmmbnrDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbBmmbnr" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NDID" property="ndid" jdbcType="VARCHAR" />
+    <result column="YDNRID" property="ydnrid" jdbcType="VARCHAR" />
+    <result column="ZYRWID" property="zyrwid" jdbcType="VARCHAR" />
+    <result column="SSBM" property="ssbm" jdbcType="VARCHAR" />
+    <result column="BMLX" property="bmlx" jdbcType="VARCHAR" />
+    <result column="CBRID" property="cbrid" jdbcType="VARCHAR" />
+    <result column="YJDPG" property="yjdpg" jdbcType="VARCHAR" />
+    <result column="BNPG" property="bnpg" jdbcType="VARCHAR" />
+    <result column="SJDPG" property="sjdpg" jdbcType="VARCHAR" />
+    <result column="QNPG" property="qnpg" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="YJDMB" property="yjdmb" jdbcType="CLOB" />
+    <result column="BNMB" property="bnmb" jdbcType="CLOB" />
+    <result column="SJDMB" property="sjdmb" jdbcType="CLOB" />
+    <result column="QNMB" property="qnmb" jdbcType="CLOB" />
+    <result column="YJDWCQK" property="yjdwcqk" jdbcType="CLOB" />
+    <result column="BNWCQK" property="bnwcqk" jdbcType="CLOB" />
+    <result column="SJDWCQK" property="sjdwcqk" jdbcType="CLOB" />
+    <result column="QNWCQK" property="qnwcqk" jdbcType="CLOB" />
+    <result column="YDNRMC" property="ydnrmc" jdbcType="CLOB" />
+    <result column="ZRLD" property="zrld" jdbcType="VARCHAR" />
+    <result column="ZYRWMC" property="zyrwmc" jdbcType="CLOB" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="PHBM" property="phbm" jdbcType="VARCHAR" />
+    <result column="JDLX" property="jdlx" jdbcType="VARCHAR" />
+    <result column="JDMB" property="jdmb" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapKhpz" type="com.bm.index.model.DcdbBmmbnr" >
+    <result column="YJID" property="yjid" jdbcType="VARCHAR" />
+    <result column="BMFZRYJ" property="bmfzryj" jdbcType="CLOB" />
+    <result column="BGSYJ" property="bgsyj" jdbcType="CLOB" />
+    <result column="BGSFZRYJ" property="bgsfzryj" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NDID, YDNRID, ZYRWID, SSBM, BMLX, CBRID, YJDPG, BNPG, SJDPG, QNPG, STATUS,YJDMB, BNMB, SJDMB, QNMB, YJDWCQK, BNWCQK, SJDWCQK, QNWCQK
+  </sql>
+  <sql id="Base_Column" >
+    ID, NDID, YDNRID, ZYRWID, SSBM, BMLX, CBRID, STATUS,CBBMID
+  </sql>
+  <sql id="Base_Column_Yj" >
+    YJID, CURRENTUSERID, PREUSERID, NEXTUSERID, ZT, BMFZRQM, BMFZRRQ, BGSQM, BGSRQ, BGSFZRQM,
+    BGSFZRRQ,BMFZRYJ, BGSYJ, BGSFZRYJ, BMMBFZRYJ, BGSMBYJ, BGSLDMBYJ
+  </sql>
+
+  <!--暂时没用到-->
+  <select id="selectBmJdtb" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    select 
+    <include refid="Base_Column_List" />
+    from DCDB_BMMBNR
+    where NDID = #{ndid,jdbcType=VARCHAR}
+    <if test="status != null" >
+      and STATUS = #{status}
+    </if>
+
+  </select>
+
+  <!--查询季度完成情况内容列表-->
+  <select id="selectJdtb" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    select  c.ID, c.NDID, c.YDNRID, c.ZYRWID, SSBM, BMLX, CBRID,USERID, STATUS,CBBMID,a.YDNRMC,b.ZRLD,b.ZYRWMC,b.phbm,c.jdlx,
+    ${colnum}
+    from DCDB_BMMBNR c
+    left join DCDB_NDRW_ZYRW b on c.zyrwid=b.id
+    left join DCDB_NDRW_YDNR a on c.ydnrid=a.id
+    where c.ndid=#{ndid,jdbcType=VARCHAR}
+    AND c.userid=#{userid,jdbcType=VARCHAR}
+    AND c.jdlx=#{jdlx,jdbcType=VARCHAR}
+    AND c.CBBMID = #{cbbmid,jdbcType=VARCHAR}
+    <!--当办公室人员进入列表时-->
+    <if test="isBgs=='yes'" >
+      AND BMLX  in('zz' , 'qt')
+    </if>
+
+    <if test="ssbm !='' and ssbm!=null" >
+      AND ssbm  =#{ssbm,jdbcType=VARCHAR}
+    </if>
+    order by a.czsj,b.cjsj
+  </select>
+
+
+  <!--判断登录人，所有分配的任务，是否全部为配合（办公室除外）-->
+  <select id="selectIsAllPh" resultType="java.lang.String" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    select  BMLX from DCDB_BMMBNR c
+    left join DCDB_NDRW_ZYRW b on c.zyrwid=b.id
+    left join DCDB_NDRW_YDNR a on c.ydnrid=a.id
+    where c.ndid=#{ndid,jdbcType=VARCHAR}
+    and c.userid=#{userid,jdbcType=VARCHAR}
+    and c.jdlx=#{jdlx,jdbcType=VARCHAR}
+    <!--当办公室人员进入列表时-->
+    <if test="isBgs=='yes'" >
+      AND CBBMID = #{cbbmid,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+  <delete id="deleteByNdid" parameterType="java.lang.String" >
+    delete from DCDB_BMMBNR
+    where NDID = #{ndid,jdbcType=VARCHAR}
+  </delete>
+
+<!--插入部门内容表-->
+  <insert id="insertSelective" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    insert into DCDB_BMMBNR
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="ndid != null" >
+        NDID,
+      </if>
+      <if test="ydnrid != null" >
+        YDNRID,
+      </if>
+      <if test="zyrwid != null" >
+        ZYRWID,
+      </if>
+      <if test="ssbm != null" >
+        SSBM,
+      </if>
+      <if test="bmlx != null" >
+        BMLX,
+      </if>
+      <if test="cbrid != null" >
+        CBRID,
+      </if>
+      <if test="yjdpg != null" >
+        YJDPG,
+      </if>
+      <if test="bnpg != null" >
+        BNPG,
+      </if>
+      <if test="sjdpg != null" >
+        SJDPG,
+      </if>
+      <if test="qnpg != null" >
+        QNPG,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="yjdmb != null" >
+        YJDMB,
+      </if>
+      <if test="bnmb != null" >
+        BNMB,
+      </if>
+      <if test="sjdmb != null" >
+        SJDMB,
+      </if>
+      <if test="qnmb != null" >
+        QNMB,
+      </if>
+      <if test="yjdwcqk != null" >
+        YJDWCQK,
+      </if>
+      <if test="bnwcqk != null" >
+        BNWCQK,
+      </if>
+      <if test="sjdwcqk != null" >
+        SJDWCQK,
+      </if>
+      <if test="qnwcqk != null" >
+        QNWCQK,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="cbbmid != null" >
+        CBBMID,
+      </if>
+      <if test="jdlx != null" >
+        JDLX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ndid != null" >
+        #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="ydnrid != null" >
+        #{ydnrid,jdbcType=VARCHAR},
+      </if>
+      <if test="zyrwid != null" >
+        #{zyrwid,jdbcType=VARCHAR},
+      </if>
+      <if test="ssbm != null" >
+        #{ssbm,jdbcType=VARCHAR},
+      </if>
+      <if test="bmlx != null" >
+        #{bmlx,jdbcType=VARCHAR},
+      </if>
+      <if test="cbrid != null" >
+        #{cbrid,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdpg != null" >
+        #{yjdpg,jdbcType=VARCHAR},
+      </if>
+      <if test="bnpg != null" >
+        #{bnpg,jdbcType=VARCHAR},
+      </if>
+      <if test="sjdpg != null" >
+        #{sjdpg,jdbcType=VARCHAR},
+      </if>
+      <if test="qnpg != null" >
+        #{qnpg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdmb != null" >
+        #{yjdmb,jdbcType=CLOB},
+      </if>
+      <if test="bnmb != null" >
+        #{bnmb,jdbcType=CLOB},
+      </if>
+      <if test="sjdmb != null" >
+        #{sjdmb,jdbcType=CLOB},
+      </if>
+      <if test="qnmb != null" >
+        #{qnmb,jdbcType=CLOB},
+      </if>
+      <if test="yjdwcqk != null" >
+        #{yjdwcqk,jdbcType=CLOB},
+      </if>
+      <if test="bnwcqk != null" >
+        #{bnwcqk,jdbcType=CLOB},
+      </if>
+      <if test="sjdwcqk != null" >
+        #{sjdwcqk,jdbcType=CLOB},
+      </if>
+      <if test="qnwcqk != null" >
+        #{qnwcqk,jdbcType=CLOB},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="cbbmid != null" >
+        #{cbbmid,jdbcType=VARCHAR},
+      </if>
+      <if test="jdlx != null" >
+        #{jdlx,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+<!-- 每季度发起后更新内容表-->
+  <update id="updatefqgx" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    update DCDB_BMMBNR
+    <set >
+      <if test="ndid != null" >
+        NDID = #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="ydnrid != null" >
+        YDNRID = #{ydnrid,jdbcType=VARCHAR},
+      </if>
+      <if test="zyrwid != null" >
+        ZYRWID = #{zyrwid,jdbcType=VARCHAR},
+      </if>
+      <if test="ssbm != null" >
+        SSBM = #{ssbm,jdbcType=VARCHAR},
+      </if>
+      <if test="bmlx != null" >
+        BMLX = #{bmlx,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdpg != null" >
+        YJDPG = #{yjdpg,jdbcType=VARCHAR},
+      </if>
+      <if test="bnpg != null" >
+        BNPG = #{bnpg,jdbcType=VARCHAR},
+      </if>
+      <if test="sjdpg != null" >
+        SJDPG = #{sjdpg,jdbcType=VARCHAR},
+      </if>
+      <if test="qnpg != null" >
+        QNPG = #{qnpg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdmb != null" >
+        YJDMB = #{yjdmb,jdbcType=CLOB},
+      </if>
+      <if test="bnmb != null" >
+        BNMB = #{bnmb,jdbcType=CLOB},
+      </if>
+      <if test="sjdmb != null" >
+        SJDMB = #{sjdmb,jdbcType=CLOB},
+      </if>
+      <if test="qnmb != null" >
+        QNMB = #{qnmb,jdbcType=CLOB},
+      </if>
+      <if test="yjdwcqk != null" >
+        YJDWCQK = #{yjdwcqk,jdbcType=CLOB},
+      </if>
+      <if test="bnwcqk != null" >
+        BNWCQK = #{bnwcqk,jdbcType=CLOB},
+      </if>
+      <if test="sjdwcqk != null" >
+        SJDWCQK = #{sjdwcqk,jdbcType=CLOB},
+      </if>
+      <if test="qnwcqk != null" >
+        QNWCQK = #{qnwcqk,jdbcType=CLOB},
+      </if>
+      <if test="jdlx != null" >
+        JDLX = #{jdlx,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where 1=1
+    <if test="ndid != null" >
+      AND  NDID=#{ndid,jdbcType=VARCHAR}
+    </if>
+
+  </update>
+<!--更新部门内容表-->
+  <update id="updateJdwcqk" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    update DCDB_BMMBNR
+    <set >
+      <if test="ndid != null" >
+        NDID = #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="ydnrid != null" >
+        YDNRID = #{ydnrid,jdbcType=VARCHAR},
+      </if>
+      <if test="zyrwid != null" >
+        ZYRWID = #{zyrwid,jdbcType=VARCHAR},
+      </if>
+      <if test="ssbm != null" >
+        SSBM = #{ssbm,jdbcType=VARCHAR},
+      </if>
+      <if test="bmlx != null" >
+        BMLX = #{bmlx,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdpg != null" >
+        YJDPG = #{yjdpg,jdbcType=VARCHAR},
+      </if>
+      <if test="bnpg != null" >
+        BNPG = #{bnpg,jdbcType=VARCHAR},
+      </if>
+      <if test="sjdpg != null" >
+        SJDPG = #{sjdpg,jdbcType=VARCHAR},
+      </if>
+      <if test="qnpg != null" >
+        QNPG = #{qnpg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdmb != null" >
+        YJDMB = #{yjdmb,jdbcType=CLOB},
+      </if>
+      <if test="bnmb != null" >
+        BNMB = #{bnmb,jdbcType=CLOB},
+      </if>
+      <if test="sjdmb != null" >
+        SJDMB = #{sjdmb,jdbcType=CLOB},
+      </if>
+      <if test="qnmb != null" >
+        QNMB = #{qnmb,jdbcType=CLOB},
+      </if>
+      <if test="yjdwcqk != null" >
+        YJDWCQK = #{yjdwcqk,jdbcType=CLOB},
+      </if>
+      <if test="bnwcqk != null" >
+        BNWCQK = #{bnwcqk,jdbcType=CLOB},
+      </if>
+      <if test="sjdwcqk != null" >
+        SJDWCQK = #{sjdwcqk,jdbcType=CLOB},
+      </if>
+      <if test="qnwcqk != null" >
+        QNWCQK = #{qnwcqk,jdbcType=CLOB},
+      </if>
+    </set>
+    where 1=1
+    <if test="ndid != null" >
+    AND  NDID=#{ndid,jdbcType=VARCHAR}
+    </if>
+    <if test="jdlx != null" >
+      AND JDLX=#{jdlx,jdbcType=VARCHAR}
+    </if>
+    <if test="cbbmid != null" >
+      AND CBBMID = #{cbbmid,jdbcType=VARCHAR}
+    </if>
+    <if test="id != null" >
+      AND ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="ssbm != null" >
+      AND ssbm = #{ssbm,jdbcType=VARCHAR}
+    </if>
+
+  </update>
+
+<!--查询批示意见表-->
+  <select id="selectKhpzById" resultMap="BaseResultMapKhpz" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_Yj" />
+    from DCDB_KHPZ
+    WHERE YJID=#{yjid,jdbcType=VARCHAR}
+    <if test="ssbm != null" >
+      AND SSBM = #{ssbm,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <!--插入批示意见表-->
+  <insert id="insertKhpz" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    insert into DCDB_KHPZ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="yjid != null" >
+        YJID,
+      </if>
+      <if test="currentuserid != null" >
+        CURRENTUSERID,
+      </if>
+      <if test="preuserid != null" >
+        PREUSERID,
+      </if>
+      <if test="nextuserid != null" >
+        NEXTUSERID,
+      </if>
+      <if test="zt != null" >
+        ZT,
+      </if>
+      <if test="bmfzrqm != null" >
+        BMFZRQM,
+      </if>
+      <if test="bmfzrrq != null" >
+        BMFZRRQ,
+      </if>
+      <if test="bgsqm != null" >
+        BGSQM,
+      </if>
+      <if test="bgsrq != null" >
+        BGSRQ,
+      </if>
+      <if test="bgsfzrqm != null" >
+        BGSFZRQM,
+      </if>
+      <if test="bgsfzrrq != null" >
+        BGSFZRRQ,
+      </if>
+      <if test="bmfzryj != null" >
+        BMFZRYJ,
+      </if>
+      <if test="bgsyj != null" >
+        BGSYJ,
+      </if>
+      <if test="bgsfzryj != null" >
+        BGSFZRYJ,
+      </if>
+      <if test="ssbm != null" >
+        SSBM,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="yjid != null" >
+        #{yjid,jdbcType=VARCHAR},
+      </if>
+      <if test="currentuserid != null" >
+        #{currentuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="preuserid != null" >
+        #{preuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="nextuserid != null" >
+        #{nextuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="zt != null" >
+        #{zt,jdbcType=VARCHAR},
+      </if>
+      <if test="bmfzrqm != null" >
+        #{bmfzrqm,jdbcType=VARCHAR},
+      </if>
+      <if test="bmfzrrq != null" >
+        #{bmfzrrq,jdbcType=VARCHAR},
+      </if>
+      <if test="bgsqm != null" >
+        #{bgsqm,jdbcType=VARCHAR},
+      </if>
+      <if test="bgsrq != null" >
+        #{bgsrq,jdbcType=VARCHAR},
+      </if>
+      <if test="bgsfzrqm != null" >
+        #{bgsfzrqm,jdbcType=VARCHAR},
+      </if>
+      <if test="bgsfzrrq != null" >
+        #{bgsfzrrq,jdbcType=VARCHAR},
+      </if>
+      <if test="bmfzryj != null" >
+        #{bmfzryj,jdbcType=CLOB},
+      </if>
+      <if test="bgsyj != null" >
+        #{bgsyj,jdbcType=CLOB},
+      </if>
+      <if test="bgsfzryj != null" >
+        #{bgsfzryj,jdbcType=CLOB},
+      </if>
+      <if test="ssbm != null" >
+        #{ssbm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+<!--更新批示意见表-->
+  <update id="updateKhpzById" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    update DCDB_KHPZ
+    <set >
+      <if test="currentuserid != null" >
+        CURRENTUSERID = #{currentuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="preuserid != null" >
+        PREUSERID = #{preuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="nextuserid != null" >
+        NEXTUSERID = #{nextuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="zt != null" >
+        ZT = #{zt,jdbcType=VARCHAR},
+      </if>
+      <if test="bmfzrqm != null" >
+        BMFZRQM = #{bmfzrqm,jdbcType=VARCHAR},
+      </if>
+      <if test="bmfzrrq != null" >
+        BMFZRRQ = #{bmfzrrq,jdbcType=VARCHAR},
+      </if>
+      <if test="bgsqm != null" >
+        BGSQM = #{bgsqm,jdbcType=VARCHAR},
+      </if>
+      <if test="bgsrq != null" >
+        BGSRQ = #{bgsrq,jdbcType=VARCHAR},
+      </if>
+      <if test="bgsfzrqm != null" >
+        BGSFZRQM = #{bgsfzrqm,jdbcType=VARCHAR},
+      </if>
+      <if test="bgsfzrrq != null" >
+        BGSFZRRQ = #{bgsfzrrq,jdbcType=VARCHAR},
+      </if>
+      <if test="bmfzryj != null" >
+        BMFZRYJ = #{bmfzryj,jdbcType=CLOB},
+      </if>
+      <if test="bgsyj != null" >
+        BGSYJ = #{bgsyj,jdbcType=CLOB},
+      </if>
+      <if test="bgsfzryj != null" >
+        BGSFZRYJ = #{bgsfzryj,jdbcType=CLOB},
+      </if>
+      <if test="ssbm != null" >
+        ssbm = #{ssbm,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    WHERE YJID=#{yjid,jdbcType=VARCHAR}
+    <if test="ssbm != null" >
+     and ssbm = #{ssbm,jdbcType=VARCHAR}
+    </if>
+
+  </update>
+
+<!-- 插入附件表-->
+  <insert id="insertDcdbFile" parameterType="com.bm.index.model.DcdbProjectFile" >
+    insert into DCDB_PROJECT_FILE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="filename != null" >
+        FILENAME,
+      </if>
+      <if test="filedate != null" >
+        FILEDATE,
+      </if>
+      <if test="filesize != null" >
+        FILESIZE,
+      </if>
+      <if test="ywtype != null" >
+        YWTYPE,
+      </if>
+      <if test="bmrwid != null" >
+        BMRWID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filedate != null" >
+        #{filedate,jdbcType=DATE},
+      </if>
+      <if test="filesize != null" >
+        #{filesize,jdbcType=VARCHAR},
+      </if>
+      <if test="ywtype != null" >
+        #{ywtype,jdbcType=VARCHAR},
+      </if>
+      <if test="bmrwid != null" >
+        #{bmrwid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+ <!--删除附件表-->
+  <delete id="deleteDcdbFile" parameterType="com.bm.index.model.DcdbProjectFile" >
+    delete from DCDB_PROJECT_FILE
+    where 1 =1
+    <if test="id != null" >
+    AND   ID =   #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="bmrwid != null" >
+    AND  BMRWID= #{bmrwid,jdbcType=VARCHAR}
+    </if>
+    <if test="filename != null" >
+    AND  FILENAME= #{filename,jdbcType=VARCHAR}
+    </if>
+    <if test="ywtype != null" >
+      AND  YWTYPE=#{ywtype,jdbcType=VARCHAR}
+    </if>
+  </delete>
+<!--查询附件表-->
+  <select id="selectFileByCol" resultType="com.bm.index.model.DcdbProjectFile" parameterType="java.lang.String" >
+   select * from DCDB_PROJECT_FILE
+    where ${col}  = #{value ,jdbcType=VARCHAR}
+    <if test="ywtype != null and ywtype!='undefined'" >
+      AND  YWTYPE=#{ywtype,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectUnit" resultType="java.util.Map" parameterType="java.lang.String">
+
+    select * from UNIT_NEW t where t.id=#{unit,jdbcType=VARCHAR}
+</select>
+
+<!--查询登录人信息-->
+  <select id="loginQuery" resultType="com.bm.index.model.UserEntity" parameterType="java.lang.String">
+    select t.userid id, t.id bmbm, t.name bmmc, t1.fullname name
+  from (select t2.userid , t3.id , t3.name
+          from UNIT_NEW t3, USERUNIT_NEW t2
+         where t2.unitid = t3.id  and t2.userid = #{id}) t, USERS_NEW t1
+ where t1.id = t.userid
+
+  </select>
+
+  <!--查询登录人信息-->
+  <select id="loginQueryByName" resultType="com.bm.index.model.UserEntity" parameterType="java.lang.String">
+    select t.userid id, t.id bmbm, t.name bmmc, t1.fullname name
+  from (select t2.userid, t3.id, t3.name
+          from UNIT_NEW t3, USERUNIT_NEW t2
+         where t2.unitid = t3.id
+           and t2.userid =
+               (select a.id from USERS_NEW a where a.username = #{username})) t,
+       USERS_NEW t1
+ where t1.id = t.userid
+
+
+
+  </select>
+
+
+<!--查询部门待办列表,办公室人登录时，不带 cbbmid-->
+  <select id="queryBmdbList" resultType="com.bm.index.model.DcdbNdrw" parameterType="com.bm.index.model.DcdbNdrw">
+    select * from (
+    select b.nd,b.id,b.ndrwmc,b.czr,b.czsj,a.status czzt,a.ssbm
+    <!--当登录人员不是办公室人员时-->
+    <if test="isBgs=='no'" >
+      ,a.cbbmid
+    </if>
+    from DCDB_BMMBNR a left join DCDB_NDRW b on a.ndid =b.id
+    where a.userid=#{cbrid,jdbcType=VARCHAR}
+    group by  b.nd,b.id,b.ndrwmc,b.czr,b.czsj,a.status,a.ssbm
+      <!--当登录人员不是办公室人员时-->
+    <if test="isBgs=='no'" >
+      ,a.cbbmid
+    </if>
+    ) t
+    where 1=1
+    <if test="nd != null and nd!=''" >
+      AND  nd  like '%${nd}%'
+    </if>
+    <if test="ndrwmc != null and ndrwmc!=''" >
+      AND  ndrwmc like '%${ndrwmc}%'
+    </if>
+    <!--年度任务编码-->
+    <if test="id != null and id!=''" >
+      AND  id like '%${id}%'
+    </if>
+    <if test="czr != null and czr!=''" >
+      AND  czr like '%${czr}%'
+    </if>
+  </select>
+
+  <!-- 查询待办页面列表-->
+  <select id="queryBmdbListBgs" resultType="com.bm.index.model.DcdbNdrw" parameterType="com.bm.index.model.DcdbNdrw">
+    select q1.*,q2.orderby from ( select distinct b.id,b.ndrwmc,b.czr,b.czsj,a.status czzt,a.cbbmid,a.ssbm,(select r.fullname from users_new r where r.id= a.cbrid) cbr
+    from DCDB_BMMBNR a left join DCDB_NDRW b on a.ndid =b.id
+    where a.userid=#{cbrid,jdbcType=VARCHAR} and a.status not in ('105','109','209','309','409') )  q1 left join unit_new q2 on q1.cbbmid=q2.id   order by q2.orderby
+  </select>
+   <!-- 查询待办页面列表增加条件-->
+  <select id="queryBmdbListBgsByNdid" resultType="com.bm.index.model.DcdbNdrw" parameterType="com.bm.index.model.DcdbNdrw">
+    select q1.*,q2.orderby from ( select distinct b.id,b.ndrwmc,b.czr,b.czsj,a.status czzt,a.cbbmid,a.ssbm,(select r.fullname from users_new r where r.id= a.cbrid) cbr
+    from DCDB_BMMBNR a left join DCDB_NDRW b on a.ndid =b.id
+    where a.userid=#{cbrid,jdbcType=VARCHAR} and a.ndid=#{id,jdbcType=VARCHAR}  and a.status not in ('105','109','209','309','409') )  q1 left join unit_new q2 on q1.cbbmid=q2.id   order by q2.orderby
+  </select>
+<!-- 查询部门列表-->
+<select id="queryBmList" resultType="java.util.Map" parameterType="java.lang.String">
+  select a.ssbm,a.cbbmid from DCDB_BMMBNR a
+  where a.ndid= #{ndid}  group by ssbm,cbbmid
+</select>
+
+
+  <select id="queryTest" resultType="java.util.Map">
+  select id,qtbm,phbm from DCDB_NDRW_ZYRW a
+</select>
+
+  <!-- 查询已办页面列表-->
+  <select id="queryBmdbListYb" resultType="com.bm.index.model.DcdbNdrw" parameterType="com.bm.index.model.DcdbNdrw">
+    select q1.*,q2.orderby from ( select distinct b.id,b.ndrwmc,b.czr,b.czsj,a.status czzt,a.cbbmid,a.ssbm,(select r.fullname from users_new r where r.id= a.cbrid) cbr
+    from DCDB_NDRW_YB a left join DCDB_NDRW b on a.ndid =b.id
+    where a.userid=#{cbrid,jdbcType=VARCHAR}  )  q1 left join unit_new q2 on q1.cbbmid=q2.id   order by q2.orderby
+  </select>
+
+  <!--查询已办详情页面 主要任务列表-->
+  <select id="selectZyrwListYb" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    select  c.ID, c.NDID, c.YDNRID, c.ZYRWID, c.SSBM, c.BMLX, c.CBRID,c.USERID, c.STATUS,c.CBBMID,a.YDNRMC,b.ZRLD,b.ZYRWMC,b.phbm,c.yjdmb,c.bnmb,c.sjdmb,c.qnmb,
+    ${colnum}
+    from DCDB_NDRW_YB c
+    left join DCDB_NDRW_ZYRW b on c.zyrwid=b.id
+    left join DCDB_NDRW_YDNR a on c.ydnrid=a.id
+    where c.ndid=#{ndid,jdbcType=VARCHAR}
+    AND c.userid=#{userid,jdbcType=VARCHAR}
+    AND c.CBBMID = #{cbbmid,jdbcType=VARCHAR}
+    order by a.czsj,b.cjsj
+  </select>
+
+  <!--插入年度任务已办表-->
+  <insert id="insertNdrwYb" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    insert into DCDB_NDRW_YB
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="ndid != null" >
+        NDID,
+      </if>
+      <if test="ydnrid != null" >
+        YDNRID,
+      </if>
+      <if test="zyrwid != null" >
+        ZYRWID,
+      </if>
+      <if test="ssbm != null" >
+        SSBM,
+      </if>
+      <if test="bmlx != null" >
+        BMLX,
+      </if>
+      <if test="cbrid != null" >
+        CBRID,
+      </if>
+      <if test="yjdpg != null" >
+        YJDPG,
+      </if>
+      <if test="bnpg != null" >
+        BNPG,
+      </if>
+      <if test="sjdpg != null" >
+        SJDPG,
+      </if>
+      <if test="qnpg != null" >
+        QNPG,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="yjdmb != null" >
+        YJDMB,
+      </if>
+      <if test="bnmb != null" >
+        BNMB,
+      </if>
+      <if test="sjdmb != null" >
+        SJDMB,
+      </if>
+      <if test="qnmb != null" >
+        QNMB,
+      </if>
+      <if test="yjdwcqk != null" >
+        YJDWCQK,
+      </if>
+      <if test="bnwcqk != null" >
+        BNWCQK,
+      </if>
+      <if test="sjdwcqk != null" >
+        SJDWCQK,
+      </if>
+      <if test="qnwcqk != null" >
+        QNWCQK,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="cbbmid != null" >
+        CBBMID,
+      </if>
+      <if test="jdlx != null" >
+        JDLX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ndid != null" >
+        #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="ydnrid != null" >
+        #{ydnrid,jdbcType=VARCHAR},
+      </if>
+      <if test="zyrwid != null" >
+        #{zyrwid,jdbcType=VARCHAR},
+      </if>
+      <if test="ssbm != null" >
+        #{ssbm,jdbcType=VARCHAR},
+      </if>
+      <if test="bmlx != null" >
+        #{bmlx,jdbcType=VARCHAR},
+      </if>
+      <if test="cbrid != null" >
+        #{cbrid,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdpg != null" >
+        #{yjdpg,jdbcType=VARCHAR},
+      </if>
+      <if test="bnpg != null" >
+        #{bnpg,jdbcType=VARCHAR},
+      </if>
+      <if test="sjdpg != null" >
+        #{sjdpg,jdbcType=VARCHAR},
+      </if>
+      <if test="qnpg != null" >
+        #{qnpg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdmb != null" >
+        #{yjdmb,jdbcType=CLOB},
+      </if>
+      <if test="bnmb != null" >
+        #{bnmb,jdbcType=CLOB},
+      </if>
+      <if test="sjdmb != null" >
+        #{sjdmb,jdbcType=CLOB},
+      </if>
+      <if test="qnmb != null" >
+        #{qnmb,jdbcType=CLOB},
+      </if>
+      <if test="yjdwcqk != null" >
+        #{yjdwcqk,jdbcType=CLOB},
+      </if>
+      <if test="bnwcqk != null" >
+        #{bnwcqk,jdbcType=CLOB},
+      </if>
+      <if test="sjdwcqk != null" >
+        #{sjdwcqk,jdbcType=CLOB},
+      </if>
+      <if test="qnwcqk != null" >
+        #{qnwcqk,jdbcType=CLOB},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="cbbmid != null" >
+        #{cbbmid,jdbcType=VARCHAR},
+      </if>
+      <if test="jdlx != null" >
+        #{jdlx,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 查询填报进度页面列表-->
+  <select id="queryBmdbListTbjd" resultType="com.bm.index.model.DcdbNdrw" parameterType="com.bm.index.model.DcdbNdrw">
+     select q1.* from ( select distinct b.nd, b.id,b.ndrwmc,b.czr,b.czsj,a.status czzt,a.cbbmid,a.ssbm,(select r.fullname from users_new r where r.id= a.cbrid) cbr, (select r.fullname from users_new r where r.id= a.userid) username,a.userid
+    from DCDB_BMMBNR a left join DCDB_NDRW b on a.ndid =b.id
+    <where>
+      <if test="nd != null and nd!=''" >
+        AND  nd  like '%${nd}%'
+      </if>
+      <if test="ndrwmc != null and ndrwmc!=''" >
+        AND  substr(a.status,2,1) like '%${czzt}%'
+      </if>
+    </where>
+     )  q1 left join unit_new q2 on q1.cbbmid=q2.id   order by q2.orderby
+  </select>
+
+  <!--查询填报进度明细页面列表-->
+  <select id="selectZyrwListTbjd" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbBmmbnr" >
+    select  c.ID, c.NDID, c.YDNRID, c.ZYRWID, c.SSBM, c.BMLX, c.CBRID,c.USERID, c.STATUS,c.CBBMID,a.YDNRMC,b.ZRLD,b.ZYRWMC,b.phbm,c.yjdmb,c.bnmb,c.sjdmb,c.qnmb,
+    ${colnum}
+    from DCDB_BMMBNR c
+    left join DCDB_NDRW_ZYRW b on c.zyrwid=b.id
+    left join DCDB_NDRW_YDNR a on c.ydnrid=a.id
+    where c.ndid=#{ndid,jdbcType=VARCHAR}
+    AND c.userid=#{userid,jdbcType=VARCHAR}
+    AND c.CBBMID = #{cbbmid,jdbcType=VARCHAR}
+    AND c.SSBM = #{ssbm,jdbcType=VARCHAR}
+    order by a.czsj,b.cjsj
+  </select>
+</mapper>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbFlowDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbLcjd" >
+    <result column="YWTYPE" property="ywtype" jdbcType="VARCHAR" />
+    <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="SFTG" property="sftg" jdbcType="VARCHAR" />
+    <result column="NEXT_ID" property="nextId" jdbcType="VARCHAR" />
+    <result column="NEXT_NAME" property="nextName" jdbcType="VARCHAR" />
+    <result column="BACK_ID" property="backId" jdbcType="VARCHAR" />
+    <result column="BACK_NAME" property="backName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap1" type="com.bm.index.model.DcdbDjlbYb" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="WH" property="wh" jdbcType="VARCHAR" />
+    <result column="CBBMMC" property="cbbmmc" jdbcType="VARCHAR" />
+    <result column="CBBMID" property="cbbmid" jdbcType="VARCHAR" />
+    <result column="CJRQ" property="cjrq" jdbcType="VARCHAR" />
+    <result column="SFTH" property="sfth" jdbcType="VARCHAR" />
+    <result column="CJR" property="cjr" jdbcType="VARCHAR" />
+    <result column="ZT" property="zt" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="BLLX" property="bllx" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.bm.index.model.DcdbDjlbDb" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="WH" property="wh" jdbcType="VARCHAR" />
+    <result column="CBBMMC" property="cbbmmc" jdbcType="VARCHAR" />
+    <result column="CBBMID" property="cbbmid" jdbcType="VARCHAR" />
+    <result column="CJRQ" property="cjrq" jdbcType="VARCHAR" />
+    <result column="SFTH" property="sfth" jdbcType="VARCHAR" />
+    <result column="CJR" property="cjr" jdbcType="VARCHAR" />
+    <result column="ZT" property="zt" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="BLLX" property="bllx" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_Lcjd" >
+    YWTYPE, NODE_ID, NODE_NAME, SFTG, NEXT_ID, NEXT_NAME, BACK_ID, BACK_NAME
+  </sql>
+  <sql id="Base_Column_db" >
+    ID, WH, CBBMMC, CBBMID, CJRQ, SFTH, CJR, ZT, USERID, USERNAME, NODE_ID, NODE_NAME
+  </sql>
+
+  <select id="selectLcjd" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbLcjd" >
+    select
+    <include refid="Base_Column_Lcjd" />
+    from DCDB_LCJD
+    WHERE YWTYPE=#{ywtype,jdbcType=VARCHAR}
+    AND NODE_ID=#{nodeId,jdbcType=VARCHAR}
+    AND SFTG=#{sftg,jdbcType=VARCHAR}
+    <if test="sffzr != null and sffzr != ''">
+      AND sffzr=#{sffzr,jdbcType=VARCHAR}
+    </if>
+    <if test="fzlcbs != null and fzlcbs != ''">
+      AND fzlcbs=#{fzlcbs,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectYb" resultMap="BaseResultMap1" parameterType="com.bm.index.model.DcdbDjlbYb" >
+    select ID, WH, CBBMMC, CBBMID, CJRQ, SFTH, CJR, ZT, USERID, USERNAME, NODE_ID, NODE_NAME,BLLX
+    from DCDB_DJLB_YB
+    <where>
+      <if test="wh != null">
+        and WH = #{wh,jdbcType=VARCHAR}
+      </if>
+      <if test="id != null">
+        and ID=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="nodeId != null">
+        and NODE_ID=#{nodeId,jdbcType=VARCHAR}
+      </if>
+    </where>
+
+    order  by CJRQ desc
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap2" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_db" />
+    from DCDB_DJLB_DB
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateByExampleSelective" parameterType="com.bm.index.model.DcdbDjlbDb" >
+    update DCDB_DJLB_DB
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wh != null" >
+        WH = #{record.wh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbbmmc != null" >
+        CBBMMC = #{record.cbbmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbbmid != null" >
+        CBBMID = #{record.cbbmid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cjrq != null" >
+        CJRQ = #{record.cjrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfth != null" >
+        SFTH = #{record.sfth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cjr != null" >
+        CJR = #{record.cjr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zt != null" >
+        ZT = #{record.zt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null" >
+        NODE_ID = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeName != null" >
+        NODE_NAME = #{record.nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lzsj != null" >
+        LZSJ = #{record.lzsj,jdbcType=VARCHAR},
+      </if>
+    </set>
+
+    WHERE ID=#{record.id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="batcheInsertDb" parameterType="com.bm.index.model.DcdbDjlbDb">
+    INSERT INTO DCDB_DJLB_DB ( ID, WH, CBBMMC, CBBMID, CJRQ, SFTH, CJR, ZT, USERID, USERNAME, NODE_ID, NODE_NAME,BLLX,LCLX,ISFA,LZSJ,YJQK,PREID,PSLX,ISSJLDPSJ)
+    <foreach collection="list" item="item" separator="UNION ALL">
+      SELECT
+      #{item.id,jdbcType=VARCHAR},
+      #{item.wh,jdbcType=VARCHAR},
+      #{item.cbbmmc,jdbcType=VARCHAR},
+      #{item.cbbmid,jdbcType=VARCHAR},
+      #{item.cjrq,jdbcType=VARCHAR},
+      '0',
+      #{item.cjr,jdbcType=VARCHAR},
+      '1',
+      #{item.userid,jdbcType=VARCHAR},
+      #{item.username,jdbcType=VARCHAR},
+      #{item.nodeId,jdbcType=VARCHAR},
+      #{item.nodeName,jdbcType=VARCHAR},
+      #{item.bllx,jdbcType=VARCHAR},
+      #{item.lclx,jdbcType=VARCHAR},
+      #{item.isfa,jdbcType=VARCHAR},
+      #{item.lzsj,jdbcType=VARCHAR},
+      #{item.yjqk,jdbcType=VARCHAR},
+      #{item.preid,jdbcType=VARCHAR},
+      #{item.pslx,jdbcType=VARCHAR},
+      #{item.issjldpsj,jdbcType=VARCHAR}
+      FROM DUAL
+    </foreach>
+  </select>
+
+
+  <update id="updateSpyj" parameterType="com.bm.index.model.DcdbSpyj" >
+    update DCDB_SPYJ
+    <set >
+      <if test="record.bllx != null" >
+        BLLX = #{record.bllx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.splx != null" >
+        SPLX = #{record.splx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spr != null" >
+        SPR = #{record.spr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sprq != null" >
+        SPRQ = #{record.sprq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spyj != null" >
+        SPYJ = #{record.spyj,jdbcType=CLOB},
+      </if>
+      <if test="record.spbz != null" >
+        SPBZ = #{record.spbz,jdbcType=CLOB},
+      </if>
+      <if test="record.blqk != null" >
+        BLQK = #{record.blqk,jdbcType=CLOB},
+      </if>
+    </set>
+   WHERE   ID = #{record.id,jdbcType=VARCHAR} AND  SPLX = #{record.splx,jdbcType=VARCHAR} AND   BLLX = #{record.bllx,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertSpyj" parameterType="com.bm.index.model.DcdbSpyj" >
+    insert into DCDB_SPYJ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="bllx != null" >
+        BLLX,
+      </if>
+      <if test="splx != null" >
+        SPLX,
+      </if>
+      <if test="spr != null" >
+        SPR,
+      </if>
+      <if test="sprq != null" >
+        SPRQ,
+      </if>
+      <if test="spyj != null" >
+        SPYJ,
+      </if>
+      <if test="spbz != null" >
+        SPBZ,
+      </if>
+      <if test="blqk != null" >
+        BLQK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bllx != null" >
+        #{bllx,jdbcType=VARCHAR},
+      </if>
+      <if test="splx != null" >
+        #{splx,jdbcType=VARCHAR},
+      </if>
+      <if test="spr != null" >
+        #{spr,jdbcType=VARCHAR},
+      </if>
+      <if test="sprq != null" >
+        #{sprq,jdbcType=VARCHAR},
+      </if>
+      <if test="spyj != null" >
+        #{spyj,jdbcType=CLOB},
+      </if>
+      <if test="spbz != null" >
+        #{spbz,jdbcType=CLOB},
+      </if>
+      <if test="blqk != null" >
+        #{blqk,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectSpyj" resultType="com.bm.index.model.DcdbSpyj" parameterType="com.bm.index.model.DcdbSpyj" >
+    select ID, BLLX, SPLX, SPR, SPRQ, SPYJ, SPBZ,BLQK from DCDB_SPYJ
+   WHERE 1=1
+    <if test="id != null" >
+      and   ID= #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="bllx != null" >
+      and BLLX= #{bllx,jdbcType=VARCHAR}
+    </if>
+    <if test="splx != null" >
+      and SPLX=  #{splx,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

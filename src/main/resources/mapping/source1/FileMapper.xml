@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bm.index.dao.source1.FileDao">
+    <select id="qryFileListByMap" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT ID FILENAME,
+        XSBH,
+        FILENAME TARGETFILENAME,
+        TO_CHAR(FILEDATE, 'YYYY-MM-DD') FILEDATE,
+        NODEID,
+        USERID,
+        USERNAME,
+        ORGCODE,
+        FILESIZE
+        FROM JCJY_PROJECT_FILE
+        <where>
+            <if test="xsbh != null and xsbh != ''">
+                AND XSBH = #{xsbh}
+            </if>
+            <if test="nodeId != null and nodeId != ''">
+                <choose>
+                    <when test="nodeId=='02' or nodeId=='04' or nodeId=='05' ">
+                        AND substr(NODEID,0,2) = #{nodeId}
+                    </when>
+                    <otherwise>
+                        AND NODEID = #{nodeId}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="fileName != null and fileName != ''">
+                AND FILENAME IN (${fileName})
+            </if>
+            <if test="id != null and id != ''">
+                AND id IN (${id})
+            </if>
+        </where>
+        ORDER BY FILEDATE DESC
+    </select>
+
+    <select id="batcheInsertFile" parameterType="java.util.Map">
+        INSERT INTO JCJY_PROJECT_FILE (ID,XSBH,FILENAME,NODEID,USERID,USERNAME,ORGCODE,FILESIZE)
+        <foreach collection="list" item="item" separator="UNION ALL">
+            SELECT
+            #{item.uuid,jdbcType=VARCHAR},
+            #{item.xsbh,jdbcType=VARCHAR},
+            #{item.fileName,jdbcType=VARCHAR},
+            #{item.nodeId,jdbcType=VARCHAR},
+            #{item.userId,jdbcType=VARCHAR},
+            #{item.userName,jdbcType=VARCHAR},
+            #{item.orgCode,jdbcType=VARCHAR},
+            #{item.fileSize,jdbcType=VARCHAR}
+            FROM DUAL
+        </foreach>
+    </select>
+
+    <select id="qryIpaFileListById" parameterType="java.util.Map" resultType="java.util.Map">
+                  SELECT ID FILENAME,
+                   XSBH,
+                   FILENAME TARGETFILENAME,
+                   TO_CHAR(FILEDATE, 'YYYY-MM-DD') FILEDATE,
+                   NODEID,
+                   USERID,
+                   USERNAME,
+                   ORGCODE,
+                   FILESIZE
+              FROM JCJY_PROJECT_FILE
+              <where>
+                  <if test="xsbh != null and xsbh != ''">
+                      AND XSBH = #{xsbh}
+                  </if>
+                  <if test="nodeId != null and nodeId != ''">
+                      <choose>
+                          <when test="nodeId=='02' or nodeId=='04' or nodeId=='05' ">
+                              AND substr(NODEID,0,2) = #{nodeId}
+                          </when>
+                          <otherwise>
+                              AND NODEID = #{nodeId}
+                          </otherwise>
+                      </choose>
+                  </if>
+                  <if test="id != null and id != ''">
+                      AND ID = #{id}
+                  </if>
+              </where>
+        ORDER BY FILEDATE DESC
+    </select>
+
+    <select id="qryFileListByIds" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT ID FILENAME,
+        XSBH,
+        FILENAME TARGETFILENAME,
+        TO_CHAR(FILEDATE, 'YYYY-MM-DD') FILEDATE,
+        NODEID,
+        USERID,
+        USERNAME,
+        ORGCODE,
+        FILESIZE
+        FROM JCJY_PROJECT_FILE
+        <where>
+            <if test="xsbh != null and xsbh != ''">
+                AND XSBH = #{xsbh}
+            </if>
+            <if test="nodeId != null and nodeId != ''">
+                AND NODEID = #{nodeId}
+            </if>
+            <if test="id != null and id != ''">
+                AND ID IN (${id})
+            </if>
+        </where>
+        ORDER BY FILEDATE DESC
+    </select>
+    <select id="deleteIpaFileInfo" parameterType="java.util.Map" >
+        DELETE FROM JCJY_PROJECT_FILE
+        <where>
+            <if test="nodeId != null and nodeId != ''">
+                AND NODEID = #{nodeId}
+            </if>
+            <if test="id != null and id != ''">
+                AND ID IN (${id})
+            </if>
+            <if test="xsbh != null and xsbh != ''">
+                AND XSBH = #{xsbh}
+            </if>
+        </where>
+    </select>
+
+    <!-- 数据记录存放 -->
+    <insert id="insertWsscPath" parameterType="java.util.Map">
+        insert into DCDB_WSSC_WJLJ
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="uuid != null" >
+                UUID,
+            </if>
+            <if test="bllx != null" >
+                BLLX,
+            </if>
+            <if test="dbid != null" >
+                DBID,
+            </if>
+            <if test="wjmc != null" >
+                WJMC,
+            </if>
+            <if test="wjlj != null" >
+                WJLJ,
+            </if>
+            <if test="scsj != null" >
+                SCSJ,
+            </if>
+            <if test="wsbm != null" >
+                wsbm,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="uuid != null" >
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="bllx != null" >
+                #{bllx,jdbcType=VARCHAR},
+            </if>
+            <if test="dbid != null" >
+                #{dbid,jdbcType=VARCHAR},
+            </if>
+            <if test="wjmc != null" >
+                #{wjmc,jdbcType=VARCHAR},
+            </if>
+            <if test="wjlj != null" >
+                #{wjlj,jdbcType=VARCHAR},
+            </if>
+            <if test="scsj != null" >
+                #{scsj,jdbcType=DATE},
+            </if>
+            <if test="wsbm != null" >
+                #{wsbm,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--查询数据记录存放-->
+    <select id="downloadWs" parameterType="java.lang.String" resultType="java.util.Map">
+            SELECT WENSHU_BM NODEID, XSBH XSBH, WENSHU_MC FILENAME, WSCFLJ PATH
+                FROM JCJY_WSSC_WJLJ
+            <where>
+                <if test="xsbh != null and xsbh != ''">
+                    AND XSBH = #{xsbh}
+                </if>
+                <if test="nodeId != null and nodeId != ''">
+                    AND WENSHU_BM = #{nodeId}
+                </if>
+            </where>
+    </select>
+
+    <!--查询数据记录存放-->
+    <select id="downloadWsList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT  UUID, BLLX, DBID, WJMC, WJLJ, SCSJ,WSBM
+        FROM DCDB_WSSC_WJLJ
+        <where>
+            <if test="uuid != null and uuid != ''">
+                AND UUID = #{uuid}
+            </if>
+            <if test="bllx != null and bllx != ''">
+                AND bllx = #{bllx}
+            </if>
+            <if test="dbid != null and dbid != ''">
+                AND dbid = #{dbid}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteWsscPath" parameterType="java.util.Map">
+        DELETE FROM DCDB_WSSC_WJLJ WHERE BLLX=#{bllx,jdbcType=VARCHAR} AND DBID = #{dbid,jdbcType=VARCHAR} AND WJMC = #{wjmc,jdbcType=VARCHAR}
+    </delete>
+
+    <!---->
+    <select id="jcjyScws" parameterType="java.util.Map" resultType="java.util.Map">
+        <if test="nodeId == 1">
+            select   a.wh,
+            a.cbqx ,
+            a.psjmc  ,
+            a.psrq,
+            a.swrq ,
+            a.psnr ,
+            a.nbyj ,
+            a. pslx ,
+            a.bllx ,
+            a.zxdbh ,
+            a. cbbm  ,
+            a. fkdh  ,
+            a. blqk  ,
+            a. lxr   ,
+            a. lxdh ,
+            a. spr  ,
+            a. sprq  ,
+            a. spyj  ,
+            a. cbbmmc   ,
+            a.lclx  ,
+            a. issjldpsj  ,
+            a. sysjldpsnr ,
+            a. sjysldxx ,
+            a. isbfyq,
+            a. dcsx,
+            a. dcyy,
+            (select spbz from dcdb_spyj where id = #{dbid} and splx = #{splx}) spbz from dcdb_jbxx a
+            where a.wh = #{wh} and a.bllx = #{bllx}
+        </if>
+    </select>
+
+    <select id="qryWsByUserId" parameterType="java.util.Map" resultType="java.util.Map">
+                    SELECT XSBH, NODEID, NODENAME
+              FROM (SELECT DISTINCT (T.XSBH),
+                                    T.NODE_ID NODEID,
+                                    (SELECT DICTNAME
+                                       FROM DATA_DICT_ITEM
+                                      WHERE GROUPID = 'JCJYDOCTEMP'
+                                        AND DICTID = T.NODE_ID) NODENAME
+                      FROM JCJY_YB T
+                     WHERE EXISTS (SELECT 1
+                              FROM JCJY_DB A
+                             WHERE T.XSBH = A.XSBH
+                               AND STATUS = '3')
+                       AND NOT EXISTS (SELECT 1
+                              FROM JCJY_WSSC_WJLJ B
+                             WHERE T.XSBH = B.XSBH
+                               AND T.NODE_ID = B.WENSHU_BM)
+                       AND EXISTS
+                     (SELECT 1 FROM JCJY_YB C WHERE C.USER_ID = #{userId}))
+             WHERE NODENAME IS NOT NULL
+    </select>
+
+    <select id="qryDcdbWsInfo" parameterType="java.util.Map" resultType="java.util.Map">
+           SELECT * FROM  JCJY_WSSC_WJLJ B
+            WHERE B.XSBH = #{xsbh} AND B.WENSHU_BM=#{nodeId}
+    </select>
+
+    <select id="checkWj" parameterType="java.lang.String" resultType="java.lang.Integer">
+      select count(*) from JCJY_WSSC_WJLJ where  wenshu_mc='${wjName}' and  wenshu_bm='${nodeId}' and xsbh='${xsbh}'
+    </select>
+    
+    <select id="selAlreadyNode" resultType="java.lang.String">
+    <if test="xsbh != null and xsbh !=''">
+      select  DISTINCT A.PARENT_ID PID
+      FROM JCJY_YB B
+      LEFT JOIN JCJY_LCJD A ON B.NODE_ID = A.NODE_ID
+      WHERE B.XSBH = #{xsbh}
+    </if>
+    </select>
+
+</mapper>

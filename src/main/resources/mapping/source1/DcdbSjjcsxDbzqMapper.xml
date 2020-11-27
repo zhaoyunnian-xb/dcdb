@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbSjjcsxDbzqDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbSjjcsxDbzq" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DCSXID" property="dcsxid" jdbcType="VARCHAR" />
+    <result column="DCZQTYPE" property="dczqtype" jdbcType="VARCHAR" />
+    <result column="DCRQ" property="dcrq" jdbcType="VARCHAR" />
+    <result column="CJRQ" property="cjrq" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DCSXID, DCZQTYPE, DCRQ,CJRQ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbSjjcsxDbzq" >
+    select
+    <include refid="Base_Column_List" />
+    from DCDB_SJJCSX_DBZQ
+    <where>
+      <if test="dcsxid != null and dcsxid!=''">
+        and dcsxid=#{dcsxid,jdbcType=VARCHAR}
+      </if>
+      <if test="dczqtype != null and dczqtype!=''">
+        and dczqtype=#{dczqtype,jdbcType=VARCHAR}
+      </if>
+      <if test="dcrq != null and dcrq!=''">
+        and dcrq like '%${dcrq}%'
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DCDB_SJJCSX_DBZQ
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DCDB_SJJCSX_DBZQ
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByDcsxId" parameterType="java.lang.String" >
+    delete from DCDB_SJJCSX_DBZQ
+    where DCSXID = #{dcsxid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.bm.index.model.DcdbSjjcsxDbzq" >
+    insert into DCDB_SJJCSX_DBZQ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dcsxid != null" >
+        DCSXID,
+      </if>
+      <if test="dczqtype != null" >
+        DCZQTYPE,
+      </if>
+      <if test="dcrq != null" >
+        DCRQ,
+      </if>
+      <if test="cjrq != null" >
+        CJRQ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dcsxid != null" >
+        #{dcsxid,jdbcType=VARCHAR},
+      </if>
+      <if test="dczqtype != null" >
+        #{dczqtype,jdbcType=VARCHAR},
+      </if>
+      <if test="dcrq != null" >
+        #{dcrq,jdbcType=VARCHAR},
+      </if>
+      <if test="cjrq != null" >
+        #{cjrq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bm.index.model.DcdbSjjcsxDbzq" resultType="java.lang.Integer" >
+    select count(*) from DCDB_SJJCSX_DBZQ
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bm.index.model.DcdbSjjcsxDbzq" >
+    update DCDB_SJJCSX_DBZQ
+    <set >
+      <if test="dcsxid != null" >
+        DCSXID = #{dcsxid,jdbcType=VARCHAR},
+      </if>
+      <if test="dczqtype != null" >
+        DCZQTYPE = #{dczqtype,jdbcType=VARCHAR},
+      </if>
+      <if test="dcrq != null" >
+        DCRQ = #{dcrq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

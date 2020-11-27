@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source2.DcdbTyyhDao" >
+
+    <select id="testTree" parameterType="java.util.Map" resultType="com.bm.index.model.Menu">
+        SELECT a.oa_yhid id,b.xm name,c.id bmbm,c.bmmc FROM tyyh_yhxx a  join tyyh_yh b on a.sfzhm=b.sfzhm
+        join tyyh_bm c on b.bmbm=c.bmbm
+        <where>
+            <if test="isRemove == 1 and removeIds != null and removeIds != ''">
+                AND c.id NOT IN (${removeIds})
+            </if>
+            <if test="ids != null and ids != ''">
+                AND c.id IN (${ids})
+            </if>
+            <if test="id != null and id != ''">
+                AND c.id = #{id}
+            </if>
+        </where>
+    </select>
+</mapper>

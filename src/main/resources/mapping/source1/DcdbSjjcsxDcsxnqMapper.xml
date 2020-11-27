@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbSjjcsxDcsxnqDao" >
+
+    <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbSjjcsxDcsxnq" >
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="DJID" property="djid" jdbcType="VARCHAR" />
+        <result column="DCSXID" property="dcsxid" jdbcType="VARCHAR" />
+        <result column="DCSXMC" property="dcsxmc" jdbcType="VARCHAR" />
+        <result column="DCZQ" property="dczq" jdbcType="VARCHAR" />
+        <result column="DCZQTYPE" property="dczqtype" jdbcType="VARCHAR" />
+        <result column="LZUSERID" property="lzuserid" jdbcType="VARCHAR" />
+        <result column="LZUSERNAME" property="lzusername" jdbcType="VARCHAR" />
+        <result column="NQUSERNAME" property="nqusername" jdbcType="VARCHAR" />
+        <result column="NQUSERID" property="nquserid" jdbcType="VARCHAR" />
+        <result column="FARQ" property="farq" jdbcType="VARCHAR" />
+        <result column="NODEID" property="nodeid" jdbcType="VARCHAR" />
+        <result column="NODENAME" property="nodename" jdbcType="VARCHAR" />
+        <result column="ZT" property="zt" jdbcType="VARCHAR" />
+        <result column="ISFA" property="isfa" jdbcType="VARCHAR" />
+        <result column="ISZZ" property="iszz" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        ID, DJID, DCSXID, DCSXMC, DCZQ, DCZQTYPE, LZUSERID, LZUSERNAME, NQUSERNAME, NQUSERID, 
+        FARQ, NODEID, NODENAME, ZT, ISFA, ISZZ,CBBMID,CBBMMC
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq" >
+        select
+        <include refid="Base_Column_List" />
+        from DCDB_SJJCSX_DCSXNQ
+      <where>
+          <if test="djid != null and djid!=''">
+              and djid=#{djid,jdbcType=VARCHAR}
+          </if>
+          <if test="id != null and id!=''">
+              and id=#{id,jdbcType=VARCHAR}
+          </if>
+          <if test="lzuserid != null and lzuserid!=''">
+              and lzuserid=#{lzuserid,jdbcType=VARCHAR}
+          </if>
+          <if test="isfa != null and isfa!=''">
+              and isfa=#{isfa,jdbcType=VARCHAR}
+          </if>
+          <if test="iszz != null and iszz!=''">
+              and iszz=#{iszz,jdbcType=VARCHAR}
+          </if>
+          <if test="zt != null and zt!=''">
+              and zt=#{zt,jdbcType=VARCHAR}
+          </if>
+          <if test="nodeid != null and nodeid!=''">
+              and NODEID=#{nodeid,jdbcType=VARCHAR}
+          </if>
+
+      </where>
+    </select>
+
+    <select id="queryNqfaTable" resultType="com.bm.index.model.DcdbSjjcsxDcsxnq" parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq" >
+        select
+        s.ID,
+        s.DJID,
+        s.DCSXID,
+        s.DCSXMC,
+        s.DCZQ,
+        s.DCZQTYPE,
+        s.LZUSERID,
+        s.LZUSERNAME,
+        s.NQUSERNAME,
+        s.NQUSERID,
+        s.FARQ,
+        s.NODEID,
+        s.NODENAME,
+        s.ZT,
+        s.ISFA,
+        s.ISZZ,
+        t.qtbmid,
+        t.zzbmid
+        from DCDB_SJJCSX_DCSXNQ s left join DCDB_SJJCSX_DCSX t on s.DCSXID = t.id
+        <where>
+            1=1
+            <if test="djid != null and djid!=''">
+                and s.djid=#{djid,jdbcType=VARCHAR}
+            </if>
+            <if test="lzuserid != null and lzuserid!=''">
+                and s.lzuserid=#{lzuserid,jdbcType=VARCHAR}
+            </if>
+            <if test="isfa != null and isfa!=''">
+                and s.isfa=#{isfa,jdbcType=VARCHAR}
+            </if>
+            <if test="iszz != null and iszz!=''">
+                and s.iszz=#{iszz,jdbcType=VARCHAR}
+            </if>
+            <if test="zt != null and zt!=''">
+                and s.zt=#{zt,jdbcType=VARCHAR}
+            </if>
+            <if test="nquserid != null and nquserid!=''">
+                and s.nquserid=#{nquserid,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+    </select>
+
+    <delete id="deleteByExample" parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq" >
+        delete from DCDB_SJJCSX_DCSXNQ
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq" >
+        insert into DCDB_SJJCSX_DCSXNQ (ID, DJID, DCSXID, 
+            DCSXMC, DCZQ, DCZQTYPE, 
+            LZUSERID, LZUSERNAME, NQUSERNAME, 
+            NQUSERID, FARQ, NODEID, 
+            NODENAME, ZT, ISFA, 
+            ISZZ)
+        values (#{id,jdbcType=VARCHAR}, #{djid,jdbcType=VARCHAR}, #{dcsxid,jdbcType=VARCHAR}, 
+            #{dcsxmc,jdbcType=VARCHAR}, #{dczq,jdbcType=VARCHAR}, #{dczqtype,jdbcType=VARCHAR}, 
+            #{lzuserid,jdbcType=VARCHAR}, #{lzusername,jdbcType=VARCHAR}, #{nqusername,jdbcType=VARCHAR}, 
+            #{nquserid,jdbcType=VARCHAR}, #{farq,jdbcType=VARCHAR}, #{nodeid,jdbcType=VARCHAR}, 
+            #{nodename,jdbcType=VARCHAR}, #{zt,jdbcType=VARCHAR}, #{isfa,jdbcType=VARCHAR}, 
+            #{iszz,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq" >
+        insert into DCDB_SJJCSX_DCSXNQ
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="djid != null" >
+                DJID,
+            </if>
+            <if test="dcsxid != null" >
+                DCSXID,
+            </if>
+            <if test="dcsxmc != null" >
+                DCSXMC,
+            </if>
+            <if test="dczq != null" >
+                DCZQ,
+            </if>
+            <if test="dczqtype != null" >
+                DCZQTYPE,
+            </if>
+            <if test="lzuserid != null" >
+                LZUSERID,
+            </if>
+            <if test="lzusername != null" >
+                LZUSERNAME,
+            </if>
+            <if test="nqusername != null" >
+                NQUSERNAME,
+            </if>
+            <if test="nquserid != null" >
+                NQUSERID,
+            </if>
+            <if test="farq != null" >
+                FARQ,
+            </if>
+            <if test="nodeid != null" >
+                NODEID,
+            </if>
+            <if test="nodename != null" >
+                NODENAME,
+            </if>
+            <if test="zt != null" >
+                ZT,
+            </if>
+            <if test="isfa != null" >
+                ISFA,
+            </if>
+            <if test="iszz != null" >
+                ISZZ,
+            </if>
+            <if test="cbbmid != null" >
+                CBBMID,
+            </if>
+            <if test="cbbmmc != null" >
+                CBBMMC,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="djid != null" >
+                #{djid,jdbcType=VARCHAR},
+            </if>
+            <if test="dcsxid != null" >
+                #{dcsxid,jdbcType=VARCHAR},
+            </if>
+            <if test="dcsxmc != null" >
+                #{dcsxmc,jdbcType=VARCHAR},
+            </if>
+            <if test="dczq != null" >
+                #{dczq,jdbcType=VARCHAR},
+            </if>
+            <if test="dczqtype != null" >
+                #{dczqtype,jdbcType=VARCHAR},
+            </if>
+            <if test="lzuserid != null" >
+                #{lzuserid,jdbcType=VARCHAR},
+            </if>
+            <if test="lzusername != null" >
+                #{lzusername,jdbcType=VARCHAR},
+            </if>
+            <if test="nqusername != null" >
+                #{nqusername,jdbcType=VARCHAR},
+            </if>
+            <if test="nquserid != null" >
+                #{nquserid,jdbcType=VARCHAR},
+            </if>
+            <if test="farq != null" >
+                #{farq,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeid != null" >
+                #{nodeid,jdbcType=VARCHAR},
+            </if>
+            <if test="nodename != null" >
+                #{nodename,jdbcType=VARCHAR},
+            </if>
+            <if test="zt != null" >
+                #{zt,jdbcType=VARCHAR},
+            </if>
+            <if test="isfa != null" >
+                #{isfa,jdbcType=VARCHAR},
+            </if>
+            <if test="iszz != null" >
+                #{iszz,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmid != null" >
+                #{cbbmid,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmmc != null" >
+                #{cbbmmc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq" resultType="java.lang.Integer" >
+        select count(*) from DCDB_SJJCSX_DCSXNQ
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateIszz" parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq" >
+         update DCDB_SJJCSX_DCSXNQ
+        set  ISZZ = #{iszz,jdbcType=VARCHAR} where dcsxid = #{dcsxid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateDbNq" parameterType="java.util.Map" >
+         update DCDB_DJLB_DB
+        set  ZT = '4'
+        where WH = #{wh,jdbcType=VARCHAR} AND
+              USERID = {#userid,jdbcType=VARCHAR}
+              and NODE_ID = #{nodeid,jdbcType=VARCHAR}
+              and BLLX = #{bllx,jdbcType=VARCHAR}
+              and  LCLX = #{lclx,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByExampleSelective" parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq" >
+        update DCDB_SJJCSX_DCSXNQ
+        <set >
+            <if test="record.id != null" >
+                ID = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.djid != null" >
+                DJID = #{record.djid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dcsxid != null" >
+                DCSXID = #{record.dcsxid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dcsxmc != null" >
+                DCSXMC = #{record.dcsxmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dczq != null" >
+                DCZQ = #{record.dczq,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dczqtype != null" >
+                DCZQTYPE = #{record.dczqtype,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lzuserid != null" >
+                LZUSERID = #{record.lzuserid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lzusername != null" >
+                LZUSERNAME = #{record.lzusername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.nqusername != null" >
+                NQUSERNAME = #{record.nqusername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.nquserid != null" >
+                NQUSERID = #{record.nquserid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.farq != null" >
+                FARQ = #{record.farq,jdbcType=VARCHAR},
+            </if>
+            <if test="record.nodeid != null" >
+                NODEID = #{record.nodeid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.nodename != null" >
+                NODENAME = #{record.nodename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.zt != null" >
+                ZT = #{record.zt,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isfa != null" >
+                ISFA = #{record.isfa,jdbcType=VARCHAR},
+            </if>
+            <if test="record.iszz != null" >
+                ISZZ = #{record.iszz,jdbcType=VARCHAR},
+            </if>
+        </set>
+       <where>
+           <if test="record.id != null and record.id!=''">
+               and id=#{record.id,jdbcType=VARCHAR}
+           </if>
+           <if test="record.lzuserid != null and record.lzuserid!=''">
+               and lzuserid=#{record.lzuserid,jdbcType=VARCHAR}
+           </if>
+       </where>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update DCDB_SJJCSX_DCSXNQ
+        set ID = #{record.id,jdbcType=VARCHAR},
+            DJID = #{record.djid,jdbcType=VARCHAR},
+            DCSXID = #{record.dcsxid,jdbcType=VARCHAR},
+            DCSXMC = #{record.dcsxmc,jdbcType=VARCHAR},
+            DCZQ = #{record.dczq,jdbcType=VARCHAR},
+            DCZQTYPE = #{record.dczqtype,jdbcType=VARCHAR},
+            LZUSERID = #{record.lzuserid,jdbcType=VARCHAR},
+            LZUSERNAME = #{record.lzusername,jdbcType=VARCHAR},
+            NQUSERNAME = #{record.nqusername,jdbcType=VARCHAR},
+            NQUSERID = #{record.nquserid,jdbcType=VARCHAR},
+            FARQ = #{record.farq,jdbcType=VARCHAR},
+            NODEID = #{record.nodeid,jdbcType=VARCHAR},
+            NODENAME = #{record.nodename,jdbcType=VARCHAR},
+            ZT = #{record.zt,jdbcType=VARCHAR},
+            ISFA = #{record.isfa,jdbcType=VARCHAR},
+            ISZZ = #{record.iszz,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="batchUpdateSjjc"  parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq">
+        <foreach collection="list" separator=";"  item="cus" open="begin" close=";end;">
+            update DCDB_SJJCSX_DCSXNQ set
+            LZUSERID = #{cus.lzuserid},
+            LZUSERNAME = #{cus.lzusername},
+            NODEID = #{cus.nodeid},
+            NODENAME = #{cus.nodename}
+            where id = #{cus.id}
+        </foreach>
+    </update>
+    <update id="batchUpdateNqfp"  parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq">
+        <foreach collection="list" separator=";"  item="cus" open="begin" close=";end;">
+            update DCDB_SJJCSX_DCSXNQ
+            <set>
+                <if test = "cus.lzuserid != null and cus.lzuserid != ''">
+                    LZUSERID = #{cus.lzuserid},
+                </if>
+                <if test = "cus.lzusername != null and cus.lzusername != ''">
+                    LZUSERNAME = #{cus.lzusername},
+                </if>
+                <if test = "cus.zt != null and cus.zt != ''">
+                    ZT = #{cus.zt},
+                </if>
+            </set>
+            <where>
+                ID = #{cus.id}
+            </where>
+        </foreach>
+    </update>
+    <update id="updateFa"  parameterType="com.bm.index.model.DcdbSjjcsxDcsxnq">
+            update DCDB_SJJCSX_DCSXNQ
+            <set>
+                <if test = "isfa != null and isfa != ''">
+                    ISFA = #{isfa},
+                </if>
+                <if test = "nodeid != null and nodeid != ''">
+                    NODEID = #{nodeid},
+                </if>
+                <if test = "nodename != null and nodename != ''">
+                    NODENAME = #{nodename},
+                </if>
+                <if test = "farq != null and farq != ''">
+                    FARQ = #{farq},
+                </if>
+            </set>
+            <where>
+                ID = #{id}
+            </where>
+    </update>
+</mapper>

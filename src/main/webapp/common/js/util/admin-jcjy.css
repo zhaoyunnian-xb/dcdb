@@ -1,0 +1,267 @@
+html,
+body {
+    font-family: '微软雅黑';
+    font-size: 13px;
+}
+
+/*reset css*/
+input,select, textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.layui-form-item .admin-upload-input{
+    width: calc(100% - 310px) ;
+}
+.admin-upload-btn{
+    display: inline-block;
+    color: #4A90E2;
+    font-size: 13px;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #4A90E2;
+    background: #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.admin-align-right{
+    text-align: right;
+}
+.admin-next-btn {
+    display: inline-block;
+    height: 30px;
+    min-width: 80px;
+    line-height: 30px;
+    padding: 0 13px;
+    text-align: center;
+    color: #5FD0D0;
+    margin-right: 10px;
+    border: 1px solid #5FD0D0;
+    background-color: #ffffff ;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.admin-save-btn{
+    display: inline-block;
+    height: 30px;
+    min-width: 80px;
+    line-height: 30px;
+    padding: 0 13px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #5FD0D0 ;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+}
+.admin-card-header{
+    color: #5E8AF1;
+}
+.admin-card-header:before{
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 0;
+    width: 5px;
+    height: 16px;
+    background-color: #5E8AF1;
+}
+
+.attachment-download-text{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    text-decoration: underline;
+    padding-bottom: 4px;
+    cursor: pointer;
+    color: #5E8AF1;
+}
+.attachment-download-icon{
+    color: #5E8AF1;
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/*admin tab */
+.admin-tab {
+
+}
+.admin-tab-title{
+    display: flex;
+    width: 550px;
+    margin: 20px auto 30px;
+    border: 1px solid #e7e7e7;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.admin-tab-title li{
+    flex: 1;
+    padding: 4px 10px;
+    /*border-right: 2px dotted #cacaca;*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    /*-webkit-transition: all 0.1s linear;*/
+    /*-moz-transition: all 0.1s linear;*/
+    /*-ms-transition: all 0.1s linear;*/
+    /*-o-transition: all 0.1s linear;*/
+    /*transition: all 0.1s linear;*/
+}
+.admin-tab-title li:last-child{
+    border-right: none;
+}
+.admin-tab-title .admin-tab-this{
+    /*border-bottom: 2px solid #5E8AF1;*/
+    color: #ffffff;
+    background-image: linear-gradient(to right, #3379F1 , #62B1F9);
+}
+.admin-tab-content .admin-tab-item {
+    display: none;
+}
+.admin-show{
+    display:  block !important;
+}
+
+
+/* 上传列表组件css*/
+.attachment-wrapper .attachment-box {
+    position: relative;
+    padding: 40px 15px 10px;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #ECECEC;
+}
+.attachment-wrapper .attachment-box .attachment-lists {
+    overflow: auto;
+    height: 140px;
+}
+.attachment-wrapper .attachment-box .layui-form-checkbox[lay-skin=primary] span {
+    width: 130px;
+    display: inline-block;
+}
+.attachment-wrapper .attachment-box .footer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #F5F5F5;
+    line-height: 40px;
+    height: 40px;
+}
+.attachment-wrapper .attachment-box .footer .selectAll {
+    line-height: 20px;
+    padding-left: 15px;
+}
+.attachment-wrapper .attachment-box .footer .btn-wrapper {
+    padding-right: 15px;
+    text-align: right;
+    height: 40px;
+    line-height: 35px;
+}
+.attachment-wrapper .attachment-box .footer .btn-wrapper .layui-btn{
+    margin-right: 10px;
+}
+.attachment-wrapper .attachment-box .footer .btn-wrapper .layui-btn:last-child{
+    margin: 0 ;
+}
+.attachment-wrapper .attachment-box .footer .btn-wrapper .layui-btn-primary {
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+
+    border: 1px solid #5E8AF1;
+    color: #5E8AF1;
+    background-color: #ffffff;
+
+
+}
+.attachment-wrapper .attachment-box .footer .btn-wrapper .layui-btn-normal {
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #5E8AF1;
+}
+
+.allWs-wrapper{
+    width: 40px;
+    display: inline-block;
+}
+.allWs-wrapper.show{
+    width: 250px !important;
+}
+/*reset layui css*/
+.layui-fluid, .layui-container {
+    padding: 15px;
+}
+.layui-form-label{
+    width: 170px;
+    color: #888888;
+    font-size: 13px;
+    padding: 5px 15px;
+}
+
+.layui-input-block{
+    margin-left: 200px;
+}
+
+.layui-textarea, .layui-input{
+    height: 30px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.layui-tab-card>.layui-tab-title .layui-this{
+    color: #5E8AF1;
+}
+
+.layui-textarea{
+    min-height: 76px;
+    resize: none;
+}
+.layui-form-radio{
+    line-height: 30px;
+    margin-top: 0;
+}
+.layui-form-radio>i{
+    font-size: 16px;
+}
+.layui-icon-self-download:before{
+    background: url("/static/common/img/icon-download.png") no-repeat center center;
+}
+.layui-icon-self-delete:before{
+    background: url("/static/common/img/icon-delete.png") no-repeat center center;
+}
+
+/*page 分页*/
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+    background-color: #5E8AF1;
+}

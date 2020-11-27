@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>avarsso</title>
+<!--	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>-->
+	<script type="text/javascript" src="/common/js/index/avarsso.js?v=1"></script>
+	<script type="text/javascript" src="/static/plugin/jquery/jquery-1.9.1.min.js" language="javascript"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+			avarsso.get_username(getUsernameCallback);
+		})
+		
+		function getUsernameCallback(token){
+			if(token.username == undefined){
+				alert("获取用户失败,请重新登录门户系统。");
+			}else{
+			//	alert("当前用户："+token.username);
+                //    window.location.href = "/index.do?username="+token.username;
+                postToPage(token.username);
+			}
+		}
+
+
+        function postToPage(name) {
+            var form = $("<form>");
+            form.attr("style","display:none");
+            form.attr("target","");
+            form.attr("method","post");
+            //请求地址
+            form.attr("action","/index.do");
+            var input1 = $("<input>");
+            input1.attr("type","hidden");
+            input1.attr("name","username");
+            input1.attr("value",name);
+            $("body").append(form);
+            form.append(input1);
+            form.submit();
+            form.remove();
+        }
+	</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.RoleUserDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.RoleUser" >
+    <result column="ROLEID" property="roleid" jdbcType="VARCHAR" />
+    <result column="ROLENAME" property="rolename" jdbcType="VARCHAR" />
+    <result column="YWTYPE" property="ywtype" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="UNITNAME" property="unitname" jdbcType="VARCHAR" />
+    <result column="NODEID" property="nodeid" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="UNITID" property="unitid" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ROLEID, ROLENAME, YWTYPE, USERNAME, USERID, UNITNAME,UNITID
+  </sql>
+  <sql id="Base_Column_List_Role" >
+    ROLEID, ROLENAME, YWTYPE
+  </sql>
+  <sql id="Base_Column_List_Status" >
+    ROLEID, YWTYPE, NODEID, STATUS, ROLENAME
+  </sql>
+  <select id="selectRoleUserList" resultMap="BaseResultMap" parameterType="com.bm.index.model.RoleUser" >
+    select
+    <include refid="Base_Column_List" />
+    from ROLE_USER where 1=1
+    <if test="ywtype != null and ywtype!=''" >
+      and   YWTYPE like  '%${ywtype}%'
+    </if>
+    <if test="rolename != null and rolename!=''" >
+      and   ROLENAME like  '%${rolename}%'
+    </if>
+    <if test="username != null and username!=''" >
+      and   USERNAME like  '%${username}%'
+    </if>
+    order by ywtype
+  </select>
+
+  <select id="selectRoleList" resultMap="BaseResultMap" parameterType="com.bm.index.model.RoleUser" >
+    select
+    <include refid="Base_Column_List_Role" />
+    from ROLE WHERE 1=1
+    <if test="ywtype != null and ywtype!=''" >
+      and   YWTYPE like  '%${ywtype}%'
+    </if>
+    <if test="rolename != null and rolename!=''" >
+      and   ROLENAME like  '%${rolename}%'
+    </if>
+  </select>
+
+  <select id="selectNodeStatus" resultMap="BaseResultMap" parameterType="com.bm.index.model.RoleUser" >
+    select
+    <include refid="Base_Column_List_Status" />
+    from ROLE_NODE WHERE 1=1
+    <if test="rolename != null and rolename!=''" >
+      and   ROLENAME like  '%${rolename}%'
+    </if>
+    <if test="ywtype != null" >
+     and YWTYPE like  '%${ywtype}%'
+    </if>
+    <if test="nodeid != null" >
+    and   NODEID =  '${nodeid}'
+    </if>
+    <if test="status != null" >
+    and   status like '%${status}%'
+    </if>
+    order by YWTYPE ,NODEID
+  </select>
+
+
+  <select id="selectUserByNodeId" resultMap="BaseResultMap" parameterType="com.bm.index.model.RoleUser" >
+    select *
+    from ROLE_USER a
+    WHERE a.ywtype  =#{ywtype,jdbcType=VARCHAR}
+    <if test="unitid != null and unitid!=''" >
+      and a.UNITID=#{unitid,jdbcType=VARCHAR}
+    </if>
+    and a.roleid in (select roleid
+    from ROLE_NODE b
+    where  b.nodeid  =#{nodeid,jdbcType=VARCHAR}
+    and b.ywtype =#{ywtype,jdbcType=VARCHAR})
+
+  </select>
+
+
+  <delete id="deleteRole" parameterType="com.bm.index.model.RoleUser" >
+    delete from ROLE where  ROLEID= #{roleid,jdbcType=VARCHAR} AND YWTYPE=#{ywtype,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteRoleUser" parameterType="com.bm.index.model.RoleUser" >
+    delete from ROLE_USER where  ROLEID= #{roleid,jdbcType=VARCHAR}  AND YWTYPE=#{ywtype,jdbcType=VARCHAR}
+    <if test="userid != null" >
+    AND USERID=#{userid,jdbcType=VARCHAR}
+    </if>
+  </delete>
+
+  <delete id="deleteRoleNode" parameterType="com.bm.index.model.RoleUser" >
+    delete from ROLE_NODE where  ROLEID= #{roleid,jdbcType=VARCHAR} AND YWTYPE=#{ywtype,jdbcType=VARCHAR}
+    <if test="nodeid != null" >
+      AND NODEID=#{nodeid,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null" >
+      AND STATUS=#{status,jdbcType=VARCHAR}
+    </if>
+  </delete>
+
+  <insert id="insertUser" parameterType="com.bm.index.model.RoleUser" >
+    insert into ROLE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        ROLEID,
+      </if>
+      <if test="rolename != null" >
+        ROLENAME,
+      </if>
+      <if test="ywtype != null" >
+        YWTYPE,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="unitname != null" >
+        UNITNAME,
+      </if>
+      <if test="unitid != null" >
+        UNITID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="rolename != null" >
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="ywtype != null" >
+        #{ywtype,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        #{unitid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective" parameterType="com.bm.index.model.RoleUser" >
+    update ROLE_USER
+    <set >
+      <if test="record.roleid != null" >
+        ROLEID = #{record.roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rolename != null" >
+        ROLENAME = #{record.rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ywtype != null" >
+        YWTYPE = #{record.ywtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitname != null" >
+        UNITNAME = #{record.unitname,jdbcType=VARCHAR},
+      </if>
+    </set>
+
+  </update>
+
+  <insert id="insertRole" parameterType="com.bm.index.model.RoleUser" >
+    insert into ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        ROLEID,
+      </if>
+      <if test="rolename != null" >
+        ROLENAME,
+      </if>
+      <if test="ywtype != null" >
+        YWTYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="rolename != null" >
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="ywtype != null" >
+        #{ywtype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertNodeStatus" parameterType="com.bm.index.model.RoleUser" >
+    insert into ROLE_NODE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        ROLEID,
+      </if>
+      <if test="ywtype != null" >
+        YWTYPE,
+      </if>
+      <if test="nodeid != null" >
+        NODEID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="rolename != null" >
+        ROLENAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="ywtype != null" >
+        #{ywtype,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeid != null" >
+        #{nodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="rolename != null" >
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbNdrwZyrwDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbNdrwZyrw" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NDID" property="ndid" jdbcType="VARCHAR" />
+    <result column="YDNRID" property="ydnrid" jdbcType="VARCHAR" />
+    <result column="ZRLD" property="zrld" jdbcType="VARCHAR" />
+    <result column="QTBM" property="qtbm" jdbcType="VARCHAR" />
+    <result column="ZYBM" property="zybm" jdbcType="VARCHAR" />
+    <result column="PHBM" property="phbm" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bm.index.model.DcdbNdrwZyrw" extends="BaseResultMap" >
+    <result column="ZYRWMC" property="zyrwmc" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NDID, YDNRID, ZRLD, QTBM, ZYBM, PHBM
+  </sql>
+  <sql id="Blob_Column_List" >
+    ZYRWMC
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from DCDB_NDRW_ZYRW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from DCDB_NDRW_ZYRW
+    where 1=1
+    <if test="ndid != null" >
+      and NDID = #{ndid}
+    </if>
+    <if test="ydnrid != null" >
+      and YDNRID = #{ydnrid}
+    </if>
+
+    order by cjsj
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from DCDB_NDRW_ZYRW
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="ResultMapWithBLOBs" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from DCDB_NDRW_ZYRW
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DCDB_NDRW_ZYRW
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    delete from DCDB_NDRW_ZYRW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    insert into DCDB_NDRW_ZYRW (ID, NDID, YDNRID, 
+      ZRLD, QTBM, ZYBM, PHBM, 
+      ZYRWMC)
+    values (#{id,jdbcType=VARCHAR}, #{ndid,jdbcType=VARCHAR}, #{ydnrid,jdbcType=VARCHAR}, 
+      #{zrld,jdbcType=VARCHAR}, #{qtbm,jdbcType=VARCHAR}, #{zybm,jdbcType=VARCHAR}, #{phbm,jdbcType=VARCHAR}, 
+      #{zyrwmc,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    insert into DCDB_NDRW_ZYRW
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="ndid != null" >
+        NDID,
+      </if>
+      <if test="ydnrid != null" >
+        YDNRID,
+      </if>
+      <if test="zrld != null" >
+        ZRLD,
+      </if>
+      <if test="qtbm != null" >
+        QTBM,
+      </if>
+      <if test="zybm != null" >
+        ZYBM,
+      </if>
+      <if test="phbm != null" >
+        PHBM,
+      </if>
+      <if test="zyrwmc != null" >
+        ZYRWMC,
+      </if>
+      <if test="cjsj != null" >
+        CJSJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ndid != null" >
+        #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="ydnrid != null" >
+        #{ydnrid,jdbcType=VARCHAR},
+      </if>
+      <if test="zrld != null" >
+        #{zrld,jdbcType=VARCHAR},
+      </if>
+      <if test="qtbm != null" >
+        #{qtbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zybm != null" >
+        #{zybm,jdbcType=VARCHAR},
+      </if>
+      <if test="phbm != null" >
+        #{phbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zyrwmc != null" >
+        #{zyrwmc,jdbcType=CLOB},
+      </if>
+      <if test="cjsj != null" >
+        #{cjsj,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bm.index.model.DcdbNdrwZyrw" resultType="java.lang.Integer" >
+    select count(*) from DCDB_NDRW_ZYRW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    update DCDB_NDRW_ZYRW
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ndid != null" >
+        NDID = #{record.ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ydnrid != null" >
+        YDNRID = #{record.ydnrid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrld != null" >
+        ZRLD = #{record.zrld,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qtbm != null" >
+        QTBM = #{record.qtbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zybm != null" >
+        ZYBM = #{record.zybm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phbm != null" >
+        PHBM = #{record.phbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zyrwmc != null" >
+        ZYRWMC = #{record.zyrwmc,jdbcType=CLOB},
+      </if>
+    </set>
+    where   ID = #{record.id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update DCDB_NDRW_ZYRW
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NDID = #{record.ndid,jdbcType=VARCHAR},
+      YDNRID = #{record.ydnrid,jdbcType=VARCHAR},
+      ZRLD = #{record.zrld,jdbcType=VARCHAR},
+      QTBM = #{record.qtbm,jdbcType=VARCHAR},
+      ZYBM = #{record.zybm,jdbcType=VARCHAR},
+      PHBM = #{record.phbm,jdbcType=VARCHAR},
+      ZYRWMC = #{record.zyrwmc,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DCDB_NDRW_ZYRW
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NDID = #{record.ndid,jdbcType=VARCHAR},
+      YDNRID = #{record.ydnrid,jdbcType=VARCHAR},
+      ZRLD = #{record.zrld,jdbcType=VARCHAR},
+      QTBM = #{record.qtbm,jdbcType=VARCHAR},
+      ZYBM = #{record.zybm,jdbcType=VARCHAR},
+      PHBM = #{record.phbm,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    update DCDB_NDRW_ZYRW
+    <set >
+      <if test="ndid != null" >
+        NDID = #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="ydnrid != null" >
+        YDNRID = #{ydnrid,jdbcType=VARCHAR},
+      </if>
+      <if test="zrld != null" >
+        ZRLD = #{zrld,jdbcType=VARCHAR},
+      </if>
+      <if test="qtbm != null" >
+        QTBM = #{qtbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zybm != null" >
+        ZYBM = #{zybm,jdbcType=VARCHAR},
+      </if>
+      <if test="phbm != null" >
+        PHBM = #{phbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zyrwmc != null" >
+        ZYRWMC = #{zyrwmc,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    update DCDB_NDRW_ZYRW
+    set NDID = #{ndid,jdbcType=VARCHAR},
+      YDNRID = #{ydnrid,jdbcType=VARCHAR},
+      ZRLD = #{zrld,jdbcType=VARCHAR},
+      QTBM = #{qtbm,jdbcType=VARCHAR},
+      ZYBM = #{zybm,jdbcType=VARCHAR},
+      PHBM = #{phbm,jdbcType=VARCHAR},
+      ZYRWMC = #{zyrwmc,jdbcType=CLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bm.index.model.DcdbNdrwZyrw" >
+    update DCDB_NDRW_ZYRW
+    set NDID = #{ndid,jdbcType=VARCHAR},
+      YDNRID = #{ydnrid,jdbcType=VARCHAR},
+      ZRLD = #{zrld,jdbcType=VARCHAR},
+      QTBM = #{qtbm,jdbcType=VARCHAR},
+      ZYBM = #{zybm,jdbcType=VARCHAR},
+      PHBM = #{phbm,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

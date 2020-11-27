@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbNdrwYdnrDao">
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbNdrwYdnr">
+    <id column="ID" property="id" jdbcType="VARCHAR"/>
+    <result column="NDID" property="ndid" jdbcType="VARCHAR"/>
+    <result column="CZSJ" property="czsj" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bm.index.model.DcdbNdrwYdnr" extends="BaseResultMap">
+    <result column="YDNRMC" property="ydnrmc" jdbcType="CLOB"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" suffix=")" prefixOverrides="and">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                    separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" suffix=")" prefixOverrides="and">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                    separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, NDID, CZSJ
+  </sql>
+  <sql id="Blob_Column_List">
+    YDNRMC
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+    parameterType="com.bm.index.model.DcdbNdrwYdnr">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from DCDB_NDRW_YDNR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap"
+    parameterType="com.bm.index.model.DcdbNdrwYdnr">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List"/>
+    from DCDB_NDRW_YDNR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectbyNdid" parameterType="java.lang.String"
+    resultType="com.bm.index.model.DcdbNdrwYdnr">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from DCDB_NDRW_YDNR
+    where 1=1
+    <if test="ndid != null">
+      and NDID = #{ndid,jdbcType=VARCHAR} order by czsj
+    </if>
+  </select>
+  <select id="selectAll" resultType="com.bm.index.model.DcdbNdrwYdnr">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from DCDB_NDRW_YDNR
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from DCDB_NDRW_YDNR
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DCDB_NDRW_YDNR
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bm.index.model.DcdbNdrwYdnr">
+    delete from DCDB_NDRW_YDNR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bm.index.model.DcdbNdrwYdnr">
+    insert into DCDB_NDRW_YDNR (ID, NDID, CZSJ, 
+      YDNRMC)
+    values (#{id,jdbcType=VARCHAR}, #{ndid,jdbcType=VARCHAR}, #{czsj,jdbcType=VARCHAR}, 
+      #{ydnrmc,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bm.index.model.DcdbNdrwYdnr">
+    insert into DCDB_NDRW_YDNR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ndid != null">
+        NDID,
+      </if>
+      <if test="czsj != null">
+        CZSJ,
+      </if>
+      <if test="ydnrmc != null">
+        YDNRMC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ndid != null">
+        #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="czsj != null">
+        #{czsj,jdbcType=VARCHAR},
+      </if>
+      <if test="ydnrmc != null">
+        #{ydnrmc,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bm.index.model.DcdbNdrwYdnr"
+    resultType="java.lang.Integer">
+    select count(*) from DCDB_NDRW_YDNR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DCDB_NDRW_YDNR
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ndid != null">
+        NDID = #{record.ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.czsj != null">
+        CZSJ = #{record.czsj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ydnrmc != null">
+        YDNRMC = #{record.ydnrmc,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update DCDB_NDRW_YDNR
+    set ID = #{record.id,jdbcType=VARCHAR},
+    NDID = #{record.ndid,jdbcType=VARCHAR},
+    CZSJ = #{record.czsj,jdbcType=VARCHAR},
+    YDNRMC = #{record.ydnrmc,jdbcType=CLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DCDB_NDRW_YDNR
+    set ID = #{record.id,jdbcType=VARCHAR},
+    NDID = #{record.ndid,jdbcType=VARCHAR},
+    CZSJ = #{record.czsj,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bm.index.model.DcdbNdrwYdnr">
+    update DCDB_NDRW_YDNR
+    <set>
+      <if test="ndid != null">
+        NDID = #{ndid,jdbcType=VARCHAR},
+      </if>
+      <if test="czsj != null">
+        CZSJ = #{czsj,jdbcType=VARCHAR},
+      </if>
+      <if test="ydnrmc != null">
+        YDNRMC = #{ydnrmc,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bm.index.model.DcdbNdrwYdnr">
+    update DCDB_NDRW_YDNR
+    set NDID = #{ndid,jdbcType=VARCHAR},
+      CZSJ = #{czsj,jdbcType=VARCHAR},
+      YDNRMC = #{ydnrmc,jdbcType=CLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bm.index.model.DcdbNdrwYdnr">
+    update DCDB_NDRW_YDNR
+    set NDID = #{ndid,jdbcType=VARCHAR},
+      CZSJ = #{czsj,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

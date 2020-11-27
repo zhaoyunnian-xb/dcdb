@@ -1,0 +1,33 @@
+
+.qm-wrapper{
+    float: right;
+}
+.qm-wrapper .layui-input{
+    border:none;
+    border-bottom: 1px solid #666666;
+    border-radius: 0;
+}
+.half-wrapper:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.half-wrapper .layui-form-select{
+    float: left;
+    width: 50%;
+}
+.half-wrapper .half-input{
+    float: left;
+    width: 20%;
+    margin-left: 5%;
+}
+
+.fr{
+    float: right;
+}
+.fl{
+    float: left;
+}
+.layui-card-header > .fr{
+    margin-top: 6px;
+}

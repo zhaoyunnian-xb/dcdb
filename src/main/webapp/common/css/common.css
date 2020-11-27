@@ -1,0 +1,103 @@
+body{font-size: 12px;font-family: "宋体", Arial}
+img{vertical-align: middle;}
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, q, dl, dt, dd, ol, ul, li, fieldset, form, legend, caption, tbody, tfoot, thead, article, aside, dialog, figure, footer, header, hgroup, nav, section{margin:0;padding:0;border:0;font-size:14px;vertical-align:baseline;}
+h6{font-size: 14px;}
+.page li{
+	list-style: none;
+	float: left;
+	margin-left: 5px;
+}
+.page input{
+	width: 20px;
+}
+/**按钮组 start**********************/
+.editbutton { 
+display: inline-block; 
+zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */ 
+*display: inline; 
+vertical-align: baseline; 
+margin: 0 2px; 
+outline: none; 
+cursor: pointer; 
+text-align: center; 
+text-decoration: none; 
+font: 14px/100% Arial, Helvetica, sans-serif; 
+padding: .5em 2em .55em; 
+-webkit-border-radius: .5em; 
+-moz-border-radius: .5em; 
+border-radius: .5em; 
+} 
+.editbutton:hover { 
+text-decoration: none; 
+} 
+.editbutton:active { 
+position: relative; 
+top: 1px; 
+} 
+.editbigrounded { 
+-webkit-border-radius: 2em; 
+-moz-border-radius: 2em; 
+border-radius: 2em; 
+} 
+.editmedium { 
+font-size: 12px; 
+padding: .5em 1.5em .42em; 
+} 
+.editsmall { 
+font-size: 11px; 
+padding: .5em .2em; 
+width: 50px;
+margin:2px;
+} 
+.editsmall2 { 
+font-size: 11px; 
+padding: .5em .2em; 
+width: 100px;
+margin:2px;
+} 
+
+.editbtn { 
+color: #606060; 
+border: solid 1px #b7b7b7; 
+background: #ededed; 
+background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc)); 
+background: -moz-linear-gradient(top, #fff, #dcdcdc); 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc'); 
+} 
+.editbtn:hover { 
+color: #ffffff;
+background: #3594d6; 
+border-color: #269abc;
+background: -webkit-gradient(linear, left top, left bottom, from(#51b2ee), to(#3594d6)); 
+background: -moz-linear-gradient(top, #51b2ee, #3594d6); 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#51b2ee', endColorstr='#3594d6'); 
+} 
+.editbtn:active { 
+color: #999; 
+border: solid 1px #b7b7b7; 
+background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff)); 
+background: -moz-linear-gradient(top, #ededed, #fff); 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff'); 
+} 
+editbutton editbtn editsmall (editmedium)
+/**按钮组 end**********************/
+/*块结构*/
+.box{
+	border: 1px solid #e6e6e6;
+	background: #fff;
+}
+.box .box-hd{
+  font-weight:700;
+  color:#666666;
+  background:#f9f9f9;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e2ebf0)); 
+  background: -moz-linear-gradient(top, #ffffff, #e2ebf0); 
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e2ebf0'); 
+  border:1px solid #bdcfdc;
+  padding:4px 20px 3px 20px;
+	/*position:relative;*/
+}
+.cli-txt{
+	width:100%;
+	height: 100%;
+}

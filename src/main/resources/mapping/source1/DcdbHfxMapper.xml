@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbHfxDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbHfx" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DBDBH" property="dbdbh" jdbcType="VARCHAR" />
+    <result column="DBSX" property="dbsx" jdbcType="VARCHAR" />
+    <result column="HFR" property="hfr" jdbcType="VARCHAR" />
+    <result column="HFNR" property="hfnr" jdbcType="VARCHAR" />
+    <result column="BMFZRYJ" property="bmfzryj" jdbcType="VARCHAR" />
+    <result column="DBSYJ" property="dbsyj" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DBDBH, DBSX, HFR, HFNR, BMFZRYJ,DBSYJ
+  </sql>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbHfx" >
+    select
+    <include refid="Base_Column_List" />
+    from DCDB_HFX
+   WHERE ID =  #{id,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.bm.index.model.DcdbHfx" >
+    insert into DCDB_HFX
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dbdbh != null" >
+        DBDBH,
+      </if>
+      <if test="dbsx != null" >
+        DBSX,
+      </if>
+      <if test="hfr != null" >
+        HFR,
+      </if>
+      <if test="hfnr != null" >
+        HFNR,
+      </if>
+      <if test="bmfzryj != null" >
+        BMFZRYJ,
+      </if>
+      <if test="dbsyj != null" >
+        DBSYJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dbdbh != null" >
+        #{dbdbh,jdbcType=VARCHAR},
+      </if>
+      <if test="dbsx != null" >
+        #{dbsx,jdbcType=VARCHAR},
+      </if>
+      <if test="hfr != null" >
+        #{hfr,jdbcType=VARCHAR},
+      </if>
+      <if test="hfnr != null" >
+        #{hfnr,jdbcType=VARCHAR},
+      </if>
+      <if test="bmfzryj != null" >
+        #{bmfzryj,jdbcType=VARCHAR},
+      </if>
+      <if test="dbsyj != null" >
+        #{dbsyj,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective" parameterType="com.bm.index.model.DcdbHfx" >
+    update DCDB_HFX
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbdbh != null" >
+        DBDBH = #{record.dbdbh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbsx != null" >
+        DBSX = #{record.dbsx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hfr != null" >
+        HFR = #{record.hfr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hfnr != null" >
+        HFNR = #{record.hfnr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bmfzryj != null" >
+        BMFZRYJ = #{record.bmfzryj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbsyj != null" >
+        DBSYJ = #{record.dbsyj,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE ID= #{record.id,jdbcType=VARCHAR}
+  </update>
+</mapper>

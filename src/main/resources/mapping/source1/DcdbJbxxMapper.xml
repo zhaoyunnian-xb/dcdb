@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bm.index.dao.source1.DcdbJbxxDao">
+    <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbJbxx" >
+        <result column="WH" property="wh" jdbcType="VARCHAR" />
+        <result column="CBQX" property="cbqx" jdbcType="VARCHAR" />
+        <result column="PSJMC" property="psjmc" jdbcType="VARCHAR" />
+        <result column="PSRQ" property="psrq" jdbcType="VARCHAR" />
+        <result column="SWRQ" property="swrq" jdbcType="VARCHAR" />
+        <result column="PSNR" property="psnr" jdbcType="CLOB" />
+        <result column="NBYJ" property="nbyj" jdbcType="CLOB" />
+        <result column="PSLX" property="pslx" jdbcType="VARCHAR" />
+        <result column="BLLX" property="bllx" jdbcType="VARCHAR" />
+        <result column="ZXDBH" property="zxdbh" jdbcType="VARCHAR" />
+        <result column="CBBM" property="cbbm" jdbcType="VARCHAR" />
+        <result column="CBBMMC" property="cbbmmc" jdbcType="VARCHAR" />
+        <result column="FKDH" property="fkdh" jdbcType="VARCHAR" />
+        <result column="BLQK" property="blqk" jdbcType="CLOB" />
+        <result column="LXR" property="lxr" jdbcType="VARCHAR" />
+        <result column="LXDH" property="lxdh" jdbcType="VARCHAR" />
+        <result column="SPR" property="spr" jdbcType="VARCHAR" />
+        <result column="SPRQ" property="sprq" jdbcType="VARCHAR" />
+        <result column="SPYJ" property="spyj" jdbcType="VARCHAR" />
+        <result column="SPBZ" property="spbz" jdbcType="CLOB" />
+        <result column="LCLX" property="lclx" jdbcType="VARCHAR" />
+        <result column="ISSJLDPSJ" property="issjldpsj" jdbcType="VARCHAR" />
+        <result column="SYSJLDPSNR" property="sysjldpsnr" jdbcType="CLOB" />
+        <result column="SJYSLDXX" property="sjysldxx" jdbcType="VARCHAR" />
+        <result column="DCSX" property="dcsx" jdbcType="VARCHAR" />
+        <result column="DCYY" property="dcyy" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from dcdb_jbxx where wh = #{id}
+    </select>
+
+    <insert id="save" parameterType="com.bm.index.model.DcdbJbxx">
+        insert into DCDB_JBXX
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="wh != null" >
+                WH,
+            </if>
+            <if test="cbqx != null" >
+                CBQX,
+            </if>
+            <if test="psjmc != null" >
+                PSJMC,
+            </if>
+            <if test="psrq != null" >
+                PSRQ,
+            </if>
+            <if test="swrq != null" >
+                SWRQ,
+            </if>
+            <if test="psnr != null" >
+                PSNR,
+            </if>
+            <if test="nbyj != null" >
+                NBYJ,
+            </if>
+            <if test="pslx != null" >
+                PSLX,
+            </if>
+            <if test="bllx != null" >
+                BLLX,
+            </if>
+            <if test="zxdbh != null" >
+                ZXDBH,
+            </if>
+            <if test="cbbm != null" >
+                CBBM,
+            </if>
+            <if test="fkdh != null" >
+                FKDH,
+            </if>
+            <if test="blqk != null" >
+                BLQK,
+            </if>
+            <if test="lxr != null" >
+                LXR,
+            </if>
+            <if test="lxdh != null" >
+                LXDH,
+            </if>
+            <if test="cbbmmc != null" >
+                CBBMMC,
+            </if>
+            <if test="spr != null" >
+                SPR,
+            </if>
+            <if test="sprq != null" >
+                SPRQ,
+            </if>
+            <if test="spyj != null" >
+                SPYJ,
+            </if>
+            <if test="spbz != null" >
+                SPBZ,
+            </if>
+            <if test="lclx != null" >
+                LCLX,
+            </if>
+            <if test="issjldpsj != null" >
+                ISSJLDPSJ,
+            </if>
+            <if test="sysjldpsnr != null" >
+                sysjldpsnr,
+            </if>
+            <if test="sjysldxx != null" >
+                SJYSLDXX,
+            </if>
+            <if test="isbfyq != null" >
+                ISBFYQ,
+            </if>
+            <if test="dcsx != null" >
+                DCSX,
+            </if>
+            <if test="dcyy != null" >
+                DCYY,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="wh != null" >
+                #{wh,jdbcType=VARCHAR},
+            </if>
+            <if test="cbqx != null" >
+                #{cbqx,jdbcType=VARCHAR},
+            </if>
+            <if test="psjmc != null" >
+                #{psjmc,jdbcType=VARCHAR},
+            </if>
+            <if test="psrq != null" >
+                #{psrq,jdbcType=VARCHAR},
+            </if>
+            <if test="swrq != null" >
+                #{swrq,jdbcType=VARCHAR},
+            </if>
+            <if test="psnr != null" >
+                #{psnr,jdbcType=CLOB},
+            </if>
+            <if test="nbyj != null" >
+                #{nbyj,jdbcType=CLOB},
+            </if>
+            <if test="pslx != null" >
+                #{pslx,jdbcType=VARCHAR},
+            </if>
+            <if test="bllx != null" >
+                #{bllx,jdbcType=VARCHAR},
+            </if>
+            <if test="zxdbh != null" >
+                #{zxdbh,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbm != null" >
+                #{cbbm,jdbcType=VARCHAR},
+            </if>
+            <if test="fkdh != null" >
+                #{fkdh,jdbcType=VARCHAR},
+            </if>
+            <if test="blqk != null" >
+                #{blqk,jdbcType=CLOB},
+            </if>
+            <if test="lxr != null" >
+                #{lxr,jdbcType=VARCHAR},
+            </if>
+            <if test="lxdh != null" >
+                #{lxdh,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmmc != null" >
+                #{cbbmmc,jdbcType=VARCHAR},
+            </if>
+            <if test="spr != null" >
+                #{spr,jdbcType=VARCHAR},
+            </if>
+            <if test="sprq != null" >
+               #{sprq,jdbcType=VARCHAR},
+            </if>
+            <if test="spyj != null" >
+                #{spyj,jdbcType=VARCHAR},
+            </if>
+            <if test="spbz != null" >
+                #{spbz,jdbcType=VARCHAR},
+            </if>
+            <if test="lclx != null" >
+                #{lclx,jdbcType=VARCHAR},
+            </if>
+            <if test="issjldpsj != null" >
+                #{issjldpsj,jdbcType=VARCHAR},
+            </if>
+            <if test="sysjldpsnr != null" >
+                #{sysjldpsnr,jdbcType=CLOB},
+            </if>
+            <if test="sjysldxx != null" >
+                #{sjysldxx,jdbcType=VARCHAR},
+            </if>
+            <if test="isbfyq != null" >
+                #{isbfyq,jdbcType=VARCHAR},
+            </if>
+            <if test="dcsx != null" >
+                #{dcsx,jdbcType=VARCHAR},
+            </if>
+            <if test="dcyy != null" >
+                #{dcyy,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bm.index.model.DcdbJbxx">
+        update  DCDB_JBXX
+        <set>
+            <if test="cbqx != null" >
+                CBQX =  #{cbqx,jdbcType=VARCHAR},
+            </if>
+            <if test="psjmc != null" >
+                PSJMC = #{psjmc,jdbcType=VARCHAR},
+            </if>
+            <if test="psrq != null" >
+                PSRQ =  #{psrq,jdbcType=VARCHAR},
+            </if>
+            <if test="swrq != null" >
+                SWRQ = #{swrq,jdbcType=VARCHAR},
+            </if>
+            <if test="psnr != null" >
+                PSNR =  #{psnr,jdbcType=CLOB},
+            </if>
+            <if test="nbyj != null" >
+                NBYJ = #{nbyj,jdbcType=CLOB},
+            </if>
+            <if test="pslx != null" >
+                PSLX =  #{pslx,jdbcType=VARCHAR},
+            </if>
+            <if test="bllx != null" >
+                BLLX = #{bllx,jdbcType=VARCHAR},
+            </if>
+            <if test="zxdbh != null" >
+                ZXDBH = #{zxdbh,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbm != null" >
+                CBBM = #{cbbm,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmmc != null" >
+                CBBMMC = #{cbbmmc,jdbcType=VARCHAR},
+            </if>
+            <if test="fkdh != null" >
+                FKDH = #{fkdh,jdbcType=VARCHAR},
+            </if>
+            <if test="blqk != null" >
+                BLQK = #{blqk,jdbcType=CLOB},
+            </if>
+            <if test="lxr != null" >
+                LXR = #{lxr,jdbcType=VARCHAR},
+            </if>
+            <if test="lxdh != null" >
+                LXDH =  #{lxdh,jdbcType=VARCHAR},
+            </if>
+            <if test="spr != null" >
+                SPR =  #{spr,jdbcType=VARCHAR},
+            </if>
+            <if test="sprq != null" >
+                SPRQ =  #{sprq,jdbcType=VARCHAR},
+            </if>
+            <if test="spyj != null" >
+                SPYJ =  #{spyj,jdbcType=VARCHAR},
+            </if>
+            <if test="spbz != null" >
+                SPBZ =  #{spbz,jdbcType=VARCHAR},
+            </if>
+            <if test="issjldpsj != null" >
+                ISSJLDPSJ =  #{issjldpsj,jdbcType=VARCHAR},
+            </if>
+            <if test="sysjldpsnr != null" >
+                SYSJLDPSNR =  #{sysjldpsnr,jdbcType=CLOB},
+            </if>
+            <if test="sjysldxx != null" >
+                SJYSLDXX =  #{sjysldxx,jdbcType=VARCHAR},
+            </if>
+            <if test="isbfyq != null" >
+                ISBFYQ =  #{isbfyq,jdbcType=VARCHAR},
+            </if>
+            <if test="dcsx != null" >
+                DCSX =  #{dcsx,jdbcType=VARCHAR},
+            </if>
+            <if test="dcyy != null" >
+                DCYY =  #{dcyy,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where>
+            WH = #{wh}
+        </where>
+    </update>
+    <select id="queryYjqk" resultType="com.bm.index.model.DcdbDjlbDbParam">
+        <![CDATA[
+            select d.*, j.cbqx, d.cjrq
+              from dcdb_djlb_db d
+              left join dcdb_jbxx j
+                on d.wh = j.wh
+             where d.LCLX in ('lzps', 'dzjb') and d.zt ='1' and
+             ((d.sfth = '0' and d.node_id <> '0101' ) or d.sfth = '1')
+        ]]>
+    </select>
+    <select id="selectWh" resultMap="BaseResultMap">
+        select * from DCDB_JBXX  where lclx = 'lzps' order by wh desc
+    </select>
+
+    <select id="selectUploadFiles" parameterType="java.lang.String" resultType="com.bm.index.model.DcdbProjectFile">
+        select * from DCDB_PROJECT_FILE where 1=1
+        <if test="id !=null and id !=''">
+            and  BMRWID = #{id}  or  BMRWID in (select preid from DCDB_DJLB_DB t where t.id = #{id})
+        </if>
+
+        <!--<if test="isFb == 'true'">-->
+            <!--union-->
+            <!--select * from DCDB_PROJECT_FILE where 1=1-->
+            <!--and  BMRWID in (select preid from DCDB_DJLB_DB t where t.id = #{id})-->
+            <!--and NODEID &lt;= #{nodeId}-->
+        <!--</if>-->
+
+    </select>
+
+    <select id="selectUploadFilesDZ" parameterType="java.lang.String" resultType="com.bm.index.model.DcdbProjectFile">
+        select * from DCDB_PROJECT_FILE where 1=1
+        <if test="id !=null and id !=''">
+            and  BMRWID = #{id}
+        </if>
+        <if test="ywtype !=null and ywtype !=''">
+            and YWTYPE = #{ywtype}
+        </if>
+        union
+        select * from DCDB_PROJECT_FILE where 1=1
+        <if test="wh !=null and wh !=''">
+            and  BMRWID = #{wh}
+        </if>
+        <if test="ywtype !=null and ywtype !=''">
+            and YWTYPE = #{ywtype}
+        </if>
+
+    </select>
+</mapper>

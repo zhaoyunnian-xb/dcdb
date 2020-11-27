@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbSjjcsxDjDao" >
+
+    <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbSjjcsxDj" >
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="LXH" property="lxh" jdbcType="VARCHAR" />
+        <result column="ZYJCLX" property="zyjclx" jdbcType="VARCHAR" />
+        <result column="LXRQ" property="lxrq" jdbcType="VARCHAR" />
+        <result column="LXMC" property="lxmc" jdbcType="VARCHAR" />
+        <result column="NBYJ" property="nbyj" jdbcType="CLOB" />
+        <result column="CBBMID" property="cbbmid" jdbcType="VARCHAR" />
+        <result column="CBBMMC" property="cbbmmc" jdbcType="VARCHAR" />
+        <result column="LXR" property="lxr" jdbcType="VARCHAR" />
+        <result column="LXDH" property="lxdh" jdbcType="VARCHAR" />
+        <result column="BGSFZRMC" property="bgsfzrmc" jdbcType="VARCHAR" />
+        <result column="BGSSPRQ" property="bgssprq" jdbcType="VARCHAR" />
+        <result column="BGSSPYJ" property="bgsspyj" jdbcType="VARCHAR" />
+        <result column="BGSSPBZ" property="bgsspbz" jdbcType="CLOB" />
+        <result column="YLDFZRMC" property="yldfzrmc" jdbcType="VARCHAR" />
+        <result column="YLDSPRQ" property="yldsprq" jdbcType="VARCHAR" />
+        <result column="YLDSPYJ" property="yldspyj" jdbcType="VARCHAR" />
+        <result column="YLDSPBZ" property="yldspbz" jdbcType="CLOB" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        ID, LXH, ZYJCLX, LXRQ, LXMC, NBYJ, CBBMID, CBBMMC, LXR, LXDH, BGSFZRMC, BGSSPRQ, 
+        BGSSPYJ, BGSSPBZ, YLDFZRMC, YLDSPRQ, YLDSPYJ, YLDSPBZ
+    </sql>
+
+    <select id="selectByExample" resultType="com.bm.index.model.DcdbSjjcsxDj" parameterType="com.bm.index.model.DcdbSjjcsxDj" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from DCDB_SJJCSX_DJ
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <delete id="deleteByExample" parameterType="com.bm.index.model.DcdbSjjcsxDj" >
+        delete from DCDB_SJJCSX_DJ
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.bm.index.model.DcdbSjjcsxDj" >
+        insert into DCDB_SJJCSX_DJ (ID, LXH, ZYJCLX, 
+            LXRQ, LXMC, NBYJ, CBBMID, 
+            CBBMMC, LXR, LXDH, 
+            BGSFZRMC, BGSSPRQ, BGSSPYJ, 
+            BGSSPBZ, YLDFZRMC, YLDSPRQ, 
+            YLDSPYJ, YLDSPBZ)
+        values (#{id,jdbcType=VARCHAR}, #{lxh,jdbcType=VARCHAR}, #{zyjclx,jdbcType=VARCHAR}, 
+            #{lxrq,jdbcType=VARCHAR}, #{lxmc,jdbcType=VARCHAR}, #{nbyj,jdbcType=CLOB}, #{cbbmid,jdbcType=VARCHAR}, 
+            #{cbbmmc,jdbcType=VARCHAR}, #{lxr,jdbcType=VARCHAR}, #{lxdh,jdbcType=VARCHAR}, 
+            #{bgsfzrmc,jdbcType=VARCHAR}, #{bgssprq,jdbcType=VARCHAR}, #{bgsspyj,jdbcType=VARCHAR}, 
+            #{bgsspbz,jdbcType=CLOB}, #{yldfzrmc,jdbcType=VARCHAR}, #{yldsprq,jdbcType=VARCHAR}, 
+            #{yldspyj,jdbcType=VARCHAR}, #{yldspbz,jdbcType=CLOB})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.bm.index.model.DcdbSjjcsxDj" >
+        insert into DCDB_SJJCSX_DJ
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="lxh != null" >
+                LXH,
+            </if>
+            <if test="zyjclx != null" >
+                ZYJCLX,
+            </if>
+            <if test="lxrq != null" >
+                LXRQ,
+            </if>
+            <if test="lxmc != null" >
+                LXMC,
+            </if>
+            <if test="nbyj != null" >
+                NBYJ,
+            </if>
+            <if test="cbbmid != null" >
+                CBBMID,
+            </if>
+            <if test="cbbmmc != null" >
+                CBBMMC,
+            </if>
+            <if test="lxr != null" >
+                LXR,
+            </if>
+            <if test="lxdh != null" >
+                LXDH,
+            </if>
+            <if test="bgsfzrmc != null" >
+                BGSFZRMC,
+            </if>
+            <if test="bgssprq != null" >
+                BGSSPRQ,
+            </if>
+            <if test="bgsspyj != null" >
+                BGSSPYJ,
+            </if>
+            <if test="bgsspbz != null" >
+                BGSSPBZ,
+            </if>
+            <if test="yldfzrmc != null" >
+                YLDFZRMC,
+            </if>
+            <if test="yldsprq != null" >
+                YLDSPRQ,
+            </if>
+            <if test="yldspyj != null" >
+                YLDSPYJ,
+            </if>
+            <if test="yldspbz != null" >
+                YLDSPBZ,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="lxh != null" >
+                #{lxh,jdbcType=VARCHAR},
+            </if>
+            <if test="zyjclx != null" >
+                #{zyjclx,jdbcType=VARCHAR},
+            </if>
+            <if test="lxrq != null" >
+                #{lxrq,jdbcType=VARCHAR},
+            </if>
+            <if test="lxmc != null" >
+                #{lxmc,jdbcType=VARCHAR},
+            </if>
+            <if test="nbyj != null" >
+                #{nbyj,jdbcType=CLOB},
+            </if>
+            <if test="cbbmid != null" >
+                #{cbbmid,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmmc != null" >
+                #{cbbmmc,jdbcType=VARCHAR},
+            </if>
+            <if test="lxr != null" >
+                #{lxr,jdbcType=VARCHAR},
+            </if>
+            <if test="lxdh != null" >
+                #{lxdh,jdbcType=VARCHAR},
+            </if>
+            <if test="bgsfzrmc != null" >
+                #{bgsfzrmc,jdbcType=VARCHAR},
+            </if>
+            <if test="bgssprq != null" >
+                #{bgssprq,jdbcType=VARCHAR},
+            </if>
+            <if test="bgsspyj != null" >
+                #{bgsspyj,jdbcType=VARCHAR},
+            </if>
+            <if test="bgsspbz != null" >
+                #{bgsspbz,jdbcType=CLOB},
+            </if>
+            <if test="yldfzrmc != null" >
+                #{yldfzrmc,jdbcType=VARCHAR},
+            </if>
+            <if test="yldsprq != null" >
+                #{yldsprq,jdbcType=VARCHAR},
+            </if>
+            <if test="yldspyj != null" >
+                #{yldspyj,jdbcType=VARCHAR},
+            </if>
+            <if test="yldspbz != null" >
+                #{yldspbz,jdbcType=CLOB},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.bm.index.model.DcdbSjjcsxDj" resultType="java.lang.Integer" >
+        select count(*) from DCDB_SJJCSX_DJ
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="com.bm.index.model.DcdbSjjcsxDj" >
+        update DCDB_SJJCSX_DJ
+        <set>
+            <if test="record.lxh != null" >
+                LXH = #{record.lxh,jdbcType=VARCHAR},
+            </if>
+            <if test="record.zyjclx != null" >
+                ZYJCLX = #{record.zyjclx,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lxrq != null" >
+                LXRQ = #{record.lxrq,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lxmc != null" >
+                LXMC = #{record.lxmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.nbyj != null" >
+                NBYJ = #{record.nbyj,jdbcType=CLOB},
+            </if>
+            <if test="record.cbbmid != null" >
+                CBBMID = #{record.cbbmid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cbbmmc != null" >
+                CBBMMC = #{record.cbbmmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lxr != null" >
+                LXR = #{record.lxr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lxdh != null" >
+                LXDH = #{record.lxdh,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bgsfzrmc != null" >
+                BGSFZRMC = #{record.bgsfzrmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bgssprq != null" >
+                BGSSPRQ = #{record.bgssprq,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bgsspyj != null" >
+                BGSSPYJ = #{record.bgsspyj,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bgsspbz != null" >
+                BGSSPBZ = #{record.bgsspbz,jdbcType=CLOB},
+            </if>
+            <if test="record.yldfzrmc != null" >
+                YLDFZRMC = #{record.yldfzrmc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.yldsprq != null" >
+                YLDSPRQ = #{record.yldsprq,jdbcType=VARCHAR},
+            </if>
+            <if test="record.yldspyj != null" >
+                YLDSPYJ = #{record.yldspyj,jdbcType=VARCHAR},
+            </if>
+            <if test="record.yldspbz != null" >
+                YLDSPBZ = #{record.yldspbz,jdbcType=CLOB},
+            </if>
+        </set>
+        where ID = #{record.id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update DCDB_SJJCSX_DJ
+        set ID = #{record.id,jdbcType=VARCHAR},
+            LXH = #{record.lxh,jdbcType=VARCHAR},
+            ZYJCLX = #{record.zyjclx,jdbcType=VARCHAR},
+            LXRQ = #{record.lxrq,jdbcType=VARCHAR},
+            LXMC = #{record.lxmc,jdbcType=VARCHAR},
+            NBYJ = #{record.nbyj,jdbcType=CLOB},
+            CBBMID = #{record.cbbmid,jdbcType=VARCHAR},
+            CBBMMC = #{record.cbbmmc,jdbcType=VARCHAR},
+            LXR = #{record.lxr,jdbcType=VARCHAR},
+            LXDH = #{record.lxdh,jdbcType=VARCHAR},
+            BGSFZRMC = #{record.bgsfzrmc,jdbcType=VARCHAR},
+            BGSSPRQ = #{record.bgssprq,jdbcType=VARCHAR},
+            BGSSPYJ = #{record.bgsspyj,jdbcType=VARCHAR},
+            BGSSPBZ = #{record.bgsspbz,jdbcType=CLOB},
+            YLDFZRMC = #{record.yldfzrmc,jdbcType=VARCHAR},
+            YLDSPRQ = #{record.yldsprq,jdbcType=VARCHAR},
+            YLDSPYJ = #{record.yldspyj,jdbcType=VARCHAR},
+            YLDSPBZ = #{record.yldspbz,jdbcType=CLOB}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <select id="getDcdbSjjcsxDjById" parameterType="java.lang.String" resultType="com.bm.index.model.DcdbSjjcsxDj">
+        select  * from DCDB_SJJCSX_DJ where id = #{id}
+    </select>
+
+    <select id="getDcdbSjjcsxDbById" parameterType="java.lang.String" resultType="com.bm.index.model.DcdbSjjcsxDj">
+        select  * from DCDB_DJLB_DB where id = #{id}
+    </select>
+
+    <insert id="insertDcdbSjjcsxDb" parameterType="com.bm.index.model.DcdbSjjcsxDj" >
+        insert into DCDB_DJLB_DB
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="wh != null" >
+                WH,
+            </if>
+            <if test="cbbmmc != null" >
+                CBBMMC,
+            </if>
+            <if test="cbbmid != null" >
+                CBBMID,
+            </if>
+            <if test="cjrq != null" >
+                CJRQ,
+            </if>
+            <if test="sfth != null" >
+                SFTH,
+            </if>
+            <if test="cjr != null" >
+                CJR,
+            </if>
+            <if test="zt != null" >
+                ZT,
+            </if>
+            <if test="userid != null" >
+                USERID,
+            </if>
+            <if test="username != null" >
+                USERNAME,
+            </if>
+            <if test="nodeId != null" >
+                NODE_ID,
+            </if>
+            <if test="nodeName != null" >
+                NODE_NAME,
+            </if>
+            <if test="bllx != null" >
+                BLLX,
+            </if>
+            <if test="lclx != null" >
+                LCLX,
+            </if>
+            <if test="lzsj != null" >
+                LZSJ,
+            </if>
+            <if test="yjqk != null" >
+                YJQK,
+            </if>
+            <if test="preid != null" >
+                PREID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="wh != null" >
+                #{wh,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmmc != null" >
+                #{cbbmmc,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmid != null" >
+                #{cbbmid,jdbcType=VARCHAR},
+            </if>
+            <if test="cjrq != null" >
+                #{cjrq,jdbcType=VARCHAR},
+            </if>
+            <if test="sfth != null" >
+                #{sfth,jdbcType=VARCHAR},
+            </if>
+            <if test="cjr != null" >
+                #{cjr,jdbcType=VARCHAR},
+            </if>
+            <if test="zt != null" >
+                #{zt,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null" >
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null" >
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeId != null" >
+                #{nodeId,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeName != null" >
+                #{nodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="bllx != null" >
+                #{bllx,jdbcType=VARCHAR},
+            </if>
+            <if test="lclx != null" >
+                #{lclx,jdbcType=VARCHAR},
+            </if>
+            <if test="lzsj != null" >
+                #{lzsj,jdbcType=VARCHAR},
+            </if>
+            <if test="yjqk != null" >
+                #{yjqk,jdbcType=VARCHAR},
+            </if>
+            <if test="preid != null" >
+                #{preid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateDcdbSjjcsxDb" parameterType="com.bm.index.model.DcdbSjjcsxDj" >
+        update DCDB_DJLB_DB
+        <set >
+            <if test="wh != null" >
+                WH = #{wh,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmmc != null" >
+                CBBMMC = #{cbbmmc,jdbcType=VARCHAR},
+            </if>
+            <if test="cbbmid != null" >
+                CBBMID = #{cbbmid,jdbcType=VARCHAR},
+            </if>
+            <if test="cjrq != null" >
+                CJRQ = #{cjrq,jdbcType=VARCHAR},
+            </if>
+            <if test="sfth != null" >
+                SFTH = #{sfth,jdbcType=VARCHAR},
+            </if>
+            <if test="cjr != null" >
+                CJR = #{cjr,jdbcType=VARCHAR},
+            </if>
+            <if test="zt != null" >
+                ZT = #{zt,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null" >
+                USERID = #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null" >
+                USERNAME = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeId != null" >
+                NODE_ID = #{nodeId,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeName != null" >
+                NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="bllx != null" >
+                BLLX = #{bllx,jdbcType=VARCHAR},
+            </if>
+            <if test="yjqk != null" >
+                YJQK = #{yjqk,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

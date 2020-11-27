@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bm.index.dao.source1.DcdbDjlbDbDao" >
+  <resultMap id="BaseResultMap" type="com.bm.index.model.DcdbDjlbDbParam" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="WH" property="wh" jdbcType="VARCHAR" />
+    <result column="CBBMMC" property="cbbmmc" jdbcType="VARCHAR" />
+    <result column="CBBMID" property="cbbmid" jdbcType="VARCHAR" />
+    <result column="CJRQ" property="cjrq" jdbcType="VARCHAR" />
+    <result column="SFTH" property="sfth" jdbcType="VARCHAR" />
+    <result column="CJR" property="cjr" jdbcType="VARCHAR" />
+    <result column="ZT" property="zt" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="BLLX" property="bllx" jdbcType="VARCHAR" />
+    <result column="PSJMC" property="psjmc" jdbcType="VARCHAR" />
+    <result column="PSRQ" property="psrq" jdbcType="VARCHAR" />
+    <result column="SWRQ" property="swrq" jdbcType="VARCHAR" />
+    <result column="PSLX" property="pslx" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="YJQK" property="yjqk" jdbcType="VARCHAR" />
+    <result column="CBQX" property="cbqx" jdbcType="VARCHAR" />
+    <result column="ZXDBH" property="zxdbh" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, WH, CBBMMC, CBBMID, CJRQ, SFTH, CJR, ZT, USERID,USERNAME, NODE_ID, NODE_NAME,YJQK,PREID,LZSJ,ISFA,PSLX,ISSJLDPSJ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bm.index.model.DcdbDjlbDbParam" >
+    select
+    <include refid="Base_Column_List" />
+    from DCDB_DJLB_DB
+    <where>
+      <if test="id != null" >
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="userid != null" >
+        and userid=#{userid,jdbcType=VARCHAR}
+      </if>
+      <if test="lclx != null" >
+        and lclx=#{lclx,jdbcType=VARCHAR}
+      </if>
+      <if test="nodeId != null" >
+        and NODE_ID=#{nodeId,jdbcType=VARCHAR}
+      </if>
+      <if test="wh != null" >
+        and wh=#{wh,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="selectByUserId" resultType="com.bm.index.model.DcdbDjlbDbParam" parameterType="java.lang.String">
+    select ID, WH, CBBMMC, CBBMID, CJRQ, SFTH, CJR, LCLX, ZT, USERID,USERNAME, NODE_ID, NODE_NAME,YJQK,PREID,LZSJ,ISFA,
+               (case lclx
+                 when 'lzps' then
+                  '领导批示督办'
+                 when 'dzjb' then
+                  '党组检办督办'
+                 when 'zyjc' then
+                  '重要决策督办'
+               end) lclxmc,
+               (case bllx
+                 when '1' then
+                  '党中央重大决策'
+                 when '2' then
+                  '党中央重要会议'
+                 when '3' then
+                  '党中央重要文件'
+                 when '4' then
+                  '党中央重要决定'
+                 when '5' then
+                  '党中央重要指示'
+                 when '6' then
+                  '省委重要会议'
+                 when '7' then
+                  '省委重要文件工作部署'
+                 when '8' then
+                  '最高检重要会议'
+                 when '9' then
+                  '最高检重要文件工作部署'
+                 else
+                  bllx
+               end) bllx
+          from DCDB_DJLB_DB  where userid = #{userid}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DCDB_DJLB_DB
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DCDB_DJLB_DB
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bm.index.model.DcdbDjlbDb" >
+    delete from DCDB_DJLB_DB
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bm.index.model.DcdbDjlbDb" >
+    insert into DCDB_DJLB_DB (ID, WH, CBBMMC, 
+      CBBMID, CJRQ, SFTH, 
+      CJR, ZT, USERID, USERNAME, 
+      NODE_ID, NODE_NAME)
+    values (#{id,jdbcType=VARCHAR}, #{wh,jdbcType=VARCHAR}, #{cbbmmc,jdbcType=VARCHAR}, 
+      #{cbbmid,jdbcType=VARCHAR}, #{cjrq,jdbcType=VARCHAR}, #{sfth,jdbcType=VARCHAR}, 
+      #{cjr,jdbcType=VARCHAR}, #{zt,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{nodeId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bm.index.model.DcdbDjlbDb" >
+    insert into DCDB_DJLB_DB
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="wh != null" >
+        WH,
+      </if>
+      <if test="cbbmmc != null" >
+        CBBMMC,
+      </if>
+      <if test="cbbmid != null" >
+        CBBMID,
+      </if>
+      <if test="cjrq != null" >
+        CJRQ,
+      </if>
+      <if test="sfth != null" >
+        SFTH,
+      </if>
+      <if test="cjr != null" >
+        CJR,
+      </if>
+      <if test="zt != null" >
+        ZT,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID,
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME,
+      </if>
+      <if test="bllx != null" >
+        BLLX,
+      </if>
+      <if test="lclx != null" >
+        LCLX,
+      </if>
+      <if test="lzsj != null" >
+        LZSJ,
+      </if>
+      <if test="yjqk != null" >
+        YJQK,
+      </if>
+      <if test="preid != null" >
+        PREID,
+      </if>
+      <if test="pslx != null" >
+        PSLX,
+      </if>
+      <if test="issjldpsj != null" >
+        ISSJLDPSJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="wh != null" >
+        #{wh,jdbcType=VARCHAR},
+      </if>
+      <if test="cbbmmc != null" >
+        #{cbbmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="cbbmid != null" >
+        #{cbbmid,jdbcType=VARCHAR},
+      </if>
+      <if test="cjrq != null" >
+        #{cjrq,jdbcType=VARCHAR},
+      </if>
+      <if test="sfth != null" >
+        #{sfth,jdbcType=VARCHAR},
+      </if>
+      <if test="cjr != null" >
+        #{cjr,jdbcType=VARCHAR},
+      </if>
+      <if test="zt != null" >
+        #{zt,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="bllx != null" >
+        #{bllx,jdbcType=VARCHAR},
+      </if>
+      <if test="lclx != null" >
+        #{lclx,jdbcType=VARCHAR},
+      </if>
+      <if test="lzsj != null" >
+        #{lzsj,jdbcType=VARCHAR},
+      </if>
+      <if test="yjqk != null" >
+        #{yjqk,jdbcType=VARCHAR},
+      </if>
+      <if test="preid != null" >
+        #{preid,jdbcType=VARCHAR},
+      </if>
+      <if test="pslx != null" >
+        #{pslx,jdbcType=VARCHAR},
+      </if>
+      <if test="issjldpsj != null" >
+        #{issjldpsj,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bm.index.model.DcdbDjlbDb" resultType="java.lang.Integer" >
+    select count(*) from DCDB_DJLB_DB
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DCDB_DJLB_DB
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wh != null" >
+        WH = #{record.wh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbbmmc != null" >
+        CBBMMC = #{record.cbbmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbbmid != null" >
+        CBBMID = #{record.cbbmid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cjrq != null" >
+        CJRQ = #{record.cjrq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfth != null" >
+        SFTH = #{record.sfth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cjr != null" >
+        CJR = #{record.cjr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zt != null" >
+        ZT = #{record.zt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null" >
+        NODE_ID = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeName != null" >
+        NODE_NAME = #{record.nodeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+
+    WHERE ID=#{record.id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DCDB_DJLB_DB
+    set ID = #{record.id,jdbcType=VARCHAR},
+      WH = #{record.wh,jdbcType=VARCHAR},
+      CBBMMC = #{record.cbbmmc,jdbcType=VARCHAR},
+      CBBMID = #{record.cbbmid,jdbcType=VARCHAR},
+      CJRQ = #{record.cjrq,jdbcType=VARCHAR},
+      SFTH = #{record.sfth,jdbcType=VARCHAR},
+      CJR = #{record.cjr,jdbcType=VARCHAR},
+      ZT = #{record.zt,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      NODE_ID = #{record.nodeId,jdbcType=VARCHAR},
+      NODE_NAME = #{record.nodeName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bm.index.model.DcdbDjlbDb" >
+    update DCDB_DJLB_DB
+    <set >
+      <if test="wh != null" >
+        WH = #{wh,jdbcType=VARCHAR},
+      </if>
+      <if test="cbbmmc != null" >
+        CBBMMC = #{cbbmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="cbbmid != null" >
+        CBBMID = #{cbbmid,jdbcType=VARCHAR},
+      </if>
+      <if test="cjrq != null" >
+        CJRQ = #{cjrq,jdbcType=VARCHAR},
+      </if>
+      <if test="sfth != null" >
+        SFTH = #{sfth,jdbcType=VARCHAR},
+      </if>
+      <if test="cjr != null" >
+        CJR = #{cjr,jdbcType=VARCHAR},
+      </if>
+      <if test="zt != null" >
+        ZT = #{zt,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="bllx != null" >
+        BLLX = #{bllx,jdbcType=VARCHAR},
+      </if>
+      <if test="yjqk != null" >
+        YJQK = #{yjqk,jdbcType=VARCHAR},
+      </if>
+      <if test="pslx != null and pslx != ''" >
+        PSLX = #{pslx,jdbcType=VARCHAR},
+      </if>
+      <if test="issjldpsj != null and issjldpsj != ''" >
+        ISSJLDPSJ = #{issjldpsj,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.bm.index.model.DcdbDjlbDb" >
+    update DCDB_DJLB_DB
+    <set >
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR} AND ZT = #{zt,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryTable" parameterType="com.bm.index.model.DcdbDjlbDbParam" resultType="com.bm.index.model.DcdbDjlbDbParam">
+      select d.wh,
+             j.psjmc,
+             j.swrq,
+             j.pslx,
+             j.psrq,
+             d.cbbmmc,
+             d.cbbmid,
+             d.cjrq,
+             d.cjr,
+             d.bllx,
+             d.node_id,
+             d.node_name,
+             d.sfth,
+             d.id,
+             d.yjqk,
+             d.lclx,
+             d.isfa,
+            j.zxdbh,
+             d.lzsj
+        from dcdb_djlb_db d
+        left join dcdb_jbxx j
+          on d.wh = j.wh
+        where 1=1 and d.zt = '1'
+    <if test="userid != null and userid != ''" >
+      and d.userid = #{userid,jdbcType=VARCHAR}
+    </if>
+    <if test="psjmc != null and psjmc != ''" >
+      and j.psjmc like '%${psjmc}%'
+    </if>
+    <if test="swrq != null and swrq != ''" >
+      and j.swrq = #{swrq,jdbcType=VARCHAR}
+    </if>
+    <if test="cbbmmc != null and cbbmmc != ''" >
+      and d.cbbmmc like '%${cbbmmc}%'
+  </if>
+    <if test="cjrq != null and cjrq != ''" >
+    and d.cjrq = #{cjrq,jdbcType=VARCHAR}
+  </if>
+    <if test="pslx != null and pslx != ''" >
+    and j.pslx = #{pslx,jdbcType=VARCHAR}
+  </if>
+    <if test="psrq != null and psrq != ''" >
+    and j.psrq = #{psrq,jdbcType=VARCHAR}
+  </if>
+    <if test="bllx != null and bllx != ''" >
+    and d.bllx = #{bllx,jdbcType=VARCHAR}
+  </if>
+    <if test="zt != null and zt != ''" >
+    and j.zt = #{zt,jdbcType=VARCHAR}
+  </if>
+    <if test="lclx != null and lclx != ''" >
+    and d.lclx = #{lclx,jdbcType=VARCHAR}
+  </if>
+    <if test="lclx == 'dzjb'" >
+      <if test="wh != null and wh != ''" >
+        and j.zxdbh like '%${wh}%'
+      </if>
+      order by j.zxdbh desc
+  </if>
+    <if test="lclx == 'lzps'" >
+      <if test="wh != null and wh != ''" >
+        and d.wh like '%${wh}%'
+      </if>
+      order by  d.wh desc
+  </if>
+
+
+  </select>
+  <select id="queryCbBm" resultType="java.util.Map">
+     SELECT * FROM UNIT_NEW ORDER BY ORDERBY
+  </select>
+
+  <select id="queryBmPerson" resultType="java.util.Map">
+    <choose>
+      <when test="flag == 'nq' ">
+        select t1.user_id USERID, t1.fzry_yhzj USERNAME,t3.id UNITID,t3.name UNITNAME
+        from james_fzry t1 join  USERUNIT_NEW t2 on t1.user_id=t2.userid join UNIT_NEW t3 on t2.unitid=t3.id
+        where t1.fzry_fzbh = #{fzryfzbh}
+      </when >
+      <otherwise>
+        SELECT U.ID USERID,U.FULLNAME USERNAME,N.ID UNITID,N.NAME UNITNAME FROM USERS_NEW U
+        JOIN USERUNIT_NEW UN ON U.ID = UN.USERID
+        JOIN UNIT_NEW N ON N.ID = UN.UNITID
+        WHERE N.ID = #{unitid} or N.PARENTID = #{unitid}
+        ORDER BY N.ORDERBY,U.ORDERBY
+      </otherwise>
+    </choose>
+  </select>
+
+  <select id="selectDbByWh" parameterType="java.util.Map" resultType="com.bm.index.model.DcdbDjlbDbParam">
+    select  * from  dcdb_djlb_db
+    <where>
+       1=1
+      <if test="wh != null and wh != ''" >
+        and  wh = #{wh}
+      </if>
+      <if test="bllx != null and bllx != ''" >
+        and bllx = #{bllx}
+      </if>
+      <if test="nodeId != null and nodeId != ''" >
+        and node_id = #{nodeId}
+      </if>
+    </where>
+  </select>
+  <update id="batchUpdate"  parameterType="java.util.Map">
+    <foreach collection="list" separator=";"  item="cus" open="begin" close=";end;">
+      update dcdb_djlb_db set
+      yjqk = #{cus.yjqk}
+      where id = #{cus.id}
+    </foreach>
+  </update>
+
+  <select id="queryTjTable" parameterType="com.bm.index.model.DcdbDjlbDbParam" resultType="com.bm.index.model.DcdbDjlbDbParam">
+    select d.wh,
+        j.psjmc,
+        j.swrq,
+        j.pslx,
+        j.psrq,
+        d.cbbmmc,
+        d.cbbmid,
+        d.cjrq,
+        d.cjr,
+        d.bllx,
+        d.node_id,
+        d.node_name,
+        d.sfth,
+        d.id,
+        d.yjqk,
+        d.lclx,
+        j.zxdbh,
+        d.isfa,
+        d.preid,
+    (case d.zt when '1' then '未办结' when '3' then '已办结' end) zt
+    from dcdb_djlb_db d
+    left join dcdb_jbxx j
+    on d.wh = j.wh
+    where 1=1 and d.zt in ('1','3')
+    <if test="psjmc != null and psjmc != ''" >
+      and j.psjmc like '%${psjmc}%'
+    </if>
+    <if test="swrq != null and swrq != ''" >
+      and j.swrq = #{swrq,jdbcType=VARCHAR}
+    </if>
+    <if test="cbbmmc != null and cbbmmc != ''" >
+      and d.cbbmmc like '%${cbbmmc}%'
+    </if>
+    <if test="cjrq != null and cjrq != ''" >
+      and d.cjrq = #{cjrq,jdbcType=VARCHAR}
+    </if>
+    <if test="pslx != null and pslx != ''" >
+      and j.pslx = #{pslx,jdbcType=VARCHAR}
+    </if>
+    <if test="psrq != null and psrq != ''" >
+      and j.psrq = #{psrq,jdbcType=VARCHAR}
+    </if>
+    <if test="bllx != null and bllx != ''" >
+      and d.bllx = #{bllx,jdbcType=VARCHAR}
+    </if>
+    <if test="zt != null and zt != ''" >
+      and d.zt = #{zt,jdbcType=VARCHAR}
+    </if>
+    <if test="lclx != null and lclx != ''" >
+      and d.lclx = #{lclx,jdbcType=VARCHAR}
+    </if>
+    <if test="lclx == 'dzjb'" >
+      order by j.zxdbh
+    </if>
+    <if test="lclx == 'lzps'" >
+      order by d.wh
+    </if>
+  </select>
+
+    <select id="queryZyjcTable" parameterType="com.bm.index.model.DcdbSjjcsxDj" resultType="com.bm.index.model.DcdbSjjcsxDj">
+        select d.wh,
+        j.lxh,
+        j.lxrq,
+        j.lxmc,
+        (case j.zyjclx  when '1' then '党中央重大决策' when '2' then '党中央重要会议' when '3' then '党中央重要文件'
+        when '4' then '党中央重要决定' when '5' then '党中央重要指示' when '6' then '省委重要会议' when '7' then '省委重要文件工作部署'
+        when '8' then '最高检重要会议' when '9' then '最高检重要文件工作部署' end) zyjclx,
+        d.cbbmmc,
+        d.cbbmid,
+        d.cjrq,
+        d.cjr,
+        d.bllx,
+        d.node_id,
+        d.node_name,
+        d.sfth,
+        d.id,
+        d.yjqk,
+        d.lclx,
+        d.isfa,
+        d.lzsj
+        from dcdb_djlb_db d
+        left join DCDB_SJJCSX_DJ j
+        on d.wh = j.id
+        where 1=1 and d.zt = '1'
+        <if test="userid != null and userid != ''" >
+            and d.userid = #{userid,jdbcType=VARCHAR}
+        </if>
+        <if test="lxmc != null and lxmc != ''" >
+            and j.lxmc like '%${lxmc}%'
+        </if>
+        <if test="zyjclx != null and zyjclx != ''" >
+            and j.zyjclx = #{zyjclx,jdbcType=VARCHAR}
+        </if>
+        <if test="lxrq != null and lxrq != ''" >
+            and j.lxrq = #{lxrq,jdbcType=VARCHAR}
+        </if>
+        <if test="cbbmmc != null and cbbmmc != ''" >
+            and d.cbbmmc like '%${cbbmmc}%'
+        </if>
+        <if test="cjrq != null and cjrq != ''" >
+            and d.cjrq = #{cjrq,jdbcType=VARCHAR}
+        </if>
+        <if test="lclx != null and lclx != ''" >
+            and d.lclx = #{lclx,jdbcType=VARCHAR}
+        </if>
+          order by  d.lzsj desc
+    </select>
+
+      <select id="queryTableGd" parameterType="com.bm.index.model.DcdbDjlbDbParam" resultType="com.bm.index.model.DcdbDjlbDbParam">
+        select d.wh,
+        j.psjmc,
+        j.swrq,
+        j.pslx,
+        j.psrq,
+        wm_concat(d.cbbmmc) cbbmmc,
+        wm_concat(d.cbbmid) cbbmid,
+        wm_concat(d.id) id,
+        d.cjrq,
+        d.cjr,
+        d.bllx,
+        d.node_id,
+        d.node_name,
+        d.sfth,
+        d.lclx,
+        d.isfa,
+        j.zxdbh
+        from dcdb_djlb_db d
+        left join dcdb_jbxx j
+        on d.wh = j.wh
+        where 1 = 1 and d.zt = #{zt,jdbcType=VARCHAR}
+    <!--  <if test="userid != null and userid != ''" >
+        and d.userid = #{userid,jdbcType=VARCHAR}
+      </if>-->
+      <if test="psjmc != null and psjmc != ''" >
+        and j.psjmc like '%${psjmc}%'
+      </if>
+      <if test="swrq != null and swrq != ''" >
+        and j.swrq = #{swrq,jdbcType=VARCHAR}
+      </if>
+      <if test="cbbmmc != null and cbbmmc != ''" >
+        and d.cbbmmc like '%${cbbmmc}%'
+      </if>
+      <if test="cjrq != null and cjrq != ''" >
+        and d.cjrq = #{cjrq,jdbcType=VARCHAR}
+      </if>
+      <if test="pslx != null and pslx != ''" >
+        and j.pslx = #{pslx,jdbcType=VARCHAR}
+      </if>
+      <if test="psrq != null and psrq != ''" >
+        and j.psrq = #{psrq,jdbcType=VARCHAR}
+      </if>
+      <if test="bllx != null and bllx != ''" >
+        and d.bllx = #{bllx,jdbcType=VARCHAR}
+      </if>
+      <if test="lclx != null and lclx != ''" >
+        and d.lclx = #{lclx,jdbcType=VARCHAR}
+      </if>
+      <if test="lclx == 'dzjb'" >
+        <if test="wh != null and wh != ''">
+          and j.zxdbh like  '%${wh}%'
+        </if>
+        group by d.wh,
+        j.psjmc,
+        j.swrq,
+        j.pslx,
+        j.psrq,
+        d.cjrq,
+        d.cjr,
+        d.bllx,
+        d.node_id,
+        d.node_name,
+        d.sfth,
+        d.lclx,
+        d.isfa,
+        j.zxdbh
+        order by j.zxdbh desc
+      </if>
+      <if test="lclx == 'lzps'" >
+        <if test="wh != null and wh != ''">
+          and d.wh like  '%${wh}%'
+        </if>
+        group by d.wh,
+        j.psjmc,
+        j.swrq,
+        j.pslx,
+        j.psrq,
+        d.cjrq,
+        d.cjr,
+        d.bllx,
+        d.node_id,
+        d.node_name,
+        d.sfth,
+        d.yjqk,
+        d.lclx,
+        d.isfa,
+        j.zxdbh
+        order by  d.wh desc
+      </if>
+       <if test="lclx == 'jbsx'" >
+        <if test="wh != null and wh != ''">
+          and j.zxdbh like  '%${wh}%'
+        </if>
+        group by d.wh,
+        j.psjmc,
+        j.swrq,
+        j.pslx,
+        j.psrq,
+        d.cjrq,
+        d.cjr,
+        d.bllx,
+        d.node_id,
+        d.node_name,
+        d.sfth,
+        d.lclx,
+        d.isfa,
+        j.zxdbh
+        order by j.zxdbh desc
+      </if>
+      </select>
+
+  <select id="queryTableReback" parameterType="com.bm.index.model.DcdbDjlbDbParam" resultType="com.bm.index.model.DcdbDjlbDbParam">
+    select
+    j.psjmc,
+    j.pslx,
+    d.cbbmmc,
+    d.cbbmid,
+    d.bllx,
+    d.node_id,
+    d.node_name,
+    d.id,
+    d.yjqk,
+    d.lclx,
+    d.lzsj,
+    d.userid,
+    d.username,
+    <if test="lclx == 'lzps'" >
+      d.wh
+    </if>
+    <if test="lclx == 'dzjb'" >
+      j.zxdbh wh
+    </if>
+    <if test="lclx == 'jbsx'" >
+      j.zxdbh wh
+    </if>
+    from dcdb_djlb_db d
+    left join dcdb_jbxx j
+    on d.wh = j.wh
+    where 1=1 and d.zt = '1'
+    <if test="userid != null and userid != ''" >
+      and d.userid = #{userid,jdbcType=VARCHAR}
+    </if>
+    <if test="psjmc != null and psjmc != ''" >
+      and j.psjmc like '%${psjmc}%'
+    </if>
+    <if test="swrq != null and swrq != ''" >
+      and j.swrq = #{swrq,jdbcType=VARCHAR}
+    </if>
+    <if test="cbbmmc != null and cbbmmc != ''" >
+      and d.cbbmmc like '%${cbbmmc}%'
+    </if>
+    <if test="cjrq != null and cjrq != ''" >
+      and d.cjrq = #{cjrq,jdbcType=VARCHAR}
+    </if>
+    <if test="pslx != null and pslx != ''" >
+      and j.pslx = #{pslx,jdbcType=VARCHAR}
+    </if>
+    <if test="psrq != null and psrq != ''" >
+      and j.psrq = #{psrq,jdbcType=VARCHAR}
+    </if>
+    <if test="bllx != null and bllx != ''" >
+      and d.bllx = #{bllx,jdbcType=VARCHAR}
+    </if>
+    <if test="zt != null and zt != ''" >
+      and j.zt = #{zt,jdbcType=VARCHAR}
+    </if>
+    <if test="lclx != null and lclx != ''" >
+      and d.lclx = #{lclx,jdbcType=VARCHAR}
+    </if>
+    <if test="lclx == 'dzjb'" >
+      <if test="wh != null and wh != ''" >
+        and j.zxdbh like '%${wh}%'
+      </if>
+      order by j.zxdbh desc
+    </if>
+    <if test="lclx == 'lzps'" >
+      <if test="wh != null and wh != ''" >
+        and d.wh like '%${wh}%'
+      </if>
+      order by  d.wh desc
+    </if>
+    <if test="lclx == 'jbsx'" >
+      <if test="wh != null and wh != ''" >
+        and j.zxdbh like '%${wh}%'
+      </if>
+      order by j.zxdbh desc
+    </if>
+
+  </select>
+
+</mapper>

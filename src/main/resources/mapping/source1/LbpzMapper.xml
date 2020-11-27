@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bm.index.dao.source1.LbpzDao">
+    <resultMap id="LbpzPlbMap" type="com.bm.index.model.LbpzPlb" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="LBMC" property="lbmc" jdbcType="VARCHAR" />
+        <result column="LBTYPE" property="lbtype" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="LbpzZlbMap" type="com.bm.index.model.LbpzZlb" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="PID" property="pid" jdbcType="VARCHAR" />
+        <result column="PTYPE" property="ptype" jdbcType="VARCHAR" />
+        <result column="LBMC" property="lbmc" jdbcType="VARCHAR" />
+        <result column="LBMCTYPE" property="lbmctype" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getAllLbpzPlbList"  resultMap="LbpzPlbMap" parameterType="com.bm.index.model.LbpzPlb">
+        SELECT * FROM LXPZ_DLB
+        <where>
+            1=1
+            <if test="id != null and id !=''">
+               AND ID = #{id}
+            </if>
+            <if test="lbmc != null and lbmc !=''">
+                AND LBMC like '%${lbmc}%'
+            </if>
+            <if test="lbtype != null and lbtype !=''">
+                AND LBTYPE = #{lbtype}
+            </if>
+        </where>
+    </select>
+    <select id="queryTable"  parameterType="com.bm.index.model.LbpzZlb" resultMap="LbpzZlbMap">
+        SELECT * FROM LXPZ_XLB
+        <where>
+            1=1
+            <if test="id != null and id != ''">
+               and  ID = #{id}
+            </if>
+            <if test="pid != null and pid != ''">
+               and  PID = #{pid}
+            </if>
+            <if test="ptype != null and ptype != ''">
+                and PTYPE = #{ptype}
+            </if>
+        </where>
+        order by px
+    </select>
+    <delete id="delChildrenLb" parameterType="java.lang.String">
+        delete from LXPZ_XLB where id = #{id}
+    </delete>
+    <delete id="delParentLb" parameterType="java.lang.String">
+        delete from LXPZ_DLB where id = #{id}
+    </delete>
+
+    <update id="updaterXlb" parameterType="com.bm.index.model.LbpzZlb">
+        update LXPZ_XLB
+        <set>
+            <if test="lbmc != null and lbmc != ''">
+                LBMC = #{lbmc},
+            </if>
+            <if test="lbmctype != null and lbmctype != ''">
+                LBMCTYPE = #{lbmctype},
+            </if>
+            <if test="px != null and px != ''">
+                PX = #{px},
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <update id="updaterPlb" parameterType="com.bm.index.model.LbpzPlb">
+        update LXPZ_DLB
+        <set>
+            <if test="lbmc != null and lbmc != ''">
+                LBMC = #{lbmc},
+            </if>
+            <if test="lbtype != null and lbtype != ''">
+                LBTYPE = #{lbtype},
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <insert id="insertPlb" parameterType="com.bm.index.model.LbpzPlb" >
+        insert into LXPZ_DLB
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null and id !=''" >
+                ID,
+            </if>
+            <if test="lbmc != null and lbmc != ''" >
+                LBMC,
+            </if>
+            <if test="lbtype != null and lbtype != ''" >
+                LBTYPE,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null and id !=''" >
+                #{id},
+            </if>
+            <if test="lbmc != null and lbmc != ''" >
+                #{lbmc},
+            </if>
+            <if test="lbtype != null and lbtype != ''" >
+                #{lbtype},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertXlb" parameterType="com.bm.index.model.LbpzZlb" >
+        insert into LXPZ_XLB
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null and id !=''" >
+                ID,
+            </if>
+            <if test="pid != null and pid != ''" >
+                PID,
+            </if>
+            <if test="ptype != null and ptype != ''" >
+                PTYPE,
+            </if>
+            <if test="lbmc != null and lbmc != ''" >
+                LBMC,
+            </if>
+            <if test="lbmctype != null and lbmctype != ''" >
+                LBMCTYPE,
+            </if>
+            <if test="px != null and px != ''" >
+                PX,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null and id !=''" >
+                #{id},
+            </if>
+            <if test="pid != null and pid != ''" >
+                #{pid},
+            </if>
+            <if test="ptype != null and ptype != ''" >
+                #{ptype},
+            </if>
+            <if test="lbmc != null and lbmc != ''" >
+                #{lbmc},
+            </if>
+            <if test="lbmctype != null and lbmctype != ''" >
+                #{lbmctype},
+            </if>
+            <if test="px != null and px != ''" >
+                #{px},
+            </if>
+        </trim>
+    </insert>
+    <select id="getLbpzPlbById" parameterType="java.lang.String" resultMap="LbpzPlbMap">
+        select * from LXPZ_DLB
+        where  1 = 1
+        <if test="lbtype != null and lbtype !=''">
+            and LBTYPE = #{lbtype}
+        </if>
+
+    </select>
+    <select id="getLbpzZlbById" parameterType="java.lang.String" resultMap="LbpzZlbMap">
+        select * from LXPZ_XLB where id = #{id}
+    </select>
+</mapper>

@@ -1,0 +1,104 @@
+
+
+/*grid layout*/
+.layui-fluid{
+    padding: 10px;
+}
+
+/*reset-form*/
+.layui-input, .layui-select, .layui-textarea{
+    height: 34px;
+    line-height: 34px;
+}
+.layui-form-label{
+    padding: 9px 3px;
+    width: 120px;
+}
+.layui-input-block {
+    margin-left: 130px;
+    min-height: 36px;
+}
+.layui-form-select dl dd.layui-this{
+    background-color:#1b9cff ;
+}
+/*reset-table*/
+.layui-table-cell{
+    height: auto;
+    overflow: auto;
+    text-overflow:inherit;
+    white-space: normal;
+    padding: 0 5px;
+    line-height: 1.25;
+}
+.layui-table-view .layui-table th{
+    font-size: 14px;
+    padding: 10px 0px;
+}
+.layui-table-view .layui-table td{
+    font-size: 12px;
+    padding: 10px 0px;
+}
+.layui-table td, .layui-table th{
+    padding: 10px 5px;
+    font-size: 12px;
+}
+
+/*reset-btn*/
+.layui-btn{
+    height: 34px;
+    line-height: 34px;
+    /*background-color: #1dc5b3;*/
+}
+.layui-btn-sm{
+    height: 24px;
+    line-height: 24px;
+}
+.layui-btn-xs{
+    height: 22px;
+    line-height: 22px;
+}
+.layui-btn-normal {
+    background-color: #1b9cff;
+}
+.layui-btn-primary:hover {
+    border-color: #1b9cff;
+    color: #333;
+}
+/*layui 分页*/
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+    background-color: #4084f0;
+}
+.layui-laypage input:focus, .layui-laypage select:focus {
+    border-color: #4084f0!important;
+}
+
+/*layui date*/
+.layui-laydate .layui-this {
+    background-color: #1b9cff!important;
+    color: #fff!important;
+}
+/*layui-card*/
+.layui-card-header{
+    font-weight: bold;
+    font-size: 15px;
+}
+/*layui-form-radio*/
+.layui-form-radio>i:hover, .layui-form-radioed>i {
+    color: #1b9cff;
+}
+
+@media screen and (max-width: 1366px){
+    /*reset-form*/
+    .layui-input, .layui-select, .layui-textarea{
+        height: 28px;
+        line-height: 28px;
+    }
+
+    /*reset-btn*/
+    .layui-btn{
+        height: 28px;
+        line-height: 28px;
+        /*background-color: #1dc5b3;*/
+    }
+
+}
